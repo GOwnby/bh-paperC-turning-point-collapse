@@ -1,0 +1,14 @@
+model quadratic coefficient 26.086471185080036 vs exact-GR 1.5*kappa 28.0995 ratio 0.9283606891610184 fit resid 6.648027220034916e-06
+handoff t 364.68722060620684 lam,lamdot [ 0.96872931 -0.02473155]
+model scale 1.077: t(0.5)=1.7083 t(0.15)=1.7601 plunge 0.0518
+model scale 1.000: t(0.5)=1.7595 t(0.15)=1.8133 plunge 0.0538
+2116 t=0.450 lam_h=0.95927 rho_c/rho_c0=1.0506 maxcomp=0.00722 viol=3.3e-09 wall=3
+4494 t=0.950 lam_h=0.95309 rho_c/rho_c0=1.0712 maxcomp=0.00726 viol=5.4e-09 wall=6
+6891 t=1.450 lam_h=0.94911 rho_c/rho_c0=1.0845 maxcomp=0.00729 viol=6.8e-09 wall=8
+9301 t=1.950 lam_h=0.94556 rho_c/rho_c0=1.0970 maxcomp=0.00732 viol=8.1e-09 wall=11
+11727 t=2.450 lam_h=0.94092 rho_c/rho_c0=1.1134 maxcomp=0.00736 viol=9.7e-09 wall=14
+14175 t=2.950 lam_h=0.93270 rho_c/rho_c0=1.1431 maxcomp=0.00742 viol=1.3e-08 wall=17
+16671 t=3.450 lam_h=0.91496 rho_c/rho_c0=1.2108 maxcomp=0.00756 viol=1.9e-08 wall=20
+19293 t=3.950 lam_h=0.86621 rho_c/rho_c0=1.4269 maxcomp=0.00799 viol=3.6e-08 wall=24
+22559 t=4.450 lam_h=0.59650 rho_c/rho_c0=4.3828 maxcomp=0.01158 viol=1.3e-07 wall=28
+Lag N=100: t(0.5)=4.4906 t(0.15)=nan

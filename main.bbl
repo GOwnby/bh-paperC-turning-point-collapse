@@ -1,0 +1,222 @@
+\begin{thebibliography}{33}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Brillante and Mishustin(2015)]{BrillanteMishustin2015}
+A.~Brillante and I.~N. Mishustin.
+\newblock Nonlinear oscillations of compact stars in the vicinity of the
+  maximum mass configuration.
+\newblock \emph{Europhysics Letters}, 111:\penalty0 29001, 2015.
+
+\bibitem[Buonanno and Damour(1999)]{BuonannoDamour1999}
+A.~Buonanno and T.~Damour.
+\newblock Effective one-body approach to general relativistic two-body
+  dynamics.
+\newblock \emph{Physical Review D}, 59:\penalty0 084006, 1999.
+
+\bibitem[Carr(1981)]{Carr1981}
+J.~Carr.
+\newblock \emph{Applications of Centre Manifold Theory}, volume~35 of
+  \emph{Applied Mathematical Sciences}.
+\newblock Springer, New York, 1981.
+
+\bibitem[Chandrasekhar(1935)]{Chandrasekhar1935}
+S.~Chandrasekhar.
+\newblock The highly collapsed configurations of a stellar mass (second paper).
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  95:\penalty0 207, 1935.
+
+\bibitem[Chandrasekhar(1964{\natexlab{a}})]{Chandrasekhar1964}
+S.~Chandrasekhar.
+\newblock A general variational principle governing the radial and the
+  non-radial oscillations of gaseous masses.
+\newblock \emph{The Astrophysical Journal}, 139:\penalty0 664,
+  1964{\natexlab{a}}.
+\newblock \doi{10.1086/147792}.
+
+\bibitem[Chandrasekhar(1964{\natexlab{b}})]{Chandrasekhar1964GR}
+S.~Chandrasekhar.
+\newblock The dynamical instability of gaseous masses approaching the
+  {S}chwarzschild limit in general relativity.
+\newblock \emph{The Astrophysical Journal}, 140:\penalty0 417--433,
+  1964{\natexlab{b}}.
+\newblock \doi{10.1086/147938}.
+
+\bibitem[Chandrasekhar and Tooper(1964)]{ChandrasekharTooper1964}
+S.~Chandrasekhar and R.~F. Tooper.
+\newblock The dynamical instability of the white-dwarf configurations
+  approaching the limiting mass.
+\newblock \emph{The Astrophysical Journal}, 139:\penalty0 1396, 1964.
+\newblock \doi{10.1086/147877}.
+
+\bibitem[Chavanis et~al.(2019)Chavanis, Denet, Le~Berre, and
+  Pomeau]{Chavanis2019}
+Pierre-Henri Chavanis, Bruno Denet, Martine Le~Berre, and Yves Pomeau.
+\newblock Implosion-explosion in supernovae, 2019.
+\newblock arXiv:1909.05101.
+
+\bibitem[Chen and Lin(2026)]{ChenLin2026}
+Gong Chen and Zhiwu Lin.
+\newblock Collapse of white dwarfs above the {Chandrasekhar} mass, 2026.
+\newblock arXiv:2609.34075.
+
+\bibitem[Cowling(1941)]{Cowling1941}
+T.~G. Cowling.
+\newblock The non-radial oscillations of polytropic stars.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  101\penalty0 (8):\penalty0 367--375, 1941.
+\newblock \doi{10.1093/mnras/101.8.367}.
+
+\bibitem[Font et~al.(2002)Font, Goodale, Iyer, Miller, Rezzolla, Seidel,
+  Stergioulas, Suen, and Tobias]{FontEtAl2002}
+J.~A. Font, T.~Goodale, S.~Iyer, M.~Miller, L.~Rezzolla, E.~Seidel,
+  N.~Stergioulas, W.-M. Suen, and M.~Tobias.
+\newblock Three-dimensional general relativistic hydrodynamics ii: long-term
+  dynamics of single relativistic stars.
+\newblock \emph{Physical Review D}, 65:\penalty0 084024, 2002.
+\newblock arXiv:gr-qc/0110047.
+
+\bibitem[Fowler(1966)]{Fowler1966}
+W.~A. Fowler.
+\newblock The stability of supermassive stars.
+\newblock \emph{The Astrophysical Journal}, 144:\penalty0 180, 1966.
+\newblock \doi{10.1086/148594}.
+
+\bibitem[Friedman(2012)]{FriedmanLectures}
+J.~L. Friedman.
+\newblock Lecture 3: Instabilities of relativistic stars, 2012.
+\newblock URL \url{https://www.ictp-saifr.org/schoolgr/Lecture3Friedman.pdf}.
+\newblock ICTP-SAIFR School on Gravitation, 16--27 July 2012; lecture notes
+  (the PDF carries no date; year from the school page).
+
+\bibitem[Haberman(1979)]{Haberman1979}
+R.~Haberman.
+\newblock Slowly varying jump and transition phenomena associated with
+  algebraic bifurcation problems.
+\newblock \emph{SIAM Journal on Applied Mathematics}, 37:\penalty0 69--106,
+  1979.
+\newblock \doi{10.1137/0137006}.
+
+\bibitem[Had\v{z}i\'c and Lin(2021)]{HadzicLin2021}
+Mahir Had\v{z}i\'c and Zhiwu Lin.
+\newblock Turning point principle for relativistic stars.
+\newblock \emph{Communications in Mathematical Physics}, 387\penalty0
+  (2):\penalty0 729--759, 2021.
+\newblock \doi{10.1007/s00220-021-04197-6}.
+
+\bibitem[Haemmerl{\'e}(2025)]{Haemmerle2025}
+L.~Haemmerl{\'e}.
+\newblock The properties of supermassive stars in galaxy merger driven direct
+  collapse i: models without rotation.
+\newblock \emph{Astronomy \& Astrophysics}, 700:\penalty0 A73, 2025.
+\newblock arXiv:2503.01970.
+
+\bibitem[Haragus and Iooss(2011)]{HaragusIooss2011}
+M.~Haragus and G.~Iooss.
+\newblock \emph{Local Bifurcations, Center Manifolds, and Normal Forms in
+  Infinite-Dimensional Dynamical Systems}.
+\newblock Springer, London, 2011.
+
+\bibitem[Harrison et~al.(1965)Harrison, Thorne, Wakano, and Wheeler]{HTWW1965}
+B.~K. Harrison, K.~S. Thorne, M.~Wakano, and J.~A. Wheeler.
+\newblock \emph{Gravitation Theory and Gravitational Collapse}.
+\newblock University of Chicago Press, 1965.
+
+\bibitem[Joshi and Kitaev(2001)]{JoshiKitaev2001}
+N.~Joshi and A.~V. Kitaev.
+\newblock On {B}outroux's tritronqu{\'e}e solutions of the first {P}ainlev{\'e}
+  equation.
+\newblock \emph{Studies in Applied Mathematics}, 107\penalty0 (3):\penalty0
+  253--291, 2001.
+\newblock \doi{10.1111/1467-9590.00187}.
+
+\bibitem[Kokkotas and Ruoff(2001)]{KokkotasRuoff2001}
+K.~D. Kokkotas and J.~Ruoff.
+\newblock Radial oscillations of relativistic stars.
+\newblock \emph{Astronomy \& Astrophysics}, 366:\penalty0 565, 2001.
+\newblock arXiv:gr-qc/0011093.
+
+\bibitem[Landau and Lifshitz(1987)]{LandauLifshitzFM}
+L.~D. Landau and E.~M. Lifshitz.
+\newblock \emph{Fluid Mechanics}, volume~6 of \emph{Course of Theoretical
+  Physics}.
+\newblock Pergamon Press, Oxford, 2 edition, 1987.
+
+\bibitem[May and White(1966)]{MayWhite1966}
+M.~M. May and R.~H. White.
+\newblock Hydrodynamic calculations of general-relativistic collapse.
+\newblock \emph{Physical Review}, 141:\penalty0 1232, 1966.
+
+\bibitem[Misner et~al.(1973)Misner, Thorne, and Wheeler]{MTW1973}
+C.~W. Misner, K.~S. Thorne, and J.~A. Wheeler.
+\newblock \emph{Gravitation}.
+\newblock W. H. Freeman, San Francisco, 1973.
+
+\bibitem[Misner and Sharp(1964)]{MisnerSharp1964}
+Charles~W. Misner and David~H. Sharp.
+\newblock Relativistic equations for adiabatic, spherically symmetric
+  gravitational collapse.
+\newblock \emph{Physical Review}, 136:\penalty0 B571, 1964.
+\newblock \doi{10.1103/PhysRev.136.B571}.
+
+\bibitem[{NIST}(2024)]{DLMF}
+{NIST}.
+\newblock {NIST} digital library of mathematical functions.
+\newblock \url{https://dlmf.nist.gov/}, Release 1.2, 2024.
+\newblock Section 9.9 (zeros of the Airy function).
+
+\bibitem[Oppenheimer and Snyder(1939)]{OppenheimerSnyder1939}
+J.~R. Oppenheimer and H.~Snyder.
+\newblock On continued gravitational contraction.
+\newblock \emph{Physical Review}, 56:\penalty0 455--459, 1939.
+\newblock \doi{10.1103/PhysRev.56.455}.
+
+\bibitem[Ownby(2026)]{OwnbyPhase2}
+Gracen Ownby.
+\newblock Phase 2 progress report: inhomogeneous collapse, neutronization, and
+  the limits of two numerical strategies.
+\newblock companion technical report, included as background material with this
+  paper, 2026.
+
+\bibitem[Pekeris(1938)]{Pekeris1938}
+C.~L. Pekeris.
+\newblock Nonradial oscillations of stars.
+\newblock \emph{The Astrophysical Journal}, 88:\penalty0 189, 1938.
+\newblock \doi{10.1086/143971}.
+
+\bibitem[Pomeau et~al.(2013)Pomeau, Le~Berre, Chavanis, and Denet]{Pomeau2013}
+Yves Pomeau, Martine Le~Berre, Pierre-Henri Chavanis, and Bruno Denet.
+\newblock Supernovae: an example of complexity in the physics of compressible
+  fluids, 2013.
+\newblock arXiv:1307.4786.
+
+\bibitem[Radice et~al.(2010)Radice, Rezzolla, and
+  Kellermann]{RadiceRezzollaKellermann2010}
+D.~Radice, L.~Rezzolla, and T.~Kellermann.
+\newblock Critical phenomena in neutron stars i: linearly unstable nonrotating
+  models.
+\newblock \emph{Classical and Quantum Gravity}, 27:\penalty0 235015, 2010.
+\newblock arXiv:1007.2809.
+
+\bibitem[Rotondo et~al.(2011)Rotondo, Rueda, Ruffini, and Xue]{RotondoRRX2011}
+M.~Rotondo, J.~A. Rueda, R.~Ruffini, and S.-S. Xue.
+\newblock Relativistic {F}eynman--{M}etropolis--{T}eller theory for white
+  dwarfs in general relativity.
+\newblock \emph{Physical Review D}, 84:\penalty0 084007, 2011.
+\newblock \doi{10.1103/PhysRevD.84.084007}.
+
+\bibitem[Salpeter(1961)]{Salpeter1961}
+E.~E. Salpeter.
+\newblock Energy and pressure of a zero-temperature plasma.
+\newblock \emph{The Astrophysical Journal}, 134:\penalty0 669, 1961.
+
+\bibitem[Sorkin(1981)]{Sorkin1981}
+R.~D. Sorkin.
+\newblock A criterion for the onset of instability at a turning point.
+\newblock \emph{The Astrophysical Journal}, 249:\penalty0 254, 1981.
+\newblock \doi{10.1086/159282}.
+
+\end{thebibliography}

@@ -1,0 +1,248 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{natbib}
+
+\title{Phase 2 Progress Report:\\
+Inhomogeneous Collapse, Neutronization, and the Limits\\
+of Two Numerical Strategies}
+
+\author{Gracen Ownby}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This is a progress report, not a completed result, on the roadmap's Phase 2 question: does realistic, inhomogeneous gravitational collapse with a real degenerate-matter equation of state produce anything like the regularized core assumed in Papers A and B, or does it behave differently? We derive the Misner--Sharp equations for genuinely inhomogeneous general-relativistic collapse from scratch, catching and correcting a gauge error along the way (a synchronous, unit-lapse ansatz silently restricts the source to dust or spatially uniform pressure, which is why the homogeneous treatment in Paper B could not simply be extended). We implement the actual Chandrasekhar degenerate-electron-gas equation of state, validate it against the known Chandrasekhar mass, and extend it with a bounded, semi-empirical-mass-formula treatment of neutronization, which correctly reproduces the physical onset density ($10^{11}$--$10^{13}$~kg/m$^3$) and, notably, produces a genuine maximum in the mass--central-density relation --- a real, if simplified, instance of the physics that lets massive white dwarfs collapse before the naive Chandrasekhar limit. Evolving a near-critical configuration in comoving (Lagrangian) coordinates, we find that numerical shell crossing --- a well-documented coordinate pathology, not evidence of a real singularity --- develops in the tenuous outer envelope, well before the dense core evolves at all; neutronization moves this earlier (by $\sim$35\%) but does not remove it or bring it closer to the interesting core physics. We then build an independent Eulerian, conservative, shock-capturing hydrodynamics code, explicitly scoped to Newtonian self-gravity with a leading relativistic correction, since we show the driving instability is fundamentally Newtonian. This scheme evolves smoothly straight through where the Lagrangian scheme failed, which is a genuine success. A resolution study, pushed across a sixteen-fold range ($N=400$ to $6400$), shows the result does not converge and does not even settle on a direction: central density at fixed time moves from net rarefaction to net compression as resolution increases, and the instantaneous growth rate itself keeps rising with resolution. A control run on a robustly stable configuration converges properly at the same resolutions, ruling out a generic code error. We then settle the question the nonlinear evolution could not, directly: a linear perturbation (normal-mode) analysis, after finding and fixing two genuine implementation errors (a missing free-surface boundary term, and a polytrope-structure builder that was silently truncating stars before reaching their true surface) and validating the resulting solver against the classical Pekeris $\Gamma_1=4/3$ instability criterion to high precision, shows the configuration is linearly unstable through a single, centrally-concentrated fundamental mode, with every overtone checked stable. The instability's $e$-folding time plausibly explains the timescale of the earlier nonlinear result. We then tested the natural hypothesis that resolution-dependence was an artifact of accidental mode-sign selection by seeding the nonlinear evolution explicitly with this eigenfunction at a fixed, controlled amplitude: the hypothesis fails. Two resolutions given the identical seed still diverge, within under a second, into collapse versus rarefaction. We then tightened the test further, deriving and implementing the mathematically correct pure-growing-mode initial condition (no admixture of the decaying solution, verified symbolically and numerically): the same split persists. This rules out both accidental sign-selection and the seed's time-derivative phase as explanations, and points to either genuine nonlinear bistability or an inadequately resolved acoustic transient. We report all of this, including the debugging history and the finding that did not resolve the puzzle, since both are as informative as the results that worked cleanly.
+\end{abstract}
+
+\section{Scope and honesty note}
+\label{sec:scope}
+
+This document follows the roadmap's own instruction for Phase 2: ``set up the problem rigorously and report what's tractable,'' not claim a solved problem. Three things are true at once, and all three are reported here without softening: (i) real, new physics was derived and validated; (ii) a real numerical limitation (shell crossing) was found, diagnosed, and its physical location correctly characterized; (iii) the follow-up numerical strategy avoids that limitation but is not yet resolution-converged, so its headline result is not yet trustworthy as stated. Section~\ref{sec:convergence} is the load-bearing honesty check of this whole report, and we lead with it rather than bury it.
+
+\section{The Misner--Sharp equations for inhomogeneous collapse}
+\label{sec:ms}
+
+Paper B's collapse calculation used a homogeneous interior (density and pressure functions of time only, matched to the exterior mass function at the surface). Genuine inhomogeneity requires the areal radius $R$, and the density and pressure, to depend on the comoving radial label $r$ as well as time.
+
+\subsection{A gauge error, caught and corrected}
+\label{sec:gauge-error}
+
+Our first attempt used the metric
+\begin{equation}
+ds^2 = -d\tau^2 + X(\tau,r)^2\,dr^2 + R(\tau,r)^2\,d\Omega^2,
+\label{eq:bad-gauge}
+\end{equation}
+a fully synchronous, comoving gauge with unit lapse everywhere. Direct symbolic computation of $\nabla_\mu T^\mu{}_r=0$ for a perfect fluid comoving with this metric gives, exactly,
+\begin{equation}
+\frac{\partial p}{\partial r} = 0.
+\end{equation}
+This is not a mistake in the computation; it is the metric telling us that a unit lapse is only consistent with a source that is pressure-free (dust) or has spatially uniform pressure --- exactly the two cases Paper B already covers. Genuine inhomogeneous pressure requires a real lapse function, since the fluid's worldlines are then non-geodesic (pressure gradients accelerate fluid elements relative to freely falling observers), and a unit lapse cannot represent that. This is a useful result in its own right: it explains precisely why the homogeneous treatment could not simply be extended to inhomogeneous initial data by relaxing an assumption.
+
+\subsection{The corrected system}
+\label{sec:corrected-system}
+
+With a general lapse $a(\tau,r)$,
+\begin{equation}
+ds^2 = -a(\tau,r)^2\,d\tau^2 + X(\tau,r)^2\,dr^2 + R(\tau,r)^2\,d\Omega^2,
+\end{equation}
+$\tau$ proper time along the comoving fluid worldlines, $r$ a fixed Lagrangian label. We independently verified, by direct symbolic computation of the Einstein tensor for this metric with $a=1$ (the case where it is tractable) and then via the physical argument that extends it:
+\begin{align}
+\frac{\partial m}{\partial r} &= 4\pi \rho R^2 R', \label{eq:mr}\\
+\frac{R'}{X} &\ \text{is independent of } \tau \text{ along each shell}, \label{eq:constraint}
+\end{align}
+where $m(\tau,r)$ is defined by $1-2m/R = (R'/X)^2 - \dot R^2$, the standard Misner--Sharp mass. Equation~\eqref{eq:constraint} follows from $T^\tau{}_r=0$ for a comoving perfect fluid (no momentum flux), a statement that does not reference the lapse, so we expect it to hold with $a\neq1$ as well; a full independent re-derivation with a fully general lapse was attempted but exceeded this environment's practical compute after repeated tries (a Ricci tensor with three independent metric functions is expensive), so we did not verify this one relation directly in the general case.
+
+The remaining equations are the standard Misner--Sharp system \citep{MisnerSharp1964}, used here without independent re-derivation:
+\begin{align}
+\frac{\partial m}{\partial \tau} &= -4\pi p R^2 U, \label{eq:mtau}\\
+\frac{1}{a}\frac{\partial a}{\partial r} &= -\frac{1}{\rho+p}\frac{\partial p}{\partial r}, \label{eq:lapse}\\
+\frac{\partial U}{\partial \tau} &= -a\left[\frac{m+4\pi R^3 p}{R^2} + \frac{\Gamma}{\rho+p}\frac{1}{X}\frac{\partial p}{\partial r}\right], \label{eq:euler}
+\end{align}
+$U\equiv\partial R/\partial\tau$, $\Gamma\equiv R'/X$. We checked both known limits directly: setting $p=0$ reduces Eqs.~\eqref{eq:mtau}--\eqref{eq:euler} exactly to Paper B's Oppenheimer--Snyder equation of motion; setting $\rho,p$ spatially uniform reduces Eq.~\eqref{eq:lapse} to $\partial a/\partial r=0$ and Eq.~\eqref{eq:mr} to Paper B's homogeneous mass-matching relation. Both pass.
+
+\section{A real degenerate-matter equation of state}
+\label{sec:eos}
+
+\subsection{Chandrasekhar electron degeneracy}
+
+We implement the Chandrasekhar (1935) equation of state for a relativistic degenerate electron gas exactly, parametrized by $x\equiv p_F/(m_ec)$:
+\begin{equation}
+\rho = \mu_e m_H \frac{8\pi}{3}\left(\frac{m_ec}{h}\right)^3 x^3, \qquad
+P = \frac{\pi m_e^4c^5}{3h^3}\,f(x), \qquad
+f(x) = x(2x^2-3)\sqrt{1+x^2}+3\sinh^{-1}x,
+\end{equation}
+with $\mu_e=2$ (carbon/oxygen composition). We verified this reduces to the correct polytropic limits, $\Gamma=5/3$ for $x\ll1$ and $\Gamma=4/3$ for $x\gg1$, to four significant figures, and that a Newtonian hydrostatic-equilibrium sequence built from it reproduces the Chandrasekhar mass to within 3\% of the analytic value ($1.42$ vs.\ $1.459\,M_\odot$ for $\mu_e=2$), asymptoting correctly as central density increases.
+
+\subsection{Neutronization: a bounded extension}
+\label{sec:neutronization}
+
+Above $\rho\sim10^{12}$--$10^{13}$~kg/m$^3$, electron capture onto nuclei (inverse beta decay) becomes energetically favorable, reducing the electron fraction $Y_e$ and softening the pressure below the pure-electron-gas value. The full treatment \citep{BPS1971} requires nuclear mass tables and a scan over candidate nuclides. We implement a bounded, well-defined simplification: fix the mass number at $A=12$ (representative of carbon/oxygen white-dwarf material) and let the charge $Z$ float continuously, found at each baryon density by minimizing the total energy per baryon,
+\begin{equation}
+\frac{\varepsilon}{n_B} = \frac{M(Z,A)c^2}{A} + \frac{\varepsilon_e(n_e=\tfrac{Z}{A}n_B)}{n_B},
+\end{equation}
+where $M(Z,A)c^2$ is the nuclear mass from the semi-empirical mass formula (standard coefficients, no pairing term) and $\varepsilon_e$ is the electron energy density from the Chandrasekhar gas above. This correctly reproduces the zero-density beta-stability charge ($Z_{\rm eq}=5.77$ for $A=12$, close to carbon's $Z=6$) and, as density increases, gives $Y_e(\rho)$ dropping from $\approx0.488$ to $0.35$ over $\rho\sim10^{11}$--$10^{14}$~kg/m$^3$ --- the correct threshold scale, from real nuclear binding-energy differences, not an assumed cutoff.
+
+\paragraph{A genuine, unplanned finding.} Rebuilding the Newtonian hydrostatic sequence with this softened equation of state produces a true maximum mass, $M_{\max}\approx1.214\,M_\odot$ at $\rho_c\approx2.3\times10^{12}$~kg/m$^3$, with mass \emph{decreasing} for higher central density. This is the correct qualitative physics of why sufficiently dense white dwarfs are unstable before the naive Chandrasekhar limit, obtained here from a genuinely bounded, non-toy calculation. It also means that our chosen test configuration, $\rho_c=5\times10^{12}$~kg/m$^3$, sits on the classically unstable branch ($dM/d\rho_c<0$) once neutronization is included --- a substantially stronger and more standard instability driver than the marginal general-relativistic correction that was driving instability in the pure-Chandrasekhar case.
+
+\section{Lagrangian evolution: shell crossing in the envelope, not the core}
+\label{sec:lagrangian}
+
+We evolved the $\rho_c=5\times10^{12}$~kg/m$^3$ configuration (both with and without neutronization) using Eqs.~\eqref{eq:mr}--\eqref{eq:euler} on a comoving grid, fixing two numerical bugs along the way that are worth recording because both produced qualitatively convincing but wrong dynamics before being caught: a density-reconstruction singularity at the stellar center (differentiating the mass function is ill-conditioned where both $m$ and $R'$ vanish together), and a pressure floor at the free surface that created a spurious discontinuity exactly where $\rho+p\to0$, which manifested as a one-timestep velocity kick large enough to look like a bounce. Both were caught by direct step-by-step inspection, not by the integrator failing outright, which is itself worth noting: a plausible-looking but wrong result did not announce itself.
+
+With both fixed, the pure-Chandrasekhar configuration evolves smoothly for $\sim14$ time units ($\ell/c$ units, i.e.\ light-crossing times of the stellar radius, $\approx5.3$~ms each), during which the surface contracts slowly as the small general-relativistic correction predicts. It then develops shell crossing --- the areal radius stops being a monotonic function of the comoving label, $R'<0$ --- at $R\approx6$--$7\times10^{12}$~kg/m$^3$ \emph{in a specific outer shell near, but not at, the free surface}. With neutronization, the same phenomenon appears $\sim35\%$ sooner ($t\approx9.1$ vs.\ $14.2$), consistent with the stronger classical instability just described.
+
+\paragraph{The important qualifier.} In both cases, the central density changed by at most 1--2\% by the time this happened (the numbers are in the ancillary logs). The shell crossing is an outer-envelope phenomenon, decoupled from whether the dense interior has evolved at all. This means the Lagrangian scheme's breakdown was never actually probing the physics we care about --- it is limited by a much more mundane difficulty in resolving the tenuous outer layers, well before the interesting question (does the core reach exotic densities, and if so what happens) is engaged at all.
+
+\section{An Eulerian alternative, and why its headline result is not yet trustworthy}
+\label{sec:eulerian}
+
+\subsection{Scope}
+
+Shell crossing is a known pathology of Lagrangian (comoving) coordinates specifically; a fixed spatial grid does not have fluid labels to cross. We built an independent, conservative, shock-capturing Eulerian hydrodynamics code: standard HLL approximate Riemann solver, second-order MUSCL reconstruction with a minmod limiter, explicit RK2 time-stepping \citep{Toro2009}. We deliberately scope this to \emph{Newtonian} self-gravitating hydrodynamics with the leading relativistic correction retained as a source-term modification, rather than full relativistic Eulerian hydrodynamics (a substantially larger undertaking, requiring a general-relativistic Riemann solver and dynamical metric evolution). This scoping is justified, not just convenient: Section~\ref{sec:neutronization}'s finding is that the driving instability is a classical $dM/d\rho_c<0$ effect, and the general-relativistic corrections were shown in Paper B's collapse calculation to be a $\sim0.2\%$ perturbation on this system, not its driver.
+
+\subsection{A genuine success: past the crossing}
+
+On the same initial data, the Eulerian scheme evolves smoothly for a full $2$ seconds of physical time with no blow-up, no negative density, and no coordinate pathology --- well past the $\approx49$~ms (in physical units) where the Lagrangian scheme failed. This is a real, demonstrated success of the numerical strategy change the roadmap asked us to try.
+
+\subsection{The result, and why we do not yet trust it}
+\label{sec:convergence}
+
+At a resolution of $N=800$ cells, the evolution shows a striking, clean-looking trend: central density falls by three orders of magnitude over $\sim1.7$~s while the envelope expands by $\approx60\%$ and plateaus --- the signature of disruption or violent re-expansion, not collapse to higher density.
+
+We do not report this as a result, because it fails a resolution check, and we pushed that check considerably further than the first pass reported in the previous round. Repeating the identical calculation at $N=400$, $800$, $1600$, $3200$, and $6400$ cells and comparing the central density at the same physical time ($t=400$~ms):
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+$N$ & $\rho_c(t)/\rho_c(0)$ & mass conservation \\
+\hline
+400 & 0.289 & exact to 6 digits \\
+800 & 0.581 & exact to 6 digits \\
+1600 & 1.079 & exact to 6 digits \\
+3200 & 1.781 & exact to 6 digits \\
+6400 & 2.565 & exact to 6 digits \\
+\hline
+\end{tabular}
+\end{center}
+Not only do these fail to converge; they change direction (from net rarefaction to net compression) and continue diverging monotonically across a $16\times$ range in resolution. We checked the instantaneous growth rate near the end of the $N=3200$ and $N=6400$ runs directly (rather than only the fixed-time amplitude, which is contaminated by different onset times at different resolutions): $d\ln\rho_c/dt\approx6.7\,{\rm s}^{-1}$ at $N=3200$ versus $\approx12.6\,{\rm s}^{-1}$ at $N=6400$ --- the growth rate itself is still increasing with resolution, roughly doubling as $N$ doubles, which is inconsistent with approaching a fixed, physical growth rate.
+
+\paragraph{Ruling out the obvious numerical culprits.} Total mass is conserved to six digits at every resolution tested, so this is not a conservation-law bug. We inspected the density profile directly near the coordinate origin at high resolution and found it smooth and monotonic cell-to-cell, with no oscillatory or sign-changing structure --- ruling out grid-scale noise or the coordinate-singularity instabilities that naive spherical finite-volume schemes are generally known to be prone to near $r=0$.
+
+\paragraph{A critical control.} We repeated the identical resolution scan on a robustly \emph{stable} configuration ($\rho_c=10^{11}$~kg/m$^3$, well below the mass-radius turnover of Section~\ref{sec:neutronization}, safely on the classically stable branch $dM/d\rho_c>0$). This converges properly and in the expected direction: $\rho_c(t)/\rho_c(0)$ at $t=400$~ms is $0.977$, $0.990$, and $0.996$ at $N=800$, $1600$, $3200$ --- approaching $1$ (no drift) as resolution increases, with the deviation shrinking by a consistent factor at each doubling. This rules out a generic implementation bug: the code is well-behaved for an ordinary stable star.
+
+\paragraph{Interpretation.} The non-convergence is specific to the marginal configuration, not the code. The most physically reasonable explanation is that a configuration sitting almost exactly at a stability boundary is delicate in a way that is not a numerical artifact so much as a genuine feature of the physics: near marginality, the fundamental (longest-wavelength) radial mode's growth rate is close to zero by definition, while shorter-wavelength overtones may cross their own instability thresholds in the same region with different, resolution-sensitive growth rates. Numerical truncation error, which is unavoidable and is concentrated at the grid scale, then seeds whichever overtone dominates at a given resolution, and if growth rate increases with the overtone's radial wavenumber (no short-wavelength cutoff within the range probed), finer grids will keep exciting faster-growing, shorter-wavelength modes rather than converging onto the true long-wavelength answer. We have not verified this mode-structure explanation directly; it is our best current diagnosis, not a demonstrated one.
+
+We do not know, from what we have, whether this configuration disrupts, collapses, or undergoes damped oscillation toward the nearby stable branch found in Section~\ref{sec:neutronization}.
+
+\section{Linear stability: a direct answer via a validated eigenvalue solver}
+\label{sec:linear}
+
+Section~\ref{sec:eulerian}'s nonlinear result was suggestive but inconclusive: the Eulerian evolution showed dramatic change, but its magnitude and even its direction (compression versus rarefaction at fixed time) depended on resolution. The natural way to settle whether the configuration is actually unstable, independent of how any nonlinear code happens to seed and propagate a perturbation, is to solve the linear eigenvalue problem directly. We did this, and it required finding and fixing two genuine implementation errors before the result could be trusted. We report the method, the errors, and the validated result in full, since the debugging path is as much a part of the finding as the final number.
+
+\subsection{The linear adiabatic wave equation, and an exact simplification for radial modes}
+
+For a Lagrangian radial displacement $\xi(r)e^{-i\omega t}$ about a spherical hydrostatic equilibrium, mass conservation and the adiabatic relation give the Lagrangian density and pressure perturbations,
+\begin{equation}
+\frac{\Delta\rho}{\rho_0}=-\left(\xi'+\frac{2\xi}{r}\right),\qquad \Delta P=\Gamma_1 P_0\,\frac{\Delta\rho}{\rho_0},
+\end{equation}
+with $\Gamma_1\equiv d\ln P/d\ln\rho$ the local adiabatic index (for our barotropic equation of state, identical to the background logarithmic slope already tabulated in Section~\ref{sec:eos}). The linearized Euler equation, including the perturbation to the self-gravity potential $\phi$, gives the standard radial pulsation (LAWE) problem \citep{Pekeris1938,Cowling1941,Chandrasekhar1964}. We do not use the common Cowling approximation (which drops $\phi$ entirely); we show below that doing so is unnecessary, because for purely radial ($l=0$) perturbations the perturbed Poisson equation has an exact, local, closed-form solution,
+\begin{equation}
+\phi'(r) = -4\pi G\,\rho_0(r)\,\xi(r),
+\label{eq:exact-poisson}
+\end{equation}
+which we verified symbolically substitutes into $(1/r^2)(r^2\phi')'=4\pi G\rho'$ to give zero residual identically. This is a consequence of the mass-conservation relation above being exactly a total derivative for $l=0$; it does not hold for non-radial perturbations. Equation~\eqref{eq:exact-poisson} means the self-gravity term can be included exactly without solving a coupled field equation or introducing $\phi$ as a separate unknown, which removes an entire source of numerical ill-conditioning before it can arise.
+
+\subsection{A symmetric (Galerkin) discretization, and two bugs found along the way}
+\label{sec:galerkin-bugs}
+
+A first attempt discretized the momentum equation directly (strong form) on a finite-difference grid. This failed a basic sanity check: for a robustly stable polytrope ($\Gamma_1=5/3$), it returned an unstable-looking spectrum with eigenfunctions dominated by grid-scale noise rather than smooth physical modes. The fix is standard but was not optional: we rederived the problem in weak form, multiplying the momentum equation by a test function and integrating by parts once, and verified \emph{symbolically} that the resulting bilinear form is exactly symmetric under exchanging the trial and test functions (a direct swap-and-subtract check returning zero, not approximately zero). A linear finite-element (Galerkin) assembly built from this verified weak form immediately gave clean, properly ordered, sequential-node spectra, in sharp contrast to the original attempt.
+
+Getting agreement with the classical Pekeris $\Gamma_1=4/3$ criterion \citep{Pekeris1938} took two further, genuine corrections, both caught by checking the weak form against the strong form as an exact algebraic identity (true by construction for \emph{any} trial function, not just an eigenfunction, so a mismatch cannot be blamed on a trial function being a poor approximation):
+
+\begin{enumerate}
+\item \textbf{A missing boundary term.} The integration by parts drops a boundary contribution only if $[\eta r^2 P']$ vanishes at the surface. We had implicitly assumed $P'(R)=0$; the physically correct free-surface condition is $\Delta P(R)=0$, and since $P'=\Delta P-\xi P_0'$, these differ by $\xi(R)P_0'(R)$, which is generally nonzero. The correct weak form carries an explicit surface term $-R^2P_0'(R)\,\xi(R)\eta(R)$, confirmed by re-deriving the full expression (interior plus boundary) symbolically in one pass and re-verifying symmetry, and independently by two fully analytic test cases (a uniform-density star and an arbitrary smooth, non-uniform-density profile, both built and differentiated entirely in closed form via computer algebra, with no numerical differentiation anywhere) for which the corrected identity holds to machine precision.
+\item \textbf{A silently truncated stellar structure.} Even with the boundary term corrected, a self-consistent $\Gamma_1$-polytrope test case still failed the identity check, by a large, resolution-independent factor. The cause was mundane and unrelated to the pulsation physics: our polytrope-building ODE integrator was stopping at a fixed outer radius without verifying that the true stellar surface (density dropping to its natural zero) had actually been reached. For centrally concentrated polytropes this cutoff fell well inside the true structure (density only dropped by a factor of two from its central value before the integration stopped), so the computed ``surface'' boundary condition was being applied at a point that was not a surface at all. We fixed the builder to detect this failure mode and auto-expand the integration domain until the true surface is found. We separately confirmed the actual white-dwarf equilibrium profile used throughout this report (Section~\ref{sec:eos}) was never affected by this bug; its surface-finding event triggers correctly and was not a fixed-radius cutoff.
+\end{enumerate}
+
+With both corrections in place, the identity holds to 5--6 significant figures for every $\Gamma_1$ tested, and the full Galerkin eigenvalue solver reproduces the Pekeris criterion cleanly: the fundamental (nodeless) mode is unstable for $\Gamma_1<4/3$, stable for $\Gamma_1>4/3$, and within numerical noise of exactly zero ($\sim\!2\times10^{-11}\,{\rm s}^{-2}$, against $\mathcal{O}(10^{-8})\,{\rm s}^{-2}$ away from the critical point) at $\Gamma_1=4/3$ itself, with all overtones correctly ordered and positive throughout.
+
+\subsection{Result for the physical configuration}
+
+Applying the validated solver to the actual marginal configuration of Section~\ref{sec:lagrangian} ($\rho_c=5\times10^{12}$~kg/m$^3$, $M=1.198\,M_\odot$), using the real, spatially varying $\Gamma_1(r)$ from the neutronized equation of state (ranging from $1.293$ at the center to $1.666$ near the surface, straddling the critical value as expected for a marginal configuration):
+
+\begin{center}
+\begin{tabular}{cc}
+\hline
+mode (radial nodes) & $\omega^2$ [s$^{-2}$] \\
+\hline
+0 (fundamental) & $-18.68$ \\
+1 & $+295.3$ \\
+2 & $+702.3$ \\
+3 & $+1257.9$ \\
+$\vdots$ & $\vdots$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{The fundamental mode is unstable; every overtone checked (through node number 14) is stable.} This is the classic signature of a configuration sitting just past its stability limit, acted on through its longest-wavelength mode. The instability growth rate is $\sqrt{18.68}\approx4.32\,{\rm s}^{-1}$, an $e$-folding time of $0.23$~s.
+
+\paragraph{Cross-checks.} Two independent checks support this result. First, the homologous trial function $\xi=\alpha r$ (not an exact eigenfunction here, since $\Gamma_1$ varies with radius), evaluated via a completely independent, non-matrix calculation using the exact self-gravity closure of Eq.~\eqref{eq:exact-poisson}, gives $\omega^2=-16.65\,{\rm s}^{-2}$ — close to, and correctly \emph{less negative than}, the Galerkin result, exactly the relationship the Rayleigh--Ritz variational principle requires (any trial function gives an upper bound on the true lowest eigenvalue; the solved-for eigenfunction does at least as well). Second, we repeated the entire calculation for a robustly stable configuration on the classical stable branch of Section~\ref{sec:eos} ($\rho_c=10^{11}$~kg/m$^3$, the same configuration used as the control in Section~\ref{sec:convergence}): the fundamental mode comes back positive, $\omega^2=+4.65\,{\rm s}^{-2}$ (oscillation period $2.91$~s), with all overtones also positive, exactly as the classical $dM/d\rho_c>0$ stability criterion predicts.
+
+\paragraph{Eigenfunction shape.} The fundamental eigenfunction is smooth and nodeless (zero sign changes across 500 grid points, aside from floating-point noise at the last one or two points), but it is not homologous: the ratio $\xi(r)/r$ (normalized) varies smoothly from about $-1.55$ at the center to about $-1.0$ near the surface. The instability is therefore centrally concentrated — the core, where $\Gamma_1$ dips to $1.29$, compresses (or expands) proportionally more than the envelope, where $\Gamma_1$ approaches $5/3$ and resists. This is directly consistent with the Eulerian evolution of Section~\ref{sec:eulerian}, which showed the interior changing character while the envelope lagged, and it offers a natural explanation for why that nonlinear evolution took on the order of a few seconds to develop dramatic structure: at a growth rate of $4.3\,{\rm s}^{-1}$, amplifying a numerical-roundoff-level seed ($\sim10^{-10}$ relative amplitude) to order-unity nonlinear amplitude takes $\ln(10^{10})/4.3\approx5$~s, the same order as the timescale over which the nonlinear runs showed their resolution-dependent divergence. The resolution-dependence of that nonlinear result is therefore plausibly explained, not contradicted, by this linear result: different grid resolutions carry different effective seed amplitudes (from truncation error), reach visible nonlinear amplitude at different times, and are then free to diverge from each other once genuinely nonlinear, without any inconsistency in the underlying linear growth rate.
+
+\subsection{What this settles, and what it still does not}
+
+This directly answers the question the nonlinear evolution could not: \textbf{the configuration is linearly unstable}, through a single, well-characterized, centrally-concentrated fundamental mode, at a definite rate. What it does not answer is the nonlinear outcome — collapse, disruption, or relaxation onto the stable branch found in Section~\ref{sec:eos} — since the linear theory is only valid while the perturbation is small, and the connection sketched above (timescale matching) is a plausibility argument, not a demonstration that the nonlinear runs are correctly resolving the linear phase. Settling the nonlinear outcome still requires either the resolution/mode-identification work described in Section~\ref{sec:convergence}, or direct forward integration seeded by this now-known fundamental eigenfunction (a well-defined, much cheaper follow-up than broadband-noise-seeded evolution, since it fixes which mode is being excited rather than leaving it to grid-scale accident).
+
+\section{A controlled test: seeding the nonlinear evolution with the known eigenfunction}
+\label{sec:seeded}
+
+Section~\ref{sec:linear}'s discussion suggested that the Eulerian resolution-dependence might simply reflect different grid resolutions sampling different random signs or small admixtures around the same linear instability, via whatever truncation noise each resolution happens to produce. This is a direct, testable prediction: seed the Eulerian evolution explicitly with the validated fundamental eigenfunction, at a fixed, controlled, resolution-independent amplitude, and see whether the resolution-dependence goes away.
+
+\subsection{Setup, and a real bug}
+
+We perturbed the initial density, $\rho(r)=\rho_0(r)\left[1+\epsilon\,R_\star\left(\xi'+\tfrac{2\xi}{r}\right)\right]$, using the fundamental eigenfunction $\xi(r)$ extracted from the validated Galerkin solver of Section~\ref{sec:linear}, normalized to $\max|\xi|=1$. The factor of $R_\star$ is necessary and was missing in a first attempt: $\xi$ is dimensionless by this normalization, so $\xi'+2\xi/r$ has units of inverse length and is numerically tiny in SI units ($\sim\!10^{-6}\,{\rm m}^{-1}$) without it; omitting the rescaling produced a seed roughly six orders of magnitude smaller than the intended $\epsilon$, which we caught by checking the actual relative density perturbation achieved rather than assuming the formula was self-evidently correct. We also found and fixed a related issue very close to the center, where interpolation noise in the raw eigenfunction can corrupt the $2\xi/r$ term; we replaced it there with the analytic near-center limit $\xi'+2\xi/r\to3\xi'(0)$, which regularity guarantees is finite.
+
+\subsection{Result: resolution-dependence survives explicit, controlled seeding}
+
+At a physically modest amplitude ($\epsilon=10^{-4}$, giving a relative density perturbation of a few $\times10^{-4}$ through most of the star), we evolved the identical seed at $N=800$ and $N=1600$. The outcomes diverge, within under a second, into qualitatively different nonlinear fates: $N=800$ evolves smoothly toward rarefaction (central density falling to $\sim\!10^{-4}$ of its initial value by $t\approx2.6$~s, then showing renewed structure), while $N=1600$, started from the identical seed, reverses within $\sim\!0.4$~s and runs away into collapse (central density rising by six orders of magnitude by $t=0.618$~s, at which point the grid can no longer resolve the increasingly concentrated core and the evolution terminates numerically). A $100\times$ stronger seed ($\epsilon=10^{-2}$), tried to see whether dominating more decisively over any competing noise would clarify the picture, instead drove both resolutions into an unphysical regime (velocities many orders of magnitude above $c$) within $\sim\!0.2$~s; we did not pursue larger amplitudes further, since that regime is clearly outside where this Newtonian-plus-leading-correction scheme is valid.
+
+We also found that the early-time evolution is dominated by fast acoustic transients (period $\sim\!2$--$4$~ms) superimposed on the much slower instability growth (the linear $e$-folding time is $0.23$~s), so a simple reading of the central-density trajectory does not cleanly isolate the pure linear growth rate; extracting it reliably would need explicit filtering of the acoustic response, which we have not done.
+
+\subsection{What this changes}
+
+This rules out the simple hypothesis that resolution-dependence is merely an accident of which sign of the fundamental mode a given grid's truncation noise happens to excite: here the sign and shape of the seed are fixed and identical, and the resolutions still diverge. The most honest reading is that the resolution-sensitivity is a genuine feature of the fully nonlinear problem, not an artifact we have now removed. Two compatible explanations are worth distinguishing in future work: real physical bistability (this marginal configuration may be able to evolve toward either collapse or a relaxed, expanded state from very similar starting perturbations, with fine details beyond the fundamental mode's sign deciding the outcome), and/or an inadequately separated acoustic transient feeding energy into resolution-sensitive short-wavelength structure before the asymptotic instability growth can cleanly dominate. We have not distinguished these here.
+
+\subsection{A more rigorous seed: the pure growing-mode phase}
+\label{sec:pure-mode}
+
+The zero-velocity seed used above is not actually the cleanest possible test. The instability equation $\ddot\xi=\sigma^2\xi$ ($\sigma\equiv\sqrt{-\omega^2}=4.3217\,{\rm s}^{-1}$) has two independent solutions, $e^{+\sigma t}$ (growing) and $e^{-\sigma t}$ (decaying), with general solution $\xi(r,t)=\xi_{\rm shape}(r)[C_1e^{\sigma t}+C_2e^{-\sigma t}]$. We verified symbolically that $\xi(r,0)=\xi_{\rm shape}(r)(C_1+C_2)$ and $\dot\xi(r,0)=\sigma\,\xi_{\rm shape}(r)(C_1-C_2)$, so that $v(r,0)=0$ (our original seed) gives $C_1=C_2$: \emph{equal parts growing and decaying mode}, not a pure test of the instability. The mathematically correct condition for exciting only the growing solution ($C_2=0$) is
+\begin{equation}
+v(r,0) = \sigma\,\xi_{\rm physical}(r,0),
+\end{equation}
+which we implemented in addition to the existing density perturbation (verified numerically to satisfy $v/\xi_{\rm physical}=\sigma$ to six significant figures at every radius checked) and re-ran at the same two resolutions.
+
+The result is the same qualitative split: $N=800$ evolves toward rarefaction (a trajectory numerically indistinguishable from the zero-velocity seed, since the eigenfunction vanishes at the center by regularity, so the velocity seed is also small there and the central diagnostic is dominated by the density perturbation's pressure response regardless of seeding scheme); $N=1600$ again runs away, now reaching a peak central compression of $2.45\times$ before the grid can no longer resolve the collapsing core and the timestep collapses toward zero under the CFL condition, consistent with genuine runaway collapse rather than a new numerical pathology. \textbf{This rules out the seed's time-derivative phase (cosh-type versus pure exponential) as the explanation, in addition to ruling out accidental sign-selection}: two independently-justified, carefully-derived seeding schemes, differing specifically in whether the decaying solution is present at $t=0$, both reproduce the identical resolution-dependent divergence. The resolution-sensitivity is robust to this choice and, on the evidence so far, looks like a genuine property of the nonlinear problem.
+
+\paragraph{Revised next steps.} (i) The outer-star velocity field, where the two seeding schemes genuinely differ (unlike the central diagnostic used so far), has not been separately examined; a diagnostic that tracks the full radial profile rather than only the center might still distinguish them. (ii) Test convergence at much higher resolution with the identical controlled seed, to check whether collapse and rarefaction are genuinely distinct nonlinear attractors or whether one is still a discretization artifact that disappears at finer grids. (iii) A direct check of how much power the initial acoustic transient carries at short wavelengths would help quantify whether it, rather than the seed's mode-purity, is driving the resolution sensitivity.
+
+\section{What this establishes, and what it does not}
+\label{sec:discussion}
+
+\paragraph{Established.} The Misner--Sharp system for genuine inhomogeneous collapse, including the gauge subtlety that explains why the homogeneous treatment could not simply be extended (Section~\ref{sec:ms}). A real, validated degenerate-matter equation of state, extended with a bounded, physically-grounded neutronization treatment that reproduces the correct threshold scale and produces a genuine, unplanned maximum-mass result (Section~\ref{sec:eos}). That Lagrangian shell crossing in this problem is an outer-envelope phenomenon, not a probe of the interesting core physics (Section~\ref{sec:lagrangian}). That an Eulerian, conservative reformulation successfully evolves past the point where the Lagrangian scheme fails, though not to a converged nonlinear answer (Section~\ref{sec:eulerian}). And now, directly: \textbf{the marginal configuration is linearly unstable}, through a single centrally-concentrated fundamental mode at a definite, cross-checked rate ($\omega^2=-18.68\,{\rm s}^{-2}$, $e$-folding time $0.23$~s), with every overtone checked found stable, via a Galerkin eigenvalue solver validated against the classical Pekeris criterion to high precision and cross-checked two further independent ways (Section~\ref{sec:linear}).
+
+\paragraph{Not established.} The nonlinear outcome: whether this instability, once it grows past the linear regime, ends in disruption, collapse, or relaxation onto the stable branch identified in Section~\ref{sec:eos}. We tested, and ruled out, the simplest hypothesis for why the nonlinear result was resolution-dependent (accidental sign-selection by truncation noise, Section~\ref{sec:seeded}): explicit, identical seeding at two resolutions still diverges into collapse versus rarefaction within under a second. We also have not restored the general-relativistic corrections to the Eulerian scheme beyond the leading source-term modification, nor extended the neutronization treatment beyond a single representative mass number, nor checked non-radial modes, nor cleanly separated the fast acoustic transient from the slow instability growth. We did additionally rule out the seed's time-derivative phase as the explanation (Section~\ref{sec:pure-mode}): a mathematically correct pure-growing-mode seed, with no admixture of the decaying solution, reproduces the identical resolution-dependent split.
+
+\paragraph{Next steps, in order of cost.} (i) Seed with a pure velocity perturbation rather than a density displacement, to reduce the acoustic transient that currently obscures a clean read of the linear growth rate in the nonlinear code. (ii) Test convergence of the seeded evolution at higher resolution to determine whether collapse and rarefaction are both genuine nonlinear attractors of this configuration, or whether one is still a discretization artifact. (iii) Only once the nonlinear outcome is known would extending to full relativistic Eulerian hydrodynamics, or to the neutron-drip regime and a genuine multi-nuclide equation of state, be a well-motivated next investment.
+
+\paragraph{Relation to the rest of the series.} Nothing here revises any claim in Papers A or B. Paper B's own collapse calculation already showed the homogeneous-fluid route is unstable and, via its ``non-barotropic realization'' section, that this specific instability is a property of the barotropic closure rather than of the background; this report is a structurally different question (real inhomogeneity, a real equation of state, genuine hydrodynamics) and, honestly, does not yet have an answer to report back.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,20 @@
+﻿{
+    "keywords":  [
+                     "general relativity",
+                     "black holes",
+                     "Hayward metric",
+                     "numerical relativity",
+                     "theoretical physics"
+                 ],
+    "license":  "cc-by-4.0",
+    "title":  "Delayed Collapse of a Degenerate Core at Its Maximum Mass: General-Relativistic Instability and the Fold-Passage Law",
+    "upload_type":  "publication",
+    "creators":  [
+                     {
+                         "name":  "Ownby, Gracen"
+                     }
+                 ],
+    "access_right":  "open",
+    "publication_type":  "preprint",
+    "description":  "LaTeX source, compiled PDF, Galerkin/Rayleigh-Ritz GR pulsation solvers, Painleve-I fold-passage scripts, and Misner-Sharp Lagrangian hydrodynamics code for Paper C (includes Phase 2 companion technical report)."
+}

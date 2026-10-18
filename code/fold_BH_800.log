@@ -1,0 +1,15 @@
+model quadratic coefficient 26.086471185080036 vs exact-GR 1.5*kappa 28.0995 ratio 0.9283606891610184 fit resid 6.648027220034916e-06
+0 t=0.00000 lam_h=0.9687 lam_in=0.9687 rhoc/rho0=1.080e+00 maxcomp=0.0071 at j=387 (m/M=0.734) minGam2=9.93e-01 minDr=7.15e+02 Umin/c=-0.000 wall=0
+20000 t=0.52907 lam_h=0.9495 lam_in=0.9493 rhoc/rho0=1.148e+00 maxcomp=0.0073 at j=386 (m/M=0.733) minGam2=9.93e-01 minDr=7.02e+02 Umin/c=-0.000 wall=29
+40000 t=1.03517 lam_h=0.9077 lam_in=0.9073 rhoc/rho0=1.314e+00 maxcomp=0.0076 at j=386 (m/M=0.733) minGam2=9.92e-01 minDr=6.71e+02 Umin/c=-0.000 wall=57
+60000 t=1.48444 lam_h=0.7878 lam_in=0.7870 rhoc/rho0=2.014e+00 maxcomp=0.0088 at j=385 (m/M=0.732) minGam2=9.91e-01 minDr=5.84e+02 Umin/c=-0.003 wall=87
+80000 t=1.75794 lam_h=0.3263 lam_in=0.3236 rhoc/rho0=2.897e+01 maxcomp=0.0211 at j=374 (m/M=0.718) minGam2=9.79e-01 minDr=2.47e+02 Umin/c=-0.024 wall=116
+comp>= 0.05 at t=1.77374 lam_h=0.1369
+comp>= 0.1 at t=1.77573 lam_h=0.0668
+comp>= 0.2 at t=1.77618 lam_h=0.0333
+comp>= 0.3 at t=1.77625 lam_h=0.0226
+comp>= 0.5 at t=1.77629 lam_h=0.0159
+comp>= 0.7 at t=1.77629 lam_h=0.0138
+comp>= 0.9 at t=1.77630 lam_h=0.0130
+comp>= 0.99 at t=1.77630 lam_h=0.0128
+END t=1.77630 steps=88578 maxcomp=0.9994 minGam2=4.19e-01 minDr=9.82e+00
