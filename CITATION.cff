@@ -1,8 +1,10 @@
-﻿cff-version: 1.2.0
+cff-version: 1.2.0
 message: "If you use this software or manuscript, please cite it as below."
+title: "Delayed Collapse of a Degenerate Core at Its Maximum Mass: General-Relativistic Instability and the Fold-Passage Law"
+abstract: "LaTeX source, compiled PDF, Galerkin/Rayleigh-Ritz GR pulsation solvers, Painleve-I fold-passage scripts, and Misner-Sharp Lagrangian hydrodynamics code for Paper C."
 authors:
   - family-names: "Ownby"
     given-names: "Gracen"
-title: "Delayed Collapse of a Degenerate Core at Its Maximum Mass: General-Relativistic Instability and the Fold-Passage Law"
-version: "v1.0.0"
+version: "v1.0.1"
 date-released: "2026-10-18"
+license: "CC-BY-4.0"
