@@ -1,0 +1,15 @@
+f_cal=1.0481, sigma=5.2775 s^-1, e-folding time 1/sigma=0.1895 s
+Background compactness at lambda=1: 1-2GM/(Rc^2) = 0.991070
+Critical lambda (apparent-horizon threshold at the surface) = 8.929979e-03
+
+Integration status: 1 A termination event occurred.
+t_events (horizon, small): [array([2.52739251]), array([], dtype=float64)]
+Final t = 2.527393 s,  lambda_final = 9.112224e-03
+
+ t(s)    lambda        1-lambda      central_density/rho_c
+ 0.00  9.999990e-01  1.000000e-06  1.0000e+00
+ 0.50  9.999930e-01  7.033776e-06  1.0000e+00
+ 1.00  9.999020e-01  9.795938e-05  1.0003e+00
+ 1.50  9.986266e-01  1.373436e-03  1.0041e+00
+ 2.00  9.802823e-01  1.971774e-02  1.0616e+00
+ 2.50  4.864086e-01  5.135914e-01  8.6895e+00

@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pulseB import *
 rc=5e13
 sol0,R,yR,xc=background(rc); sc=sigma2_scale(R,yR[0],yR[1])

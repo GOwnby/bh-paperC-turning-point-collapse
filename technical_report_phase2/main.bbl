@@ -1,0 +1,64 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Baym et~al.(1971)Baym, Pethick, and Sutherland]{BPS1971}
+Gordon Baym, Christopher Pethick, and Peter Sutherland.
+\newblock The ground state of matter at high densities: equation of state and
+  stellar models.
+\newblock \emph{The Astrophysical Journal}, 170:\penalty0 299, 1971.
+\newblock \doi{10.1086/151216}.
+
+\bibitem[Chandrasekhar(1935)]{Chandrasekhar1935}
+S.~Chandrasekhar.
+\newblock The highly collapsed configurations of a stellar mass ({S}econd
+  paper).
+\newblock \emph{Monthly Notices of the Royal Astronomical Society}, 95\penalty0
+  (3):\penalty0 207--225, 1935.
+\newblock \doi{10.1093/mnras/95.3.207}.
+
+\bibitem[Chandrasekhar(1964)]{Chandrasekhar1964}
+S.~Chandrasekhar.
+\newblock A general variational principle governing the radial and the
+  non-radial oscillations of gaseous masses.
+\newblock \emph{The Astrophysical Journal}, 139:\penalty0 664, 1964.
+\newblock \doi{10.1086/147792}.
+
+\bibitem[Cowling(1941)]{Cowling1941}
+T.~G. Cowling.
+\newblock The non-radial oscillations of polytropic stars.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  101\penalty0 (8):\penalty0 367--375, 1941.
+\newblock \doi{10.1093/mnras/101.8.367}.
+
+\bibitem[May and White(1966)]{MayWhite1966}
+Michael~M. May and Richard~H. White.
+\newblock Hydrodynamic calculations of general-relativistic collapse.
+\newblock \emph{Physical Review}, 141:\penalty0 1232, 1966.
+\newblock \doi{10.1103/PhysRev.141.1232}.
+
+\bibitem[Misner and Sharp(1964)]{MisnerSharp1964}
+Charles~W. Misner and David~H. Sharp.
+\newblock Relativistic equations for adiabatic, spherically symmetric
+  gravitational collapse.
+\newblock \emph{Physical Review}, 136:\penalty0 B571, 1964.
+\newblock \doi{10.1103/PhysRev.136.B571}.
+
+\bibitem[Pekeris(1938)]{Pekeris1938}
+C.~L. Pekeris.
+\newblock Nonradial oscillations of stars.
+\newblock \emph{The Astrophysical Journal}, 88:\penalty0 189, 1938.
+\newblock \doi{10.1086/143971}.
+
+\bibitem[Toro(2009)]{Toro2009}
+Eleuterio~F. Toro.
+\newblock \emph{Riemann Solvers and Numerical Methods for Fluid Dynamics: A
+  Practical Introduction}.
+\newblock Springer, Berlin, Heidelberg, 3rd edition, 2009.
+\newblock ISBN 978-3-540-25202-3.
+\newblock \doi{10.1007/b79761}.
+
+\end{thebibliography}

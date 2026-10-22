@@ -1,0 +1,11 @@
+apply_to_real_star.py: OK
+collapse2.py: OK
+eos.py: OK
+eos_neutronized.py: OK
+evolve2.py: OK
+galerkin_fem.py: OK
+initial_profile.py: OK
+initial_profile_neu.py: OK
+lagrangian_envelope.py: OK
+neutronization.py: OK
+stable_crosscheck.py: OK

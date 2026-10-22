@@ -1,0 +1,40 @@
+total wall time: 1177 s
+--- per-step wall times
+eos_tables: 0 s (exit 0)
+structure_tov: 7 s (exit 0)
+verify_ms_equations: 1 s (exit 0)
+control_star_truncation: 47 s (exit 0)
+test_c_converge_pure: 131 s (exit 0)
+test_a_static: 94 s (exit 0)
+test_c_converge_neu: 125 s (exit 0)
+test_g_long: 109 s (exit 0)
+test_b_linear: 348 s (exit 0)
+repro_spline: 176 s (exit 0)
+test_h_collapse: 301 s (exit 0)
+test_e_conservation: 75 s (exit 0)
+test_f_forced: 51 s (exit 0)
+test_i_dust: 17 s (exit 0)
+test_j_gamma_size: 13 s (exit 0)
+test_d_edge: 504 s (exit 0)
+make_tables: 0 s (exit 0)
+--- PASS/FAIL lines
+      4 PASS (criterion: first three modes agree to < 1e-3)
+      1 relative difference: [7.64e-05 1.29e-04 3.08e-04 5.56e-04]  PASS (criterion < 2e-3, first three modes)
+      1 relative difference: [7.03e-05 1.77e-04 3.85e-04 6.68e-04]  PASS (criterion < 2e-3, first three modes)
+      1 relative difference: [6.78e-05 1.79e-04 3.88e-04 6.72e-04]  PASS (criterion < 2e-3, first three modes)
+      1 relative difference: [2.34e-05 1.25e-04 3.03e-04 5.49e-04]  PASS (criterion < 2e-3, first three modes)
+      1 pure: rhs(initial) rel.diff 3.0e-10; rhs(perturbed) rel.diff 3.0e-11; after 300 RK4 steps max|y_replica - y_original| = 1.2e-13   PASS
+      1 neu: rhs(initial) rel.diff 1.7e-10; rhs(perturbed) rel.diff 8.9e-11; after 300 RK4 steps max|y_replica - y_original| = 5.5e-14   PASS
+      1 b4 PASS (criterion: fitted growth rate at N=400 within 5e-3 of the SL growth rate)
+      1 b3 pure PASS (criterion: evolution frequency^2 at N=400 within 3e-3 of the SL limit)
+      1 b3 neu PASS (criterion: evolution frequency^2 at N=400 within 3e-3 of the SL limit)
+      1 b2 PASS (criterion: scheme-limit vs Galerkin(N=2000) < 2e-3)
+      1 TEST (i) OVERALL: PASS
+      1 TEST (a) OVERALL: PASS
+      1 PASS/FAIL pure: monotone=True, orders of the finest pair (drho, bulk, L2) = [1.8017391358754427, 2.0476402190546734, 2.021235169046251]  -> PASS
+      1 PASS/FAIL neu: monotone=True, orders of the finest pair (drho, bulk, L2) = [1.802673447531763, 2.035134033948871, 2.0162708751355622]  -> PASS
+      1 PASS/FAIL inhomogeneous (Lemaitre-Tolman-Bondi), 2M/R0(surface) = 0.5, e_c/e_surf = 2: monotone=True, orders of the two finest pairs = [1.9999934948189535, 1.9999980255857994], finest drift in m = 4.0e-08 -> PASS
+      1 PASS/FAIL homogeneous (Oppenheimer-Snyder), 2M/R0 = 0.6: monotone=True, orders of the two finest pairs = [1.9987580148347273, 1.9993877299218266], finest drift in m = 1.4e-07 -> PASS
+      1 PASS/FAIL converged iteration is second order in dt (orders of the two finest pairs >= 1.9) -> PASS
+      1 PASS/FAIL (max |dGamma^2| between 1e-5 and 1e-2, i.e. a non-negligible fraction of 2m/R) -> PASS
+      1 PASS  (tolerance 1e-9; residuals are floating-point rounding of O(1) quantities)

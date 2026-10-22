@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from run_shoot import *
 rc=5e13
 def bracket(rc,x_end=1e-3,r0=1e-6,rtol=1e-12,a=-100,b=100):

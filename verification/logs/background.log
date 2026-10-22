@@ -1,0 +1,14 @@
+f'(x) check (numeric vs analytic):
+  x=  0.0010  numeric=7.806256e-12  analytic=7.999996e-12  rel.err=2.42e-02
+  x=  0.0100  numeric=7.999677e-08  analytic=7.999600e-08  rel.err=9.66e-06
+  x=  0.1000  numeric=7.960298e-04  analytic=7.960298e-04  rel.err=2.22e-08
+  x=  1.0000  numeric=5.656854e+00  analytic=5.656854e+00  rel.err=4.05e-12
+  x=  5.0000  numeric=9.805807e+02  analytic=9.805807e+02  rel.err=2.14e-10
+  x= 20.0000  numeric=6.392015e+04  analytic=6.392015e+04  rel.err=5.79e-10
+
+Gamma1 limits check: should -> 5/3 as x->0 (non-rel), -> 4/3 as x->inf (ultra-rel)
+  rho=1.0e+06 kg/m^3  x=8.0072e-02  Gamma1=1.665148
+  rho=1.0e+09 kg/m^3  x=8.0072e-01  Gamma1=1.565348
+  rho=1.0e+12 kg/m^3  x=8.0072e+00  Gamma1=1.342925
+  rho=1.0e+15 kg/m^3  x=8.0072e+01  Gamma1=1.333437
+  rho=1.0e+18 kg/m^3  x=8.0072e+02  Gamma1=1.333334

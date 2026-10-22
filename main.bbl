@@ -1,4 +1,4 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{38}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -9,25 +9,33 @@
 A.~Brillante and I.~N. Mishustin.
 \newblock Nonlinear oscillations of compact stars in the vicinity of the
   maximum mass configuration.
-\newblock \emph{Europhysics Letters}, 111:\penalty0 29001, 2015.
+\newblock \emph{EPL (Europhysics Letters)}, 111\penalty0 (2):\penalty0 29001,
+  2015.
+\newblock \doi{10.1209/0295-5075/111/29001}.
+\newblock arXiv:1507.04919.
 
 \bibitem[Buonanno and Damour(1999)]{BuonannoDamour1999}
 A.~Buonanno and T.~Damour.
 \newblock Effective one-body approach to general relativistic two-body
   dynamics.
 \newblock \emph{Physical Review D}, 59:\penalty0 084006, 1999.
+\newblock \doi{10.1103/PhysRevD.59.084006}.
 
 \bibitem[Carr(1981)]{Carr1981}
-J.~Carr.
+Jack Carr.
 \newblock \emph{Applications of Centre Manifold Theory}, volume~35 of
   \emph{Applied Mathematical Sciences}.
 \newblock Springer, New York, 1981.
+\newblock ISBN 978-0-387-90577-8.
+\newblock \doi{10.1007/978-1-4612-5929-9}.
 
 \bibitem[Chandrasekhar(1935)]{Chandrasekhar1935}
 S.~Chandrasekhar.
-\newblock The highly collapsed configurations of a stellar mass (second paper).
-\newblock \emph{Monthly Notices of the Royal Astronomical Society},
-  95:\penalty0 207, 1935.
+\newblock The highly collapsed configurations of a stellar mass ({S}econd
+  paper).
+\newblock \emph{Monthly Notices of the Royal Astronomical Society}, 95\penalty0
+  (3):\penalty0 207--225, 1935.
+\newblock \doi{10.1093/mnras/95.3.207}.
 
 \bibitem[Chandrasekhar(1964{\natexlab{a}})]{Chandrasekhar1964}
 S.~Chandrasekhar.
@@ -50,18 +58,21 @@ S.~Chandrasekhar and R.~F. Tooper.
 \newblock The dynamical instability of the white-dwarf configurations
   approaching the limiting mass.
 \newblock \emph{The Astrophysical Journal}, 139:\penalty0 1396, 1964.
-\newblock \doi{10.1086/147877}.
+\newblock \doi{10.1086/147883}.
 
-\bibitem[Chavanis et~al.(2019)Chavanis, Denet, Le~Berre, and
-  Pomeau]{Chavanis2019}
+\bibitem[Chavanis et~al.(2020)Chavanis, Denet, Le~Berre, and
+  Pomeau]{Chavanis2020}
 Pierre-Henri Chavanis, Bruno Denet, Martine Le~Berre, and Yves Pomeau.
-\newblock Implosion-explosion in supernovae, 2019.
+\newblock Implosion-explosion in supernovae.
+\newblock \emph{EPL (Europhysics Letters)}, 129\penalty0 (3):\penalty0 30003,
+  2020.
+\newblock \doi{10.1209/0295-5075/129/30003}.
 \newblock arXiv:1909.05101.
 
 \bibitem[Chen and Lin(2026)]{ChenLin2026}
 Gong Chen and Zhiwu Lin.
 \newblock Collapse of white dwarfs above the {Chandrasekhar} mass, 2026.
-\newblock arXiv:2609.34075.
+\newblock arXiv:2609.34075 [math.AP].
 
 \bibitem[Cowling(1941)]{Cowling1941}
 T.~G. Cowling.
@@ -70,13 +81,25 @@ T.~G. Cowling.
   101\penalty0 (8):\penalty0 367--375, 1941.
 \newblock \doi{10.1093/mnras/101.8.367}.
 
+\bibitem[DLMF()]{DLMF}
+DLMF.
+\newblock {NIST} digital library of mathematical functions, sec.~9.9 (zeros of
+  the airy functions).
+\newblock \url{https://dlmf.nist.gov/9.9}, accessed 21 October 2026, 2026.
+\newblock Editors F.~W.~J. Olver, A.~B. {Olde Daalhuis}, D.~W. Lozier, B.~I.
+  Schneider, R.~F. Boisvert, C.~W. Clark, B.~R. Miller, B.~V. Saunders, H.~S.
+  Cohl, M.~A. McClain. The value used in the text, $a_1=-2.338107\ldots$, is
+  reproduced independently in the archive with scipy.special.ai\_zeros and
+  mpmath.
+
 \bibitem[Font et~al.(2002)Font, Goodale, Iyer, Miller, Rezzolla, Seidel,
   Stergioulas, Suen, and Tobias]{FontEtAl2002}
 J.~A. Font, T.~Goodale, S.~Iyer, M.~Miller, L.~Rezzolla, E.~Seidel,
   N.~Stergioulas, W.-M. Suen, and M.~Tobias.
-\newblock Three-dimensional general relativistic hydrodynamics ii: long-term
-  dynamics of single relativistic stars.
+\newblock Three-dimensional numerical general relativistic hydrodynamics. {II}.
+  long-term dynamics of single relativistic stars.
 \newblock \emph{Physical Review D}, 65:\penalty0 084024, 2002.
+\newblock \doi{10.1103/PhysRevD.65.084024}.
 \newblock arXiv:gr-qc/0110047.
 
 \bibitem[Fowler(1966)]{Fowler1966}
@@ -86,11 +109,13 @@ W.~A. Fowler.
 \newblock \doi{10.1086/148594}.
 
 \bibitem[Friedman(2012)]{FriedmanLectures}
-J.~L. Friedman.
-\newblock Lecture 3: Instabilities of relativistic stars, 2012.
+John~L. Friedman.
+\newblock Lecture 3: Instabilities of relativistic stars.
+\newblock Lecture notes, ICTP-SAIFR Advanced School in General Relativity:
+  Relativistic Astrophysics and Cosmology, S{\~a}o Paulo, 16--27 July 2012,
+  2012.
 \newblock URL \url{https://www.ictp-saifr.org/schoolgr/Lecture3Friedman.pdf}.
-\newblock ICTP-SAIFR School on Gravitation, 16--27 July 2012; lecture notes
-  (the PDF carries no date; year from the school page).
+\newblock The PDF carries no date; year from the school dates.
 
 \bibitem[Haberman(1979)]{Haberman1979}
 R.~Haberman.
@@ -109,16 +134,19 @@ Mahir Had\v{z}i\'c and Zhiwu Lin.
 
 \bibitem[Haemmerl{\'e}(2025)]{Haemmerle2025}
 L.~Haemmerl{\'e}.
-\newblock The properties of supermassive stars in galaxy merger driven direct
-  collapse i: models without rotation.
+\newblock The properties of supermassive stars in galaxy merger-driven direct
+  collapse {I}. {M}odels without rotation.
 \newblock \emph{Astronomy \& Astrophysics}, 700:\penalty0 A73, 2025.
+\newblock \doi{10.1051/0004-6361/202554341}.
 \newblock arXiv:2503.01970.
 
 \bibitem[Haragus and Iooss(2011)]{HaragusIooss2011}
-M.~Haragus and G.~Iooss.
+Mariana Haragus and G{\'e}rard Iooss.
 \newblock \emph{Local Bifurcations, Center Manifolds, and Normal Forms in
   Infinite-Dimensional Dynamical Systems}.
-\newblock Springer, London, 2011.
+\newblock Universitext. Springer, London, 2011.
+\newblock ISBN 978-0-85729-111-0.
+\newblock \doi{10.1007/978-0-85729-112-7}.
 
 \bibitem[Harrison et~al.(1965)Harrison, Thorne, Wakano, and Wheeler]{HTWW1965}
 B.~K. Harrison, K.~S. Thorne, M.~Wakano, and J.~A. Wheeler.
@@ -136,7 +164,8 @@ N.~Joshi and A.~V. Kitaev.
 \bibitem[Kokkotas and Ruoff(2001)]{KokkotasRuoff2001}
 K.~D. Kokkotas and J.~Ruoff.
 \newblock Radial oscillations of relativistic stars.
-\newblock \emph{Astronomy \& Astrophysics}, 366:\penalty0 565, 2001.
+\newblock \emph{Astronomy \& Astrophysics}, 366:\penalty0 565--572, 2001.
+\newblock \doi{10.1051/0004-6361:20000216}.
 \newblock arXiv:gr-qc/0011093.
 
 \bibitem[Landau and Lifshitz(1987)]{LandauLifshitzFM}
@@ -145,15 +174,19 @@ L.~D. Landau and E.~M. Lifshitz.
   Physics}.
 \newblock Pergamon Press, Oxford, 2 edition, 1987.
 
+\bibitem[Mathew and Nandy(2017)]{MathewNandy2014}
+Arun Mathew and Malay~K. Nandy.
+\newblock General relativistic calculations for white dwarfs.
+\newblock \emph{Research in Astronomy and Astrophysics}, 17\penalty0
+  (6):\penalty0 061, 2017.
+\newblock \doi{10.1088/1674-4527/17/6/61}.
+\newblock arXiv:1401.0819.
+
 \bibitem[May and White(1966)]{MayWhite1966}
 M.~M. May and R.~H. White.
 \newblock Hydrodynamic calculations of general-relativistic collapse.
 \newblock \emph{Physical Review}, 141:\penalty0 1232, 1966.
-
-\bibitem[Misner et~al.(1973)Misner, Thorne, and Wheeler]{MTW1973}
-C.~W. Misner, K.~S. Thorne, and J.~A. Wheeler.
-\newblock \emph{Gravitation}.
-\newblock W. H. Freeman, San Francisco, 1973.
+\newblock \doi{10.1103/PhysRev.141.1232}.
 
 \bibitem[Misner and Sharp(1964)]{MisnerSharp1964}
 Charles~W. Misner and David~H. Sharp.
@@ -162,11 +195,11 @@ Charles~W. Misner and David~H. Sharp.
 \newblock \emph{Physical Review}, 136:\penalty0 B571, 1964.
 \newblock \doi{10.1103/PhysRev.136.B571}.
 
-\bibitem[{NIST}(2024)]{DLMF}
-{NIST}.
-\newblock {NIST} digital library of mathematical functions.
-\newblock \url{https://dlmf.nist.gov/}, Release 1.2, 2024.
-\newblock Section 9.9 (zeros of the Airy function).
+\bibitem[Misner et~al.(1973)Misner, Thorne, and Wheeler]{MTW1973}
+Charles~W. Misner, Kip~S. Thorne, and John~Archibald Wheeler.
+\newblock \emph{Gravitation}.
+\newblock W. H. Freeman, San Francisco, 1973.
+\newblock ISBN 978-0-7167-0344-0.
 
 \bibitem[Oppenheimer and Snyder(1939)]{OppenheimerSnyder1939}
 J.~R. Oppenheimer and H.~Snyder.
@@ -174,12 +207,34 @@ J.~R. Oppenheimer and H.~Snyder.
 \newblock \emph{Physical Review}, 56:\penalty0 455--459, 1939.
 \newblock \doi{10.1103/PhysRev.56.455}.
 
-\bibitem[Ownby(2026)]{OwnbyPhase2}
+\bibitem[Ownby(2026{\natexlab{a}})]{OwnbyPhase2}
 Gracen Ownby.
 \newblock Phase 2 progress report: inhomogeneous collapse, neutronization, and
   the limits of two numerical strategies.
-\newblock companion technical report, included as background material with this
-  paper, 2026.
+\newblock supplementary technical report, archived in the Paper C repository,
+  doi:10.5281/zenodo.23455581, 2026{\natexlab{a}}.
+
+\bibitem[Ownby(2026{\natexlab{b}})]{PaperA}
+Gracen Ownby.
+\newblock Evaporation toward a degenerate horizon: Islands, asymptotics and the
+  horizonless branch of the {H}ayward black hole, 2026{\natexlab{b}}.
+
+\bibitem[Ownby(2026{\natexlab{c}})]{PaperB}
+Gracen Ownby.
+\newblock Matter-sourced regular cores in general relativity: Dynamical and
+  field-theoretic obstructions, 2026{\natexlab{c}}.
+
+\bibitem[Ownby(2026{\natexlab{d}})]{PaperD}
+Gracen Ownby.
+\newblock Where the collapse ends: Bounce, the neutron-star branch and the
+  black-hole threshold of a degenerate core with a dense-matter equation of
+  state, 2026{\natexlab{d}}.
+
+\bibitem[Ownby(2026{\natexlab{e}})]{PaperE}
+Gracen Ownby.
+\newblock Inner-horizon stability of the {H}ayward metric: Closure classes in
+  the {O}ri model, the evaporation clock and a nonlinear double-null test,
+  2026{\natexlab{e}}.
 
 \bibitem[Pekeris(1938)]{Pekeris1938}
 C.~L. Pekeris.
@@ -187,18 +242,22 @@ C.~L. Pekeris.
 \newblock \emph{The Astrophysical Journal}, 88:\penalty0 189, 1938.
 \newblock \doi{10.1086/143971}.
 
-\bibitem[Pomeau et~al.(2013)Pomeau, Le~Berre, Chavanis, and Denet]{Pomeau2013}
+\bibitem[Pomeau et~al.(2014)Pomeau, Le~Berre, Chavanis, and Denet]{Pomeau2014}
 Yves Pomeau, Martine Le~Berre, Pierre-Henri Chavanis, and Bruno Denet.
 \newblock Supernovae: an example of complexity in the physics of compressible
-  fluids, 2013.
+  fluids.
+\newblock \emph{The European Physical Journal E}, 37:\penalty0 26, 2014.
+\newblock \doi{10.1140/epje/i2014-14026-1}.
 \newblock arXiv:1307.4786.
 
 \bibitem[Radice et~al.(2010)Radice, Rezzolla, and
-  Kellermann]{RadiceRezzollaKellermann2010}
-D.~Radice, L.~Rezzolla, and T.~Kellermann.
-\newblock Critical phenomena in neutron stars i: linearly unstable nonrotating
-  models.
-\newblock \emph{Classical and Quantum Gravity}, 27:\penalty0 235015, 2010.
+  Kellerman]{RadiceRezzollaKellermann2010}
+D.~Radice, L.~Rezzolla, and T.~Kellerman.
+\newblock Critical phenomena in neutron stars {I}: linearly unstable
+  nonrotating models.
+\newblock \emph{Classical and Quantum Gravity}, 27\penalty0 (23):\penalty0
+  235015, 2010.
+\newblock \doi{10.1088/0264-9381/27/23/235015}.
 \newblock arXiv:1007.2809.
 
 \bibitem[Rotondo et~al.(2011)Rotondo, Rueda, Ruffini, and Xue]{RotondoRRX2011}
@@ -212,6 +271,7 @@ M.~Rotondo, J.~A. Rueda, R.~Ruffini, and S.-S. Xue.
 E.~E. Salpeter.
 \newblock Energy and pressure of a zero-temperature plasma.
 \newblock \emph{The Astrophysical Journal}, 134:\penalty0 669, 1961.
+\newblock \doi{10.1086/147194}.
 
 \bibitem[Sorkin(1981)]{Sorkin1981}
 R.~D. Sorkin.

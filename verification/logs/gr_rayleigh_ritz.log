@@ -1,0 +1,9 @@
+n_basis=1  sigma^2=-27.8524  (relative asymmetry A=0.00e+00, B=0.00e+00)
+n_basis=2  sigma^2=-28.5250  (relative asymmetry A=0.00e+00, B=1.17e-16)
+n_basis=3  sigma^2=-28.5517  (relative asymmetry A=0.00e+00, B=1.17e-16)
+n_basis=4  sigma^2=-28.5528  (relative asymmetry A=2.00e-16, B=1.17e-16)
+n_basis=5  sigma^2=-28.5534  (relative asymmetry A=1.61e-16, B=1.17e-16)
+trial xi = r        : sigma^2 = -27.852388788409275
+trial xi = r e^a(r) : sigma^2 = -27.671170706754733
+
+Paper C values (12000-pt grid): -27.85 -> -28.52 -> -28.55 -> -28.55 -> -28.55 across n=1..5; xi=r e^a: -27.67

@@ -1,5 +1,5 @@
 # Independent derivation: linearised radial Euler eq + Einstein constraint (X, DeltaP) system
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pulse import *
 def rhsB(w2):
     def f(r,y):

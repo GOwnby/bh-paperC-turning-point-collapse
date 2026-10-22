@@ -1,0 +1,10 @@
+trial xi = r:  S_exact = 4*pi*G*R**5*rho_c**2*(3*Gamma1 - 4)/15
+   boundary term = 4*pi*G*R**5*rho_c**2/3
+   S_exact - B(with boundary term)    = 0
+   S_exact - B(without boundary term) = 4*pi*G*R**5*rho_c**2/3   (should equal the boundary term 4*pi*G*R**5*rho_c**2/3)
+   [PASS]
+trial xi = r + k r^3/R^2:  S_exact = 4*pi*G*R**5*rho_c**2*(125*Gamma1*k**2 + 270*Gamma1*k + 189*Gamma1 - 140*k**2 - 360*k - 252)/945
+   boundary term = 4*pi*G*R**5*rho_c**2*(k + 1)**2/3
+   S_exact - B(with boundary term)    = 0
+   S_exact - B(without boundary term) = 4*pi*G*R**5*rho_c**2*(k**2 + 2*k + 1)/3   (should equal the boundary term 4*pi*G*R**5*rho_c**2*(k + 1)**2/3)
+   [PASS]

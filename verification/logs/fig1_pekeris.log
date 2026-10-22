@@ -1,0 +1,14 @@
+galerkin_fem module loaded OK
+Gamma1=1.2400  fundamental omega^2 = -1.43723e-08 s^-2  unstable
+Gamma1=1.2667  fundamental omega^2 = -1.10690e-08 s^-2  unstable
+Gamma1=1.3000  fundamental omega^2 = -6.13614e-09 s^-2  unstable
+Gamma1=1.3167  fundamental omega^2 = -3.22058e-09 s^-2  unstable
+Gamma1=1.3333  fundamental omega^2 = +2.18582e-11 s^-2  stable
+Gamma1=1.3667  fundamental omega^2 = +7.59072e-09 s^-2  stable
+Gamma1=1.4000  fundamental omega^2 = +1.65389e-08 s^-2  stable
+Gamma1=1.4333  fundamental omega^2 = +2.67909e-08 s^-2  stable
+Gamma1=1.4667  fundamental omega^2 = +3.82727e-08 s^-2  stable
+Gamma1=1.5000  fundamental omega^2 = +5.08077e-08 s^-2  stable
+Gamma1=1.5500  fundamental omega^2 = +7.14578e-08 s^-2  stable
+Gamma1=1.6000  fundamental omega^2 = +9.40572e-08 s^-2  stable
+Gamma1=1.6667  fundamental omega^2 = +1.26836e-07 s^-2  stable

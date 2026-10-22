@@ -1,0 +1,16 @@
+pure: central enthalpy H_c = ln h_c = 0.00349  ->  1 - 1/h_c = 0.348 %
+   N =   100: first-step kick = 0.5611 g dt
+   N =   200: first-step kick = 0.5639 g dt
+   N =   400: first-step kick = 0.5654 g dt
+   N =   800: first-step kick = 0.5660 g dt
+   N =  1600: first-step kick = 0.5663 g dt
+neu: central enthalpy H_c = ln h_c = 0.00312  ->  1 - 1/h_c = 0.311 %
+   N =   100: first-step kick = 0.5608 g dt
+   N =   200: first-step kick = 0.5637 g dt
+   N =   400: first-step kick = 0.5652 g dt
+   N =   800: first-step kick = 0.5659 g dt
+   N =  1600: first-step kick = 0.5662 g dt
+
+neutronised N = 400, fixed dt x 1.0: status crossing, t_cross 98.149, zone of minimum gap 4, zones with R' <= 0 at that step: [0, 2, 4, 6, 8, 10, 12]
+neutronised N = 400, fixed dt x 0.5: status crossing, t_cross 102.275, zone of minimum gap 5, zones with R' <= 0 at that step: [1, 3, 5, 7, 9, 11, 13]
+neutronised N = 400, fixed dt x 0.25: status crossing, t_cross 103.445, zone of minimum gap 3, zones with R' <= 0 at that step: [3, 5]

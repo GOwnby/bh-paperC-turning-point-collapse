@@ -1,0 +1,49 @@
+# e1/e2: mass and number conservation, report data and TOV data, GR dynamics, T = 50 (before any crossing)
+  pure report  N= 100  max|M(t)/M(0)-1| = 6.656e-13   rho_c change +2.205e-01   status tmax
+  pure report  N= 200  max|M(t)/M(0)-1| = 1.578e-11   rho_c change +2.204e-01   status tmax
+  pure report  N= 400  max|M(t)/M(0)-1| = 1.995e-11   rho_c change +2.203e-01   status tmax
+  pure report  N= 800  max|M(t)/M(0)-1| = 2.099e-11   rho_c change +2.202e-01   status tmax
+  pure TOV-pt  N= 100  max|M(t)/M(0)-1| = 7.594e-14   rho_c change +5.940e-04   status tmax
+  pure TOV-pt  N= 200  max|M(t)/M(0)-1| = 6.106e-14   rho_c change +3.246e-04   status tmax
+  pure TOV-pt  N= 400  max|M(t)/M(0)-1| = 1.821e-14   rho_c change +1.377e-04   status tmax
+  pure TOV-pt  N= 800  max|M(t)/M(0)-1| = 5.329e-15   rho_c change +4.940e-05   status tmax
+  neu report  N= 100  max|M(t)/M(0)-1| = 2.482e-12   rho_c change +2.507e-01   status tmax
+  neu report  N= 200  max|M(t)/M(0)-1| = 9.883e-12   rho_c change +2.511e-01   status tmax
+  neu report  N= 400  max|M(t)/M(0)-1| = 1.302e-11   rho_c change +2.511e-01   status tmax
+  neu report  N= 800  max|M(t)/M(0)-1| = 1.380e-11   rho_c change +2.510e-01   status tmax
+  neu TOV-pt  N= 100  max|M(t)/M(0)-1| = 8.293e-14   rho_c change +1.318e-04   status tmax
+  neu TOV-pt  N= 200  max|M(t)/M(0)-1| = 4.841e-14   rho_c change +2.829e-04   status tmax
+  neu TOV-pt  N= 400  max|M(t)/M(0)-1| = 1.554e-14   rho_c change +1.266e-04   status tmax
+  neu TOV-pt  N= 800  max|M(t)/M(0)-1| = 3.775e-15   rho_c change +5.165e-05   status tmax
+
+# e3: Newtonian mode energy conservation (report profile, T = 60, dt = CFL 0.4 x 0.5^k)
+  pure N= 100 dt x1.0: |W| = 2.1431e-06, max_t |E(t)-E(0)|/|W| = 4.913e-08, final 1.566e-08
+  pure N= 100 dt x0.5: |W| = 2.1431e-06, max_t |E(t)-E(0)|/|W| = 4.916e-08, final 1.578e-08
+  pure N= 200 dt x1.0: |W| = 2.1454e-06, max_t |E(t)-E(0)|/|W| = 9.553e-09, final 9.954e-09
+  pure N= 200 dt x0.5: |W| = 2.1454e-06, max_t |E(t)-E(0)|/|W| = 9.267e-09, final 9.939e-09
+  pure N= 400 dt x1.0: |W| = 2.1460e-06, max_t |E(t)-E(0)|/|W| = 5.025e-10, final 2.763e-10
+  pure N= 400 dt x0.5: |W| = 2.1460e-06, max_t |E(t)-E(0)|/|W| = 5.028e-10, final 2.767e-10
+  neu N= 100 dt x1.0: |W| = 1.5539e-06, max_t |E(t)-E(0)|/|W| = 4.268e-08, final 4.194e-09
+  neu N= 100 dt x0.5: |W| = 1.5539e-06, max_t |E(t)-E(0)|/|W| = 4.282e-08, final 4.335e-09
+  neu N= 200 dt x1.0: |W| = 1.5563e-06, max_t |E(t)-E(0)|/|W| = 4.622e-09, final 4.943e-09
+  neu N= 200 dt x0.5: |W| = 1.5563e-06, max_t |E(t)-E(0)|/|W| = 4.594e-09, final 4.908e-09
+  neu N= 400 dt x1.0: |W| = 1.5569e-06, max_t |E(t)-E(0)|/|W| = 3.420e-09, final 3.263e-09
+  neu N= 400 dt x0.5: |W| = 1.5569e-06, max_t |E(t)-E(0)|/|W| = 3.421e-09, final 3.262e-09
+
+# e4: energy equation (3) checked over one step at t = 20 (report data, N = 400)
+  pure: dt = 2.7551e-02   max_j |dm_j - dt (f0+f1)/2| / max_j |dm_j| = 4.962e-05
+  pure: dt = 1.3775e-02   max_j |dm_j - dt (f0+f1)/2| / max_j |dm_j| = 4.957e-05
+  pure: dt = 6.8877e-03   max_j |dm_j - dt (f0+f1)/2| / max_j |dm_j| = 4.992e-05
+  pure: observed order of the one-step residual in dt: 0.00, -0.01  (3 expected for a second-order scheme; residual also contains the fixed spatial truncation error)
+  neu: dt = 3.0385e-02   max_j |dm_j - dt (f0+f1)/2| / max_j |dm_j| = 4.927e-05
+  neu: dt = 1.5193e-02   max_j |dm_j - dt (f0+f1)/2| / max_j |dm_j| = 4.908e-05
+  neu: dt = 7.5963e-03   max_j |dm_j - dt (f0+f1)/2| / max_j |dm_j| = 4.967e-05
+  neu: observed order of the one-step residual in dt: 0.01, -0.02  (3 expected for a second-order scheme; residual also contains the fixed spatial truncation error)
+
+# e4b: the dt-independent part of that residual is the spatial truncation error of the discrete energy equation; scaling with N (one step, same time, dts = 1)
+  pure: residual N=100,200,400,800: 8.016e-04, 2.001e-04, 4.992e-05, 1.240e-05; observed orders in h: 2.00, 2.00, 2.01
+  neu: residual N=100,200,400,800: 7.904e-04, 1.977e-04, 4.967e-05, 1.164e-05; observed orders in h: 2.00, 1.99, 2.09
+
+# e5: definition check Gamma^2 = 1 + U^2 - 2 m/R at the end of a run, and fixed-point convergence
+  pure: max|Gamma^2 - (1+U^2-2m/R)| = 1.11e-16; relative change of m(R) vs the 30-iteration fixed point, starting from Gamma = 1 with n iterations: n=1: 1.7e-03, n=2: 2.3e-06, n=3: 2.5e-09, n=4: 2.2e-12, n=8: 0.0e+00  (in the evolution the previous Gamma is the starting guess)
+  neu: max|Gamma^2 - (1+U^2-2m/R)| = 1.11e-16; relative change of m(R) vs the 30-iteration fixed point, starting from Gamma = 1 with n iterations: n=1: 1.5e-03, n=2: 1.8e-06, n=3: 1.7e-09, n=4: 1.3e-12, n=8: 0.0e+00  (in the evolution the previous Gamma is the starting guess)

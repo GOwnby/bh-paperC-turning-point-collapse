@@ -1,12 +1,13 @@
+import os
 import importlib
-import euler_module_seeded as EMS
+EMS = importlib.import_module(os.environ.get('SEEDED_MODULE', 'euler_module_seeded'))   # SEEDED_MODULE=euler_module_seeded_guarded: stop at |v| > 1e12 m/s (see README.txt)
 importlib.reload(EMS)
 import numpy as np, pickle
 
 eps = 1e-4
 results = {}
 for N in [800, 1600]:
-    t, rho, v, p, log, status, wall = EMS.run(N, eps, t_final=3.0, wall_budget=150)
+    t, rho, v, p, log, status, wall = EMS.run(N, eps, t_final=3.0, wall_budget=float(os.environ.get('WALL_BUDGET', 150)))
     results[N] = log
     print(f"N={N}: status={status}, t_reached={t:.3f}s, wall={wall:.1f}s")
     for i in range(0, len(log), max(1,len(log)//12)):

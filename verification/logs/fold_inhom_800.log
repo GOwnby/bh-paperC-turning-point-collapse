@@ -1,0 +1,33 @@
+model quadratic coefficient 26.086471185080036 vs exact-GR 1.5*kappa 28.0995 ratio 0.9283606891610184 fit resid 6.648027220034916e-06
+handoff t 364.68722060620684 lam,lamdot [ 0.96872931 -0.02473155]
+model scale 1.077: t(0.5)=1.7083 t(0.15)=1.7601 plunge 0.0518
+model scale 1.000: t(0.5)=1.7595 t(0.15)=1.8133 plunge 0.0538
+16972 t=0.450 lam_h=0.95338 rho_c/rho_c0=1.1335 maxcomp=0.00726 viol=1.8e-10 wall=389
+36532 t=0.950 lam_h=0.91837 rho_c/rho_c0=1.2683 maxcomp=0.00754 viol=5.9e-10 wall=865
+58283 t=1.450 lam_h=0.80462 rho_c/rho_c0=1.8897 maxcomp=0.00860 viol=1.9e-09 wall=1438
+69702 t=1.653 lam_h=0.63969 rho_c/rho_c0=3.7738 maxcomp=0.01080 viol=3.8e-09 wall=1733
+70049 t=1.658 lam_h=0.63218 rho_c/rho_c0=3.9109 maxcomp=0.01093 viol=3.9e-09 wall=1742
+70403 t=1.663 lam_h=0.62433 rho_c/rho_c0=4.0616 maxcomp=0.01107 viol=4.0e-09 wall=1752
+70764 t=1.668 lam_h=0.61614 rho_c/rho_c0=4.2271 maxcomp=0.01121 viol=4.1e-09 wall=1763
+71132 t=1.673 lam_h=0.60758 rho_c/rho_c0=4.4092 maxcomp=0.01137 viol=4.2e-09 wall=1773
+71508 t=1.678 lam_h=0.59863 rho_c/rho_c0=4.6111 maxcomp=0.01154 viol=4.3e-09 wall=1783
+71893 t=1.683 lam_h=0.58923 rho_c/rho_c0=4.8366 maxcomp=0.01172 viol=4.4e-09 wall=1794
+72287 t=1.688 lam_h=0.57936 rho_c/rho_c0=5.0899 maxcomp=0.01192 viol=4.5e-09 wall=1805
+72691 t=1.693 lam_h=0.56895 rho_c/rho_c0=5.3762 maxcomp=0.01214 viol=4.6e-09 wall=1816
+73107 t=1.698 lam_h=0.55792 rho_c/rho_c0=5.7034 maxcomp=0.01238 viol=4.8e-09 wall=1829
+73535 t=1.703 lam_h=0.54622 rho_c/rho_c0=6.0798 maxcomp=0.01264 viol=4.9e-09 wall=1841
+73978 t=1.708 lam_h=0.53372 rho_c/rho_c0=6.5201 maxcomp=0.01294 viol=5.1e-09 wall=1853
+74437 t=1.713 lam_h=0.52032 rho_c/rho_c0=7.0408 maxcomp=0.01327 viol=5.2e-09 wall=1865
+74914 t=1.718 lam_h=0.50592 rho_c/rho_c0=7.6652 maxcomp=0.01364 viol=5.4e-09 wall=1878
+75412 t=1.723 lam_h=0.49038 rho_c/rho_c0=8.4245 maxcomp=0.01407 viol=5.6e-09 wall=1892
+75935 t=1.728 lam_h=0.47353 rho_c/rho_c0=9.3643 maxcomp=0.01457 viol=5.8e-09 wall=1906
+76487 t=1.733 lam_h=0.45521 rho_c/rho_c0=10.5532 maxcomp=0.01515 viol=6.0e-09 wall=1920
+77075 t=1.738 lam_h=0.43509 rho_c/rho_c0=12.1010 maxcomp=0.01584 viol=6.2e-09 wall=1936
+77706 t=1.743 lam_h=0.41283 rho_c/rho_c0=14.1846 maxcomp=0.01669 viol=6.4e-09 wall=1951
+78392 t=1.748 lam_h=0.38784 rho_c/rho_c0=17.1376 maxcomp=0.01776 viol=6.7e-09 wall=1969
+79151 t=1.753 lam_h=0.35926 rho_c/rho_c0=21.6191 maxcomp=0.01916 viol=7.1e-09 wall=1989
+80012 t=1.758 lam_h=0.32579 rho_c/rho_c0=29.0946 maxcomp=0.02111 viol=7.4e-09 wall=2012
+81029 t=1.763 lam_h=0.28512 rho_c/rho_c0=43.6404 maxcomp=0.02409 viol=7.9e-09 wall=2040
+82320 t=1.768 lam_h=0.23243 rho_c/rho_c0=81.3776 maxcomp=0.02948 viol=8.5e-09 wall=2074
+84289 t=1.773 lam_h=0.15290 rho_c/rho_c0=294.7267 maxcomp=0.04451 viol=9.3e-09 wall=2127
+Lag N=800: t(0.5)=1.7200 t(0.15)=1.7731

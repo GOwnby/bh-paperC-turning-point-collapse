@@ -1,0 +1,12 @@
+N=100  fiducial 5e13: growth rate = 5.0133 s^-1
+N=100  turning point: lowest sigma^2 = 1.58504 s^-2 ; next modes omega^2 = [1337.52409041 1337.52409041] (omega_2 = 36.57 rad/s)
+N=100  stable 1e13: fundamental omega = 2.92243 rad/s ; max Re(eigenvalue) = +1.35e-12 s^-1, min = -1.79e-12 s^-1
+N=200  fiducial 5e13: growth rate = 5.2374 s^-1
+N=200  turning point: lowest sigma^2 = 0.52142 s^-2 ; next modes omega^2 = [1371.34068032 1371.34068032] (omega_2 = 37.03 rad/s)
+N=200  stable 1e13: fundamental omega = 2.84199 rad/s ; max Re(eigenvalue) = +4.53e-12 s^-1, min = -7.05e-12 s^-1
+N=400  fiducial 5e13: growth rate = 5.3094 s^-1
+N=400  turning point: lowest sigma^2 = 0.16965 s^-2 ; next modes omega^2 = [1376.80280655 1376.80280655] (omega_2 = 37.11 rad/s)
+N=400  stable 1e13: fundamental omega = 2.81486 rad/s ; max Re(eigenvalue) = +8.60e-11 s^-1, min = -5.25e-11 s^-1
+N=800  fiducial 5e13: growth rate = 5.3326 s^-1
+N=800  turning point: lowest sigma^2 = 0.05502 s^-2 ; next modes omega^2 = [1377.92564785 1377.92564785] (omega_2 = 37.12 rad/s)
+N=800  stable 1e13: fundamental omega = 2.80595 rad/s ; max Re(eigenvalue) = +3.67e-10 s^-1, min = -4.24e-10 s^-1

@@ -1,0 +1,41 @@
+# 1. replica vs original right-hand side
+  pure: rhs(initial) rel.diff 3.0e-10; rhs(perturbed) rel.diff 3.0e-11; after 300 RK4 steps max|y_replica - y_original| = 1.2e-13   PASS
+  neu: rhs(initial) rel.diff 1.7e-10; rhs(perturbed) rel.diff 8.9e-11; after 300 RK4 steps max|y_replica - y_original| = 5.5e-14   PASS
+
+# 2. reproduction of the re-creation (dt = 1e-3, N = 300, R < 0 stop)
+  [neu] crossing at t = 2.188 (L/c) = 11.79 ms; shell 299 of 300 (r/R = 1.000, rho/rho_c = 3.159e-03); central density changed by +0.10 %; wall 3 s
+      max |rho_c/rho_c0 - 1| over the logged history: 0.001
+  [pure] crossing at t = 14.783 (L/c) = 78.99 ms; shell 0 of 300 (r/R = 0.010, rho/rho_c = 0.000e+00); central density changed by -100.00 %; wall 22 s
+      max |rho_c/rho_c0 - 1| over the logged history: 0.205
+
+# 3a. residual acceleration of the equilibrium initial data (exact equilibrium: dU/dt = 0 up to discretisation error)
+  pure: (dU/dt)/g at nodes [0, 1, 2, 5, 10, 30, 100, 200, 280, 290, 295, 297, 298, 299]:
+      [-0.772 -0.102  0.008 -0.001 -0.006 -0.004 -0.005 -0.004 -0.003 -0.003
+ -0.006 -0.027 -0.18  -1.   ]
+      max |dU/dt| = 1.310e-03 (g at the surface = 1.310e-03)
+      number of nodes with weight w < 0.99: 3 (indices [297, 298, 299]), rho/rho_c there: [6.41e-06 2.27e-06 0.00e+00]
+  neu: (dU/dt)/g at nodes [0, 1, 2, 5, 10, 30, 100, 200, 280, 290, 295, 297, 298, 299]:
+      [-0.349 -0.102  0.036  0.011  0.002 -0.003 -0.005 -0.003 -0.002 -0.003
+ -0.007 -0.038 -0.244 -1.   ]
+      max |dU/dt| = 1.095e-03 (g at the surface = 1.095e-03)
+      number of nodes with weight w < 0.99: 4 (indices [296, 297, 298, 299]), rho/rho_c there: [9.72e-06 5.20e-06 1.84e-06 0.00e+00]
+
+# 3b. node-number dependence of the spline scheme (dt scaled as 1e-3*300/N)
+  [neu] N=150: crossing t = 2.734, shell 149 (r/R = 1.000), drho_c = -0.10 %  (1 s)
+  [neu] N=300: crossing t = 2.188, shell 299 (r/R = 1.000), drho_c = +0.10 %  (3 s)
+  [neu] N=600: crossing t = 2.228, shell 599 (r/R = 1.000), drho_c = +0.72 %  (16 s)
+  [pure] N=150: crossing t = 2.482, shell 149 (r/R = 1.000), drho_c = -0.05 %  (1 s)
+  [pure] N=300: crossing t = 14.783, shell 0 (r/R = 0.010), drho_c = -100.00 %  (22 s)
+  [pure] N=600: crossing t = 1.898, shell 599 (r/R = 1.000), drho_c = +7.93 %  (13 s)
+
+# 3c. spline scheme with the pressure-force weight removed (w = 1) and with a^2 -> a (consistent proper-time form)
+  [neu] no weight mask: crossing t = 0.001, shell 0 (r/R = 0.010), drho_c = +nan %
+  [neu] a^1 instead of a^2: crossing t = 2.188, shell 299 (r/R = 1.000), drho_c = +0.10 %
+  [neu] no mask and a^1: crossing t = 0.001, shell 0 (r/R = 0.010), drho_c = +nan %
+  [pure] no weight mask: crossing t = 0.001, shell 0 (r/R = 0.010), drho_c = +nan %
+  [pure] a^1 instead of a^2: crossing t = 14.466, shell 296 (r/R = 0.990), drho_c = -12.88 %
+  [pure] no mask and a^1: crossing t = 0.001, shell 0 (r/R = 0.010), drho_c = +nan %
+
+# 3d. free-fall estimate for the outermost node when its pressure force is switched off
+  pure: spacing 0.00331, g = 1.3096e-03  ->  sqrt(2 dr/g) = 2.249 L/c  (crossing of the outermost pair if the outer node alone falls freely)
+  neu: spacing 0.00331, g = 1.0947e-03  ->  sqrt(2 dr/g) = 2.459 L/c  (crossing of the outermost pair if the outer node alone falls freely)

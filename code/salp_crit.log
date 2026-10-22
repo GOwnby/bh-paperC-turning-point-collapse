@@ -1,0 +1,4 @@
+He4: Salpeter-GR rho_max=2.346e+10 g/cc  Mmax=1.40134 | FMT-GR (Rotondo) rho=1.560e+10 M=1.40906
+C12: Salpeter-GR rho_max=2.386e+10 g/cc  Mmax=1.38490 | FMT-GR (Rotondo) rho=2.120e+10 M=1.38603
+O16: Salpeter-GR rho_max=2.402e+10 g/cc  Mmax=1.37823 | FMT-GR (Rotondo) rho=1.940e+10 M=1.38024
+Fe56: Salpeter-GR rho_max=2.933e+10 g/cc  Mmax=1.15071 | FMT-GR (Rotondo) rho=1.180e+09 M=1.10618

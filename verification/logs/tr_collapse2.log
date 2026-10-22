@@ -1,0 +1,15 @@
+Non-relativistic limit (x=0.001): effective Gamma = 1.6681  (expect 5/3 = 1.6667)
+Ultra-relativistic limit (x=1000.0): effective Gamma = 1.3333  (expect 4/3 = 1.3333)
+
+At x=10.0: rho=1.9476e+12 kg/m^3, P=1.1888e+26 Pa
+Nuclear density for reference: ~2.3e17 kg/m^3
+x needed to reach nuclear density:
+  x = 490.620  (this is well past the ultra-relativistic regime; Chandrasekhar's electron-only
+   EOS is not physically trustworthy this far -- neutronization occurs first, around
+   rho ~ 1e12-1e13 kg/m^3 for typical WD compositions -- flagged explicitly, see notes below)
+Star: M=1.4204 Msun, R=1601.9 km
+compactness 2m/R at surface: 2.619210e-03
+rho_dimless at innermost grid point vs expected central value:
+  computed from m-gradient at i=0 would be unreliable; using interpolated rho directly there instead
+  rho_c dimless expected = 9.5274e-03
+saved initdata2.pkl

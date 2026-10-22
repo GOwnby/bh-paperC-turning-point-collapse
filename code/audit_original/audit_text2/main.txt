@@ -1,0 +1,1973 @@
+             Collapse Toward a Regularized Core:
+      General-Relativistic Instability of a Degenerate Star
+              Near Its Effective Maximum Mass
+                                        Gracen Ownby
+
+
+                                            Abstract
+     Paper B in this series shows that no known classical field theory sources the mass-dependent
+regularized core the rest of the series studies, within general relativity coupled to standard mat-
+ter. This leaves open a dynamical question Paper B does not address: setting the sourcing
+problem aside, does realistic gravitational collapse even approach the regime where such a core
+would matter, or does ordinary physics intervene first? We study this for the most natural
+candidate route, a degenerate stellar core collapsing near its effective maximum mass. A first
+attempt, using the real Chandrasekhar degenerate-electron equation of state extended with a
+simplified, single-nuclide neutronization treatment, found a genuine maximum mass and a New-
+tonian radial-pulsation instability there; comparing against precision literature then showed
+this equation of state deviates from the real physics by an order of magnitude in density, be-
+cause general relativity, not neutronization, is the mechanism that actually limits a Carbon-12
+white dwarf’s mass. Correcting this — a general-relativistic (TOV) equilibrium structure using
+the pure degenerate-electron equation of state, validated against the historical Chandrasekhar–
+Tooper critical mass to 0.07% — changes the configuration but not the conclusion. Applying our
+already-validated Newtonian pulsation solver to the corrected structure finds the local adiabatic
+index everywhere above the classical Pekeris threshold, apparently stable; but the corrected con-
+figuration sits past its own mass maximum, where the rigorously proven turning-point theorem
+places the onset of dynamical instability at the mass maximum and so implies instability beyond
+it, through a mechanism (the Chandrasekhar–Tooper effect) that is intrinsically relativistic and
+invisible to Newtonian theory. Settling this directly required implementing Chandrasekhar’s
+own general-relativistic pulsation equation from his 1964 variational principle, a substantially
+harder calculation that we document honestly, including several genuine implementation er-
+rors found and corrected along the way and validated, before trusting any new result, against
+both the Newtonian limit (better than 99.9% agreement at low compactness) and the historical
+critical mass. The calculation confirms instability directly, and an exact external test — the
+turning-point theorem, which requires the fundamental eigenvalue to vanish exactly where the
+mass peaks — is now passed to 0.01% in the critical density for five equations of state, after
+that same test exposed and led us to correct two errors in our first implementation (a miss-
+ing term in Chandrasekhar’s potential, and an energy density inconsistent with the first law of
+thermodynamics). Two trial functions agree to within 1% (σ 2 ≈ −28 s−2 ), each individually
+sufficient for instability by Chandrasekhar’s own variational principle; Rayleigh–Ritz tightens
+this to a converged σ 2 = −28.55 s−2 , e-folding time 0.187 s (our earlier value, −41.05 s−2 ,
+is superseded). This is a more carefully grounded, independently confirmed dynamical fact
+about the matter route to this regularization scale than our first attempt, resting on the ac-
+tual relativistic mechanism rather than an artifact of an over-simplified equation of state. We
+also checked the Newtonian canonical-energy criterion of Friedman against the classical ho-
+mologous pulsation constant (both vanish at exactly Γ1 = 4/3 and agree in sign); identifying
+the relativistic unstable mode as a negative-canonical-energy perturbation rests on Friedman’s
+general result together with Sorkin’s theorem, not on this check alone. On the preliminary con-
+figuration, an independent Eulerian hydrodynamics code evolved cleanly through a numerical
+
+
+                                                1
+     obstruction (shell crossing) that stops a comoving Lagrangian treatment, but its result was not
+     resolution-converged even under the mathematically correct pure-growing-mode initial condi-
+     tion; redoing this on the corrected configuration, with the gravitational source term rebuilt to
+     be TOV-consistent, resolves the resolution-dependence of the qualitative outcome and repro-
+     duces the sign-symmetry a genuine instability requires, but still does not yield a trustworthy
+     quantitative growth rate, a discrepancy traced to a numerical-stiffness obstacle in an otherwise
+     successful precision-exact reformulation. Rather than continuing to patch an increasingly elabo-
+     rate from-scratch nonlinear code, we settled the qualitative nonlinear question using established
+     numerical-relativity literature instead: full 3+1 evolutions of stars just past their own turning
+     point show a genuine bifurcation, collapsing to a black hole under an inward perturbation and
+     migrating to the stable branch under an outward one, confirmed as a critical phenomenon in
+     subsequent work. This retroactively explains our own code’s opposite-sign-seed divergence as
+     physical rather than numerical, and, for the astrophysically realized (compressive) direction this
+     series’ scenario actually involves, establishes genuine, non-saturating collapse — not a bounded
+     oscillation and not migration to safety — as the settled qualitative outcome. We then obtain
+     an actual quantitative collapse timescale, without needing the strong-form code’s delicate can-
+     cellation (gravity and pressure terms individually enormous, differing by parts in a thousand)
+     to converge: a single-degree-of-freedom nonlinear model, built as the nonlinear continuation
+     of Chandrasekhar’s own homologous trial function and validated term by term against exact
+     analytic results, with its approximate frozen-background treatment of self-gravity calibrated
+     transparently, once, against the independently validated linear eigenvalue and cross-checked
+     against an exact-energy construction. Integrated forward, it reproduces the validated e-folding
+     time (0.19 s) during an initial slow exponential phase, then runs away on the star’s own dynam-
+     ical timescale (∼ 0.03 s) once the perturbation becomes of order unity, giving a total collapse
+     time of order a few seconds for generic small seed perturbations. These two numbers rest on
+     different footing, and we are explicit about which is which: the e-folding time is an essentially
+     direct consequence of the independently validated linear eigenvalue, while the plunge duration
+     and total collapse time are extrapolations of a calibration fixed only at the linear level, offered
+     as an order-of-magnitude estimate rather than a precision result, explicitly reported as logarith-
+     mically sensitive to the (astrophysically undetermined) seed size for a star placed beyond the
+     turning point, and explicitly not pushed through the compactness threshold at which even the
+     calibrated frozen-metric treatment can no longer be trusted. For the physically relevant case of
+     a star reaching the maximum mass by slow accretion, a ramped saddle-node analysis built on
+     the same exact-GR coefficients (Painlevé-I scaling, checked against the homologous model to
+     0.03%) removes the seed ambiguity and gives a delay of minutes after Mmax is crossed, scaling
+     as Ṁ −1/5 , with collapse at Mmax to better than 10−10 M⊙ .
+
+
+1    Introduction
+This series studies a Hayward-type regular black hole whose regularization scale is tied to the
+mass, ε3 = 2GM ℓ2 /c2 , so that the core density is independent of M . Paper A studies the exterior:
+evaporation toward the critical mass at which the metric’s horizons merge, and the fate of the
+radiation’s entanglement entropy. Paper B asks what sources the core, and finds that nothing
+classical does — not a fluid with the required equation of state, not nonlinear electrodynamics,
+not a minimally or non-minimally coupled scalar field, alone or in combination, within general
+relativity. That is a statement about which static configurations general relativity can support; it
+says nothing about whether a real collapsing star would ever reach the regime where the question
+matters in the first place.
+    This paper asks the dynamical question directly, for the most physically motivated candidate:
+a degenerate stellar core, collapsing under its own gravity, pushed past the point where degeneracy
+pressure alone can hold it up. The qualitative story is old and well established — white dwarfs
+
+
+                                                     2
+above an effective maximum mass are unstable, and the instability is tied to the adiabatic index
+crossing the classical Pekeris threshold Γ1 = 4/3 [Pekeris, 1938, Chandrasekhar, 1935]. What is not
+established, and what this paper computes directly, is whether this generic story holds quantita-
+tively for the specific matter model and specific configuration that would need to produce something
+resembling the regularized core of Papers A and B: a real degenerate equation of state, softened
+by neutronization as it approaches the relevant densities, evolved as a genuinely inhomogeneous
+general-relativistic collapse rather than a toy homogeneous one.
+    We build this up in stages, including a real correction along the way. Section 2 derives the cor-
+rect equations for inhomogeneous collapse, including a gauge subtlety that explains why a simpler
+homogeneous treatment cannot just be extended. Section 3 builds the real equation of state, finds
+a genuine maximum-mass turnover from a first, simplified neutronization treatment, then shows
+that treatment deviates from precision literature by an order of magnitude and corrects it using
+the actual dominant (general-relativistic) mechanism, validated against a historical result before
+being trusted. Section 4 summarizes, for the preliminary configuration, what two independent
+nonlinear numerical strategies show and do not show about the resulting dynamics; both encounter
+real, instructive limitations, documented in full in the companion technical report [Ownby, 2026].
+Section 5 is the paper’s linear-stability core: it begins with a Newtonian linear-stability calculation
+that turns out, applied honestly to the corrected structure, not to see an instability that must
+nonetheless be present, which motivates implementing Chandrasekhar’s actual general-relativistic
+pulsation equation — a substantially harder calculation, whose own debugging history we report in
+full — to settle the question unambiguously; Section 5.9 then tests it against an exact result (the
+turning-point theorem) and reports the two errors that test exposed in our first implementation.
+Section 6 reports a direct, carefully controlled nonlinear test, first on the preliminary configura-
+tion and then redone on the corrected one with a properly TOV-consistent nonlinear code, and
+an honest account of what each does and does not resolve. Section 7 then settles the qualitative
+nonlinear question — not by further patching that code, but by connecting our validated linear
+eigenvalue to Friedman’s canonical-energy criterion and to established numerical-relativity liter-
+ature on exactly this class of configuration. Section 8 goes on to obtain an actual quantitative
+collapse timescale, using a single-degree-of-freedom nonlinear model built as the nonlinear contin-
+uation of Chandrasekhar’s own homologous trial function, validated term by term and calibrated,
+transparently, against the independently known linear eigenvalue. The same section also reports
+a two-mode extension (Section 8.4) a composition and lattice-correction survey (Section 8.5), and
+the dynamic fold passage of a star reaching Mmax by slow accretion (Section 8.6), which replaces
+the free seed amplitude by one set by the accretion rate. Section 9 discusses what all of this means
+for the series, including what the correction changes and what it does not.
+
+
+2     Setup: inhomogeneous collapse in general relativity
+2.1   Why the homogeneous treatment cannot simply be extended
+Paper B’s collapse calculation uses a homogeneous interior matched to the exterior mass function at
+the stellar surface. Genuinely inhomogeneous collapse requires the areal radius R, and the pressure
+and density, to depend on the comoving radial label r as well as time τ . A first attempt at the
+natural generalization,
+                              ds2 = −dτ 2 + X(τ, r)2 dr2 + R(τ, r)2 dΩ2 ,                       (1)
+a fully synchronous, unit-lapse, comoving gauge, fails for a specific and informative reason. Direct
+computation of ∇µ T µ r = 0 for a perfect fluid comoving with this metric gives, exactly, ∂p/∂r = 0.
+
+
+                                                  3
+The metric is reporting that a unit lapse is only consistent with a pressure-free source (dust)
+or one with spatially uniform pressure — exactly the two cases already covered without genuine
+inhomogeneity. Physically, a fluid with a genuine pressure gradient has non-geodesic worldlines,
+since the pressure gradient accelerates fluid elements relative to free fall, and a unit-lapse metric
+cannot represent that.
+
+2.2     The corrected system
+With a general lapse a(τ, r),
+
+                             ds2 = −a(τ, r)2 dτ 2 + X(τ, r)2 dr2 + R(τ, r)2 dΩ2 ,                   (2)
+
+direct symbolic computation (in the tractable a = 1 limit) together with the physical argument
+that extends it give
+                       ∂m                     R′
+                          = 4πρR2 R′ ,           independent of τ along each shell,                 (3)
+                       ∂r                     X
+with m(τ, r) the standard Misner–Sharp mass, 1 − 2m/R = (R′ /X)2 − Ṙ2 . The second relation
+follows from T τ r = 0 for a comoving perfect fluid (no momentum flux), a statement independent
+of the lapse; a fully general re-derivation with a ̸= 1 exceeded practical symbolic computation and
+was not completed independently, though we see no reason to doubt it extends. The remaining
+equations are the standard Misner–Sharp system [Misner and Sharp, 1964],
+                                   ∂m
+                                       = −4πpR2 U,                                                  (4)
+                                   ∂τ
+                                  1 ∂a       1 ∂p
+                                       =−          ,                                                (5)
+                                  a ∂r    ρ + p ∂r
+                                              m + 4πR3 p
+                                                                     
+                                   ∂U                        Γ 1 ∂p
+                                       = −a              +              ,                           (6)
+                                   ∂τ            R2        ρ + p X ∂r
+
+U ≡ ∂R/∂τ , Γ ≡ R′ /X, used here without independent re-derivation. Both known limits check
+out directly: p = 0 reduces Eqs. (4)–(6) exactly to the Oppenheimer–Snyder equation of motion
+[Oppenheimer and Snyder, 1939] already used in Paper B; spatially uniform ρ, p reduces Eq. (5) to
+∂a/∂r = 0 and Eq. (3) to Paper B’s homogeneous mass-matching relation.
+
+
+3     A real degenerate-matter equation of state
+3.1     Chandrasekhar degeneracy and its limit
+We use the Chandrasekhar (1935) equation of state for a relativistic degenerate electron gas exactly,
+parametrized by x ≡ pF /(me c),
+
+                8π  me c 3 3            πm4e c5                             p
+    ρ = µe mH               x ,     P =           f (x),    f (x) = x(2x2 − 3) 1 + x2 + 3 sinh−1 x, (7)
+                 3    h                    3h3
+µe = 2. This reproduces the correct polytropic limits (Γ = 5/3 for x ≪ 1, Γ = 4/3 for x ≫ 1) to
+four significant figures, and a Newtonian hydrostatic sequence built from it reproduces the Chan-
+drasekhar mass (1.456 M⊙ for µe = 2 with the constants used here) as its high-density asymptote,
+without ever exceeding it — the well-known fact that pure electron degeneracy alone never produces
+a true maximum mass, only an asymptote.
+
+                                                       4
+3.2   Neutronization, and a genuine maximum mass
+Above ρ ∼ 1012 –1013 kg/m3 , electron capture onto nuclei reduces the electron fraction Ye and soft-
+ens the pressure below the pure-electron-gas value. We implement a bounded, physically grounded
+simplification of the full treatment [Baym et al., 1971]: fixing the mass number at A = 12 and find-
+ing, at each baryon density, the charge Z that minimizes total energy per baryon (nuclear mass via
+the semi-empirical mass formula, plus the electron energy already derived above). This reproduces
+the correct zero-density beta-stability charge (Zeq = 5.77 for A = 12, close to carbon’s Z = 6)
+and the correct threshold density scale for the onset of softening, from real nuclear binding-energy
+differences rather than an assumed cutoff.
+    The consequence was not anticipated when this calculation was set up: rebuilding the Newtonian
+hydrostatic sequence with this softened equation of state produces a genuine maximum mass,
+Mmax ≈ 1.214 M⊙ at ρc ≈ 2.3 × 1012 kg/m3 , with mass decreasing for higher central density —
+qualitatively the correct physics of why sufficiently dense white dwarfs are dynamically unstable
+before the naive Chandrasekhar limit.
+
+
+
+
+Figure 1: The mass–central-density sequence for the simplified, single-nuclide neutronized equation
+of state of this section. A genuine maximum exists, qualitatively correct, but Section 3.3 shows
+this specific curve is quantitatively inaccurate by an order of magnitude in density.
+
+    This specific quantitative result turned out not to survive contact with precision literature, and it
+is worth being direct about why. Comparing against Rotondo, Rueda, Ruffini & Xue [Rotondo et al.,
+2011], a precision treatment combining the full TOV equation, self-consistent β-equilibrium, and
+proper Coulomb lattice corrections, gives for Carbon-12 specifically ρcrit ≈ 2.12 × 1013 kg/m3 and
+Mcrit ≈ 1.386 M⊙ — our values above are off by a factor of ∼ 9 in density and ∼ 12% in mass. The
+reason is identifiable: that paper shows that for Carbon-12 specifically, the general-relativistic insta-
+bility (Chandrasekhar & Tooper [Chandrasekhar and Tooper, 1964]) sets in before neutronization
+does, so GR is the dominant mechanism for this composition, not the one this section included.
+Our simplified, single-nuclide, no-Coulomb-correction SEMF treatment also independently turns
+
+
+                                                   5
+out to soften the equation of state roughly three orders of magnitude too early in density compared
+to the real, experimentally-calibrated Carbon-12 β-decay threshold. Both effects point the same
+way: this section’s specific numbers are not quantitatively trustworthy, even though its qualitative
+conclusion (a genuine maximum mass exists) is correct and, as Section 3.3 shows, survives using
+the dominant (general-relativistic) mechanism instead.
+
+3.3   The dominant mechanism is general-relativistic, not neutronization, and
+      the corrected structure
+Since Rotondo et al. identify general relativity, not neutronization, as the mechanism that actually
+limits a Carbon-12 white dwarf’s mass, we redo the equilibrium structure using the pure (non-
+neutronized) Chandrasekhar equation of state — already validated above against the Newtonian
+Chandrasekhar mass — with the TOV equation instead of Newtonian hydrostatic equilibrium,
+dropping neutronization. This is self-consistent at the density where the mechanism sets in for 4 He
+and 12 C, but not at the fiducial test density below for 12 C, which lies above its inverse-β threshold
+(Section 8.5); neutronization there would soften the equation of state further, which we do not
+model.
+    We validated this directly against history before trusting it on anything new: Chandrasekhar &
+Tooper [Chandrasekhar and Tooper, 1964] computed the critical mass for this exact combination
+(pure degenerate-electron EOS, full GR) as Mcrit = 1.4176 M⊙ . Our TOV sequence, with the
+thermodynamically consistent energy density described below, gives Mmax = 1.4166 M⊙ at ρc =
+2.31 × 1013 kg/m3 — agreement to 0.07% (with M⊙ = 1.98841 × 1030 kg; the same value 1.4166 M⊙
+is quoted for this problem in the recent literature, arXiv:1401.0819), using independently written
+code, not tuned to reproduce this number. (An earlier version of this calculation, which took the
+rest-mass density as the energy density, gave 1.4252 M⊙ , 0.5% off, with the maximum misplaced to
+3.6 × 1013 kg/m3 ; see Section 5.9.)
+
+Energy density. Throughout the relativistic calculations the total energy density is ε = ρc2 +εe −
+                                                                   4 c5             √
+me ne c2 , where ρ = µe mu ne is the rest-mass density and εe = πm e
+                                                                 3h3
+                                                                        3[x(2x2 + 1) 1 + x2 − sinh−1 x]
+is the electron energy density including rest mass. This satisfies the first law, n dε/dn = ε + P ,
+exactly (checked analytically), which taking ε = ρc2 does not; the O(P/ρc2 ) ∼ 10−4 inconsistency
+of the latter is the same order as the margin Γ1 − 4/3 on which the instability depends. Wherever
+ρc2 appears below as an energy density (the TOV equation, the metric function a(r), and the
+factors 1 + P/ρc2 and P + ρc2 of the pulsation equation), it should be read as ε; Γ1 = d ln P/d ln ρ
+is unchanged because ρ ∝ n.
+    This corrected structure, not the preliminary one above, is what the rest of this paper uses.
+The new test configuration is ρc = 5 × 1013 kg/m3 , M = 1.4143 M⊙ , R = 815.8 km, compactness
+2GM/(Rc2 ) = 0.00512 — past the validated peak, on the classically unstable branch dM/dρc < 0,
+now for the right reason: an order of magnitude higher density, a somewhat higher mass, and
+a mechanism (general relativity, not an artificially over-softened equation of state) that survives
+precision scrutiny.
+
+
+4     What the nonlinear dynamics show, and where they stop
+A note on which configuration this section uses. The numerical investigation in this section and
+in Section 6 was carried out using the preliminary, SEMF-neutronized configuration of Section 3.2
+(ρc = 5 × 1012 kg/m3 ), before the comparison against precision literature in Section 3.3 identified
+
+
+                                                  6
+Figure 2: Left: our general-relativistic pulsation calculation (Section 5.5) converges to the
+independently-validated Newtonian result as compactness → 0, with the expected departure at
+higher compactness. Right: the corrected TOV mass sequence for the pure Chandrasekhar equa-
+tion of state, matching the historical Chandrasekhar–Tooper critical mass to 0.07%; the star marks
+the test configuration. The left panel now compares against a Newtonian reference computed from
+the same variational form in the c → ∞ limit on a Newtonian structure.
+
+that configuration’s quantitative limitations. We report it as it was performed. The qualitative
+numerical findings — an Eulerian code’s resolution-dependence near a marginal configuration, and
+what does and does not explain it — are a property of the numerical method applied to a star
+sitting near its own stability threshold, and there is no specific reason to expect them to disappear
+merely because the threshold’s precise mass and density have since been corrected; redoing this
+investigation on the corrected configuration of Section 3.3 is natural future work, not yet done, and
+we say so plainly rather than silently mixing the two configurations.
+    We evolved the marginal configuration two independent ways; both are reported in full, includ-
+ing their limitations, in the companion technical report [Ownby, 2026]. We summarize the results
+needed for what follows.
+    Lagrangian evolution using Eqs. (3)–(6) on a comoving grid evolves smoothly for roughly
+fourteen light-crossing times, then develops shell crossing — the areal radius ceasing to be a mono-
+tonic function of the comoving label, a well-documented coordinate pathology, not evidence of a
+curvature singularity — in a specific outer shell near, but not at, the free surface, while the central
+density has changed by at most 1–2%. The breakdown is an envelope phenomenon; it does not
+probe the interesting core physics.
+    An independent Eulerian, conservative, shock-capturing code, deliberately scoped to
+Newtonian self-gravity with the leading relativistic correction (justified since Section 5’s result is a
+classical effect, and general-relativistic corrections to this collapse were already shown in Paper B
+to be a ∼ 0.2% perturbation), evolves smoothly straight through the point where the Lagrangian
+code fails. A resolution study across a sixteen-fold range (N = 400 to 6400) shows this result
+is not converged, and does not even settle on a direction: central density at fixed time moves
+from net rarefaction at low resolution to net compression at high resolution, with the growth rate
+itself still rising at the highest resolution tested. A control run on a robustly stable configuration
+(the same equation of state, safely on the stable branch of Section 3.2) converges cleanly at the
+
+
+                                                   7
+same resolutions, ruling out a generic implementation error; the non-convergence is specific to the
+marginal configuration.
+   This situation — a clear nonlinear signal with an unclear, resolution-sensitive outcome —
+motivates settling the underlying linear question directly, independent of any nonlinear code’s
+particular numerical behavior.
+
+
+5     Linear instability: a direct, validated answer
+5.1   The radial pulsation equation, and an exact simplification
+For a Lagrangian radial displacement ξ(r)e−iωt about hydrostatic equilibrium, mass conservation
+and the adiabatic relation give
+                                            
+                             ∆ρ       ′   2ξ                   ∆ρ
+                                 =− ξ +        ,    ∆P = Γ1 P0     ,                        (8)
+                              ρ0           r                    ρ0
+
+Γ1 ≡ d ln P/d ln ρ the local adiabatic index (identical, for our barotropic equation of state, to
+the background logarithmic slope already tabulated in Section 3). The linearized Euler equation,
+including the self-gravity perturbation ϕ, gives the standard radial pulsation (LAWE) problem
+[Pekeris, 1938, Cowling, 1941, Chandrasekhar, 1964a]. We do not invoke the common Cowling
+approximation (dropping ϕ): for purely radial perturbations, the perturbed Poisson equation has
+an exact, local, closed-form solution,
+
+                                      ϕ′ (r) = −4πGρ0 (r)ξ(r),                                    (9)
+
+Writing out the two sides confirms this directly: with ρ′ = ∆ρ − ξρ′0 = −ρ0 (ξ ′ + 2ξ/r) − ξρ′0 ,
+substituting Eq. (9) gives
+                                                                
+                        1 d 2 ′              ′            ′   2ξ
+                              r ϕ = −4πG    ρ 0 ξ + ρ0   ξ   +       = 4πGρ′ ,             (10)
+                        r2 dr                                   r
+
+an identity (verified symbolically) rather than an approximation, valid precisely because ρ′ for l = 0
+is exactly a total radial derivative of ρ0 R2 ξ-type combinations. It does not hold for non-radial
+perturbations, and it removes an entire potential source of numerical ill-conditioning (a separately
+discretized, coupled potential field) before it can arise.
+
+5.2   A symmetric discretization, and two implementation errors found and cor-
+      rected
+A first attempt discretized the momentum equation directly on a finite-difference grid and failed a
+basic check: for a robustly stable polytrope, it returned an unstable-looking spectrum dominated
+by grid-scale noise rather than smooth physical modes. We rederived the problem in weak form,
+verified symbolically that the resulting bilinear form is exactly symmetric under exchanging the trial
+and test functions, and built a linear finite-element (Galerkin) assembly from it, which immediately
+gave clean, properly ordered spectra.
+    Matching the classical Pekeris Γ1 = 4/3 criterion [Pekeris, 1938] quantitatively required two
+further corrections, both caught by checking the weak form against the strong form as an exact
+algebraic identity — true by construction for any trial function, so a mismatch cannot be blamed on
+a poor trial function: Explicitly, multiplying the momentum equation by a test function η(r)r2 and
+
+
+                                                  8
+                                                              RR              ′  ′        ′ ′
+                                                                                               
+integrating by parts once gives the bilinear form B(ξ, η) =    0 A(r)ξη+C(r)(ξη +ξ η)+D(r)ξ η dr,
+with
+                           r2 P0′ ρ′0
+         A(r) = 4Γ1 P0 +              + 4rP0′ ,   C(r) = r(2Γ1 P0 + rP0′ ),   D(r) = Γ1 P0 r2 ,     (11)
+                              ρ0
+extracted directly from the symbolic integration by parts and verified to reproduce the pre-integration
+                                                                                          RR
+integrand exactly at test points. The generalized eigenvalue problem is then B(ξ, η) = ω 2 0 ρ0 r2 ξη dr
+for all test functions η, discretized with linear finite elements.
+
+  1. A missing boundary term. Integration by parts drops a boundary contribution only if P ′ (R) =
+     0 at the surface; the physically correct condition is ∆P (R) = 0, and since P ′ = ∆P − ξP0′ ,
+     these differ by ξ(R)P0′ (R), generally nonzero. The complete bilinear form includes an explicit
+     surface contribution,
+                                 B(ξ, η) → B(ξ, η) − R2 P0′ (R) ξ(R) η(R),                     (12)
+      confirmed symbolically and by two fully analytic test cases (closed-form equilibria, zero nu-
+      merical differentiation) for which the corrected identity holds to machine precision.
+
+  2. A silently truncated test structure. A self-consistent polytrope test case still failed the identity
+     check by a large, resolution-independent factor even with the boundary term corrected. The
+     cause was unrelated to the pulsation physics: the test polytrope builder’s integrator was
+     stopping at a fixed outer radius without confirming the true stellar surface had been reached,
+     applying the surface boundary condition at a point that was not a surface at all. We fixed
+     the builder to detect this and auto-expand until the true surface is found, and confirmed
+     separately that the actual white-dwarf equilibrium used throughout this paper was never
+     affected by this error.
+
+With both corrections, the identity holds to 5–6 significant figures for every Γ1 tested, and the
+solver reproduces the Pekeris criterion cleanly: the fundamental mode is unstable for Γ1 < 4/3,
+stable for Γ1 > 4/3, and within numerical noise of exactly zero (∼ 2×10−11 s−2 , against O(10−8 ) s−2
+away from the critical point) at Γ1 = 4/3 itself, with all overtones correctly ordered and positive
+throughout.
+
+5.3   Result
+Applying the validated solver to the actual configuration (ρc = 5 × 1012 kg/m3 , M = 1.198 M⊙ ),
+using the real, spatially varying Γ1 (r) from the neutronized equation of state (1.293 at the center
+to 1.666 near the surface, straddling the critical value):
+
+                                      mode (radial nodes)     ω 2 [s−2 ]
+                                       0 (fundamental)        −18.68
+                                              1               +295.3
+                                              2               +702.3
+                                              3               +1257.9
+                                               ..                  ..
+                                                .                   .
+
+     The fundamental mode is unstable; every overtone checked (through node number
+14) is stable — the classic signature of a configuration
+                                                  √      just past its stability limit, acting through
+its longest-wavelength mode. The growth rate is 18.68 ≈ 4.32 s−1 , an e-folding time of 0.23 s.
+
+                                                     9
+Figure 3: The validated solver’s fundamental-mode eigenvalue across a range of (uniform) Γ1
+polytropes, compared against the classical Pekeris threshold. The sign change falls exactly at
+Γ1 = 4/3.
+
+
+    Two independent checks support this. A homologous trial function ξ = αr (not an exact
+eigenfunction, since Γ1 varies with radius), evaluated via a completely independent, non-matrix
+calculation using Eq. (9), gives ω 2 = −16.65 s−2 — correctly less negative than the Galerkin result,
+exactly the relationship the Rayleigh–Ritz variational principle requires. And repeating the full
+calculation on a robustly stable configuration (ρc = 1011 kg/m3 ) gives ω 2 = +4.65 s−2 (period
+2.91 s), correctly stable, with all overtones also positive.
+    The fundamental eigenfunction is smooth and nodeless over the bulk of the star but not ho-
+mologous: the ratio ξ(r)/r (normalized) varies smoothly from about −1.55 at the center to about
+−1.0 around r/R⋆ ≈ 0.9. The instability is centrally concentrated — the core, where Γ1 dips to
+1.29, compresses or expands proportionally more than the envelope, where Γ1 approaches 5/3 and
+resists. Within the outermost percent of the star the eigenfunction reverses sign; we checked this
+against the already-validated Γ1 = 5/3 polytrope of Figure 3 and found an identical reversal there,
+so it is a generic feature of the discretization (the explicit surface term of Eq. (12) is represented as
+a single point contribution at the outermost grid node) rather than a defect specific to this star or a
+sign that the validated eigenvalues are untrustworthy; our node-counting convention excludes this
+localized reversal by construction when identifying the fundamental, consistently for every mode
+and every configuration tested.
+    This centrally-concentrated shape is directly consistent with Section 4’s Eulerian evolution,
+which showed the interior changing character while the envelope lagged, and it offers a natural
+explanation for why that nonlinear evolution took on the order of a few seconds to develop dramatic
+structure: amplifying a numerical-roundoff-level seed (∼ 10−10 relative amplitude) to order-unity
+nonlinear amplitude at this growth rate takes ln(1010 )/4.3 ≈ 5 s, the same order as the timescale
+over which the nonlinear runs showed their resolution-dependent divergence.
+    This directly answers the question the nonlinear evolution could not, for the preliminary con-
+figuration: it is linearly unstable in Newtonian perturbation theory, through a single, well-
+
+
+                                                   10
+Figure 4: Left: the fundamental eigenfunction, nodeless and smooth over the bulk of the star.
+Right: the compression ratio ξ(r)/r alongside the local adiabatic index Γ1 (r), showing the core
+(low Γ1 ) compressing proportionally more than the envelope (high Γ1 ).
+
+
+characterized, centrally-concentrated fundamental mode.
+
+5.4   Why this Newtonian answer is not the final one
+Section 3.3 showed the preliminary configuration’s own equation of state was not quantitatively
+trustworthy. Applying the identical, already-validated Newtonian solver above to the corrected
+configuration (ρc = 5 × 1013 kg/m3 , pure Chandrasekhar EOS, full TOV background) gives a real
+surprise: Γ1 stays above 4/3 everywhere in the star, bottoming out at 1.33409 at the center — just
+barely above the Pekeris threshold, never crossing it. The Newtonian solver, applied honestly to
+this background, reports the configuration stable.
+     This cannot be the end of the story. The corrected configuration sits past its own mass maximum
+(ρc = 2.31 × 1013 kg/m3 , Section 3.3), and the turning-point theorem of relativistic stellar stability
+— proved rigorously by Sorkin [Sorkin, 1981], not a heuristic — places the onset of instability at the
+first mass maximum (the classical result of Harrison, Thorne, Wakano & Wheeler [Harrison et al.,
+1965] extends this along the sequence), so a configuration past it is dynamically unstable, with
+the fundamental mode’s frequency passing through zero exactly at the turning point. Something
+must be unstable here; Newtonian perturbation theory, by construction, cannot see it, because the
+instability is a property of the dynamics in full general relativity, not merely of the local value of Γ1
+against the Newtonian threshold. The Chandrasekhar–Tooper mechanism validated numerically
+in Section 3.3 is exactly this: a star can be GR-unstable with Γ1 arbitrarily close to, but still
+above, 4/3, provided the excess is small enough relative to the star’s compactness. Settling this
+rigorously requires the actual general-relativistic pulsation equation, not the Newtonian one applied
+to a relativistic background.
+
+5.5   Chandrasekhar’s general-relativistic pulsation equation
+Chandrasekhar [Chandrasekhar, 1964b] derived the exact linear, adiabatic, radial pulsation equa-
+tion in full general relativity from a variational principle, for a static, spherically symmetric back-
+
+
+
+                                                   11
+ground with metric ds2 = −e2a c2 dt2 + e2b dr2 + r2 dΩ2 , background structure fixed by
+                                   2GMr        e−2b d(a + b)  4πG
+                      e−2b = 1 −        ,                    = 4 (P + ρc2 ),                      (13)
+                                    rc2         r      dr      c
+and displacement ξ(r)eiσt , so that σ 2 is the squared angular frequency in s−2 (negative for in-
+stability). The equation, in its explicit variational (Rayleigh-quotient) form [Haemmerlé, 2025],
+is
+    Z R                           Z R
+  2      −a+3b
+                   P  2 2                e3a+b h d 2 −a i2
+σ       e       1 + 2 ρr ξ dr =       Γ1 P 2         r e ξ dr
+     0             ρc              0         r    dr
+                                     Z R                 Z R ′2 2 a+b
+                                                                               8πG R
+                                                                                   Z
+                                           ′   a+b 2          P r e     2
+                                  +4      P r e ξ dr −                 ξ dr + 4       (P + ρc2 )P r2 ea+3b ξ 2 dr,
+                                       0                   0   P + ρc2          c   0
+                                                                                              (14)
+
+with a, b and their derivatives evaluated on the equilibrium background, ρc2 read as the total energy
+density ε, and ξ the only dynamical unknown. The last term, + 8πG   c4
+                                                                       (P + ε)P ea+3b , is present in
+Chandrasekhar’s equation as restated by Haemmerlé [Haemmerlé, 2025] and in its Sturm–Liouville
+form [Kokkotas and Ruoff, 2001] (their Eq. 17, corresponding to Eq. 26.6 of Misner et al. 1973); our
+first implementation omitted it (Section 5.9). Chandrasekhar’s own variational principle makes this
+more than an estimate: any trial function ξ for which the right-hand side is negative is a sufficient
+condition for dynamical instability, since the true fundamental mode minimizes the ratio and so
+can only be more unstable than any trial estimate.
+
+5.6   Getting the implementation right: a genuine, instructive debugging history
+Reaching Eq. (14) took real, repeated effort, and we report the failures as well as the fix, since both
+are informative. A direct shooting integration of the equivalent first-order system was numerically
+unstable in our first attempt (we judged the mode by the surface value of the displacement; an
+independent re-implementation later showed that shooting works well, to 10−9 , when the regular-
+surface condition is imposed on the Lagrangian pressure variation P ζ ′ near the surface and a
+high-order integrator is used). A naive strong-form finite-difference discretization, in raw SI units,
+produced only non-finite eigenvalues, traced to Pi, Q, and S coefficients spanning thirty orders
+of magnitude — a conditioning failure, not a physics error. Row-and-column equilibration fixed
+the conditioning but produced spurious, grid-scale-dominated spectra (lowest-|σ 2 | eigenvectors with
+hundreds of nodes), the same pathology a non-weak-form discretization produced for the Newtonian
+problem in Section 5.2. Deriving and symbolically verifying a properly symmetric weak form fixed
+the spurious-mode problem but, when checked directly against the already-validated Newtonian
+solver in the low-compactness limit, disagreed by three to four orders of magnitude, with the
+disagreement not converging to unity as compactness was taken to zero — ruling out a subtle
+missing higher-order correction and pointing to a genuine coefficient error.
+    The error, once found, was a single mis-specified conversion factor: in passing from the equa-
+tion’s natural variable ζ = e−a r2 ξ back to ξ when assembling one of the two bilinear terms, we
+applied the ξ → ζ conversion twice rather than once, having already tested with the ζ-type com-
+bination. Comparing our transcription term-by-term against an independently published, explicit
+restatement of Eq. (14) [Haemmerlé, 2025] located the first mismatch. Implementing that refer-
+ence’s explicit form directly, rather than continuing to patch our own derivation, resolved that
+error — though, as Section 5.9 reports, that comparison itself missed one term: at compactness
+∼ 5 × 10−5 , the corrected calculation agrees with the Newtonian limit to 99.98%, with the expected,
+physically sensible departure as compactness increases (Figure 2, left panel).
+
+                                                  12
+5.7    Result: the corrected configuration is unstable
+Applying the validated Eq. (14) to the corrected configuration of Section 3.3 (ρc = 5 × 1013 kg/m3 ,
+M = 1.4143 M⊙ , compactness 0.00512), with two independent trial functions (the corrected values;
+Section 5.9 explains the revision):
+
+              trial function                                                       σ 2 [s−2 ]
+              ξ = r (homologous)                                                   −27.85
+              ξ = rea(r) (independent literature choice [Haemmerlé, 2025])        −27.67
+
+    Both agree to within 1% and are unambiguously negative. By Chandrasekhar’s variational
+principle, this is a sufficient condition for instability: the corrected configuration is dynamically
+unstable in full general relativity. (The earlier version of this table also listed a third trial function,
+the fundamental eigenfunction of the Newtonian solver of Section 5.3; it is dropped here because it
+would require re-running that separate solver on the corrected background, and the Rayleigh–Ritz
+basis convergence below is the stronger check.)
+
+5.8    Tightening the estimate: Rayleigh–Ritz
+A single trial function gives only an upper bound on the true fundamental eigenvalue. The textbook
+way to improve it — the method the variational principle itself is built for [Chandrasekhar, 1964b] —
+is Rayleigh–Ritz: expand ξ in a small basisR of trial functions satisfying theRcorrect center regularity,
+assemble the full matrix elements Aij = [Π ζi′ ζj′ + Qξi ξj ] dr and Bij = Sξi ξj dr (not just their
+diagonal, single-trial values), and solve the resulting small generalized eigenvalue problem. We
+verified A, B symmetric to machine precision before trusting any eigenvalue from them, exactly as
+for the original Newtonian and relativistic solvers.
+
+
+
+
+Figure 5: Rayleigh–Ritz convergence of the fundamental eigenvalue as basis functions are added.
+Converges from −27.85 (a single trial function) to −28.55 within three functions, stable to four
+significant figures by the fourth.
+
+   With a basis of five regularity-respecting trial functions, the estimate converges cleanly (Fig-
+ure 5): −27.85 → −28.52 → −28.55 → −28.55 → −28.55, stable to four significant figures. This
+
+
+                                                    13
+is, correctly, more negative than any single trial function above — Rayleigh–Ritz combinations
+can only tighten the upper bound, never loosen it, and −28.55 properly supersedes −27.85 as our
+best estimate of the true fundamental eigenvalue. The corrected configuration is dynami-
+cally unstable in full general relativity, σ 2 = −28.55 s−2 , σ = 5.344 s−1 , e-folding time
+0.187 s — and, as Section 5.9 shows, quantitatively consistent with the turning-point theorem (the
+eigenvalue passes through zero at the mass maximum to 0.01% in density) and with the historical
+Chandrasekhar–Tooper critical mass. This result rests on the actual relativistic dynamics, not on
+an artificially over-softened equation of state, and is the paper’s central, validated finding.
+    This reduced system also gives an exact, literature-standard route to the mode’s time evolution:
+diagonalizing (A, B) once yields B-orthonormal eigenmodes, and any initial condition evolves as
+an exact superposition of e±σk t (unstable modes) and cos / sin(ωk t) (stable ones) — a closed-
+form solution, not a numerically integrated one, with no spatial grid, no CFL condition, and no
+discretization choices to introduce error. Seeding purely the unstable mode and evolving it this way
+reproduces eσt growth to six-decimal-place precision at every time checked, as it must for an exact
+linear solution. This is the correctly-scoped role of this reduced approach: an exact, fully-converged
+measurement of the linear growth rate, not a substitute for genuinely nonlinear dynamics, which
+Section 6.4 and 6.5 address directly and which Section 7 addresses using established literature
+rather than further from-scratch numerics.
+
+5.9   An exact external test, and the two errors it exposed
+Sorkin’s theorem [Sorkin, 1981] makes a sharp quantitative prediction that we had so far used
+only qualitatively: the fundamental eigenvalue σ 2 of a cold, barotropic star passes through zero at
+exactly the central density where dM/dρc = 0. Computing the zero of our Rayleigh–Ritz σ 2 (ρc ) and
+the peak of the TOV mass curve independently therefore tests the entire chain (equation of state,
+structure, metric functions, pulsation equation) against an exact result, with no free parameter.
+Our first implementation failed this test by a factor of two: σ 2 crossed zero at ρc ≈ 1.8×1013 kg/m3
+while the mass peaked at 3.56 × 1013 . We had not run it before, because the test requires σ 2 over
+a range of densities, not just at the test configuration.
+     Two independent errors were found, each identified from literature or first principles rather than
+by adjusting anything until the test passed. (i) The potential term + 8πG c4
+                                                                             (P + ε)P ea+3b of Eq. (14)
+had been omitted; it is present in the Haemmerlé restatement we had claimed to match term by
+term, and in the Sturm–Liouville form of Kokkotas & Ruoff (their Eq. 17). Its sign was fixed by
+those sources, not by the test: inserting it with the opposite sign moves the zero crossing the wrong
+way. (ii) The energy density had been taken as the rest-mass density, which is inconsistent with the
+first law at O(P/ρc2 ) ≈ 2 × 10−3 at this density (ε/ρc2 − 1 ≈ 6 × 10−3 ), several times the margin
+Γ1 − 4/3 ≈ (0.8–1.3) × 10−3 on which the instability depends (Section 3.3). After correcting both,
+the zero of σ 2 and the mass peak coincide:
+
+                equation of state            ρc at dM/dρc = 0   ρc at σ 2 = 0   difference
+                                                [1013 kg/m3 ]   [1013 kg/m3 ]
+                ideal electron gas, µe = 2         2.31052         2.31074       0.010%
+                4
+                  He, Salpeter lattice             2.34614         2.34635       0.009%
+                12
+                   C, Salpeter lattice             2.38553         2.38571       0.008%
+                16
+                   O, Salpeter lattice             2.40183         2.40201       0.007%
+                56
+                   Fe, Salpeter lattice            2.93210         2.93229       0.007%
+
+   (The equations of state with lattice corrections are those of Section 8.5; all with 12000 radial
+points.) The residual is a quadrature effect, not a basis effect: at 3000 radial points, the grid
+
+
+                                                   14
+used in our first runs, it was 0.12%, and at ρc = ρmax the five-function σ 2 changes from +0.022
+(3000 points) to +0.0018 (12000) and +0.0008 s−2 (48000), while varying the basis size from three
+to seven functions changes it negligibly. The quoted eigenvalues are therefore converged in basis
+but have a residual grid dependence: at ρc = 5 × 1013 kg/m3 the five-function value is −28.511,
+−28.546, −28.553 and −28.555 s−2 for 3000, 6000, 12000 and 24000 points (O(N −2 )), so we quote
+−28.55 s−2 (the 12000-point value, within 0.01% of the extrapolated −28.556).
+
+An independent solver. As a check on the whole chain that does not share our code or our
+Rayleigh–Ritz method, the eigenvalue was recomputed by an independent re-implementation writ-
+ten without reference to our code: the equation of state, TOV structure and metric functions were
+rebuilt from scratch, the pulsation problem was solved by shooting on the Sturm–Liouville form
+of Kokkotas & Ruoff (with the regular-surface condition P ζ ′ → 0 imposed near the surface and
+a high-order integrator), by shooting on a second, independently derived system (linearized radial
+Euler equation plus the perturbed Einstein constraints), and by a linear finite-element eigenproblem
+(Richardson-extrapolated). All agree on σ 2 = −28.556 s−2 at ρc = 5 × 1013 kg/m3 (the shooting
+and finite-element results to better than 10−4 relative), the zero of σ 2 at ρc = 2.310603 × 1013
+and the mass peak at 2.310605 × 1013 kg/m3 (agreeing to 10−6 ), and a fundamental mode without
+nodes at every density tested. The same solver, applied with the Rayleigh–Ritz basis of our code
+on a fine quadrature grid, gives −27.855, −28.528, −28.554, −28.5559 for 1, 2, 3, 5 functions.
+    Three further results improve with the corrections. The Chandrasekhar–Tooper mass agrees
+to 0.07% rather than 0.5%. The Newtonian-limit check (Figure 2, left) converges to unity as
+                                      2 /σ 2                                        −5 and 0.9996 at
+compactness decreases: the ratio σGR       Newt is 0.9999 at compactness 2.7 × 10
+        −4
+1.1×10 , with the departure growing steadily at higher compactness (a 3000-point grid had shown
+a spurious plateau near 0.998). And for 12 C with the Salpeter lattice correction the maximum mass
+is 1.3849 M⊙ , within 0.08% of the 1.38603 M⊙ that Rotondo et al. [Rotondo et al., 2011] obtain
+with their full relativistic Feynman–Metropolis–Teller treatment (for 4 He, 0.55%). Critical densities
+agree less well (2.39 × 1013 versus 2.12 × 1013 kg/m3 for 12 C), which is expected because M (ρc ) is
+extremely flat near its maximum (the relative mass deficit is 1.4 × 10−4 at ±25% in density and
+4.5 × 10−4 at +50%), so the peak location is far more sensitive to small differences in the equation
+of state than the peak mass is.
+
+What changes, and what does not. The converged eigenvalue at the test configuration moves
+from −41.05 to −28.55 s−2 and the e-folding time from 0.156 to 0.187 s. The qualitative conclu-
+sions — the configuration is past its turning point, is dynamically unstable, and collapses on the
+compressive branch — are unchanged, because they follow from Sorkin’s theorem and the bifur-
+cation literature rather than from the value of σ 2 . Every quantitative statement made earlier in
+this paper that depends on σ 2 (Section 8) has been recomputed. The nonlinear-code diagnostics
+of Sections 4–6.5 used the earlier energy-density convention and seed σ = 6.32 s−1 ; they bear on
+resolution-dependence, sign-symmetry and numerical conditioning, none of which depends on the
+value of σ, and we have not rerun them. We also note that our own earlier verification of the
+pulsation equation (a term-by-term comparison with the Haemmerlé restatement, and an internal
+re-derivation) missed the omitted term; the quantitative turning-point test and an independent re-
+implementation are what caught and confirmed it, and we regard the former as a standing regression
+test for this calculation.
+
+
+
+
+                                                 15
+5.10    Is σ 2 < 0 a genuine instability to collapse? The canonical-energy corre-
+        spondence
+A negative eigenvalue of Eq. (14) is, by construction, a statement about the linear growth rate.
+Whether it is also an instability to collapse, in the precise technical sense the relativistic-stability
+literature gives that phrase, is a separate question, and one with an established answer: Friedman’s
+canonical-energy formalism [Friedman, 2015] identifies dynamical instability with a perturbation of
+negative canonical energy E, and shows that a configuration past a turning point — exactly Sorkin’s
+criterion [Sorkin, 1981], already invoked above — necessarily possesses one. Before using this to
+interpret our result, we checked, rather than assumed, that E and Chandrasekhar’s variational
+eigenvalue are in fact the same physical object.
+
+What we checked, and how. In the Newtonian limit, Friedman’s lecture notes give the canon-
+ical energy for a radial displacement explicitly as
+                                            Z R
+                                        1
+                                     E=           r4 (3Γ1 − 4) p dr,                               (15)
+                                        9     0
+
+with E < 0 the instability criterion. This has the same critical index (Γ1 = 4/3) as the classical
+Pekeris result already validated in Figure 3, which is encouraging but not yet a proof that the
+two are the same quadratic form: Eq. (15) could in principle be a different functional that merely
+happens to share a critical point. A first attempt to settle this by directly specializing our own
+already-published weak-form coefficients A(r), C(r), D(r) of Section 5.2 to the homologous trial
+function ξ = r failed a basic sanity check — it did not vanish at Γ1 = 4/3 for a self-consistent
+uniform-Γ1 polytrope, where it must — and we abandoned it rather than debug yet another hand-
+reduction, consistent with this project’s standing policy of not trusting a derivation that fails its
+own check. Instead we compared Eq. (15) directly against an independent, genuinely textbook
+closed form that does not rely on our own transcription at all: the classical homologous “pulsation
+constant” result (Chandrasekhar 1939; stated in essentially this form in every stellar-pulsation text,
+e.g. Cox’s Theory of Stellar Pulsation),
+                                                        Z R                  Z R
+                    2                                            2
+                I ω = (3Γ1 − 4) |W |,       |W | ≡ 3          P r dr,   I≡         ρ r4 dr,        (16)
+                                                         0                    0
+              R
+with |W | = 3 P dV itself an elementary, pulsation-theory-independent consequence of hydrostatic
+equilibrium (integrate dP/dr = −GρMr /r2 by parts once).
+    We built self-consistent, uniform-Γ1 Lane–Emden polytropes (the same family used for Figure 3)
+over Γ1 ∈ [1.25, 1.6667] and evaluated both Eq. (15) and Eq. (16) on each. The result (Figure 6):
+both vanish at exactly Γ1 = 4/3, as they must by construction; both are negative for Γ1 < 4/3 and
+                                                                      2
+positive above it, in agreement at every value tested; and the ratio ωvirial /(E/I) is O(1) and varies
+smoothly with Γ1 (from 5.80 at Γ1 = 1.25 to 9.19 at 5/3). We caution that this is a consistency
+check, not a proof of proportionality: both expressions are (3Γ1 − 4) times a positive structural
+integral, so their common zero and sign hold by construction, and the smooth ratio reflects only
+the polytrope structure.
+
+What this establishes, and what it does not. The two Newtonian criteria are mutually
+consistent, as they must be. The stronger statement we need — that the unstable fundamental
+mode of Chandrasekhar’s relativistic equation is a negative-canonical-energy perturbation — is
+a general result of Friedman’s formalism [Friedman, 2015] (for a cold barotropic star, dynamical
+
+                                                   16
+Figure 6: Left: Friedman’s Newtonian canonical energy E (Eq. 15) and the classical virial pulsation
+constant (Eq. 16), each normalized to its own maximum magnitude, across a sequence of self-
+consistent uniform-Γ1 polytropes. Both vanish at exactly Γ1 = 4/3. Right: their ratio is O(1) and
+smooth, not erratic, across the same sequence.
+
+
+instability of a radial mode is equivalent to negative canonical energy), which we use, together
+with Sorkin’s theorem, rather than re-derive. We note that for this star Γ1 > 4/3 everywhere, so
+the Newtonian-limit E is positive: the negative-canonical-energy character of the unstable mode is
+an intrinsically relativistic statement, carried by the general-relativistic eigenvalue of Section 5.8,
+not by the Newtonian expression. Combined with the turning-point test of Section 5.9, which
+verifies that our eigenvalue changes sign exactly where the theorem requires, this is the literature-
+standard sense in which the corrected configuration is unstable “to collapse” rather than merely
+linearly unstable. What this correspondence does not yet tell us is what a negative-canonical-
+energy mode’s nonlinear evolution actually does once it leaves the linear regime; Section 7 takes
+up exactly that question, using the same literature-first discipline.
+
+
+6     Testing the instability directly in the nonlinear code
+Section 5’s timescale argument suggests the Eulerian non-convergence might simply reflect dif-
+ferent grid resolutions sampling the same linear instability via different effective truncation-noise
+amplitudes. This is directly testable: seed the nonlinear evolution explicitly with the validated
+fundamental eigenfunction, at a fixed, resolution-independent amplitude, rather than relying on
+accidental numerical noise.
+
+6.1   Setup, and a dimensional error caught before it mattered
+We perturbed the initial density, ρ = ρ0 [1 + ϵR⋆ (ξ ′ + 2ξ/r)], using the normalized (max |ξ| = 1)
+fundamental eigenfunction. The factor of R⋆ is necessary: ξ is dimensionless by this normalization,
+so ξ ′ + 2ξ/r has units of inverse length and is numerically tiny without it; omitting the rescaling,
+in a first attempt, produced a seed roughly six orders of magnitude smaller than intended, caught
+by checking the actual relative density perturbation achieved rather than trusting the formula.
+
+
+
+
+                                                  17
+6.2   The zero-velocity seed, and why it is not the cleanest test
+At ϵ = 10−4 , we evolved the identical seed at N = 800 and N = 1600. The outcomes diverge within
+under a second into qualitatively different fates: N = 800 evolves toward rarefaction (central density
+falling to ∼ 10−4 of its initial value by t ≈ 2.6 s), while N = 1600 reverses within ∼ 0.4 s and runs
+away into collapse (central density rising by six orders of magnitude by t = 0.618 s, at which point
+the grid can no longer resolve the increasingly concentrated core). This rules out the simplest
+hypothesis — that resolution-dependence is an accident of which sign of the fundamental mode a
+given grid’s truncation noise happens to excite — since the seed’s sign and shape are here fixed
+and identical.
+     This zero-velocity seed,
+                           √ however, is not      actually the cleanest possible test. The instability
+           ¨
+equation ξ = σ ξ (σ ≡ −ω = 4.3217 s ) has two independent solutions, e+σt and e−σt , with
+                2                2            −1
+
+general solution ξ(r, t) = ξshape (r)[C1 eσt + C2 e−σt ]. We verified symbolically that v(r, 0) = 0 gives
+C1 = C2 — equal parts growing and decaying mode, not a pure test of the instability. The
+mathematically correct condition for exciting only the growing solution is
+
+                                       v(r, 0) = σ ξphysical (r, 0),                                (17)
+
+which we implemented in addition to the density perturbation (verified numerically to satisfy
+v/ξphysical = σ to six significant figures at every radius checked) and re-ran at the same two
+resolutions.
+
+6.3   Result: the divergence survives the mathematically correct seed
+The outcome is the same qualitative split. N = 800 is numerically indistinguishable from the zero-
+velocity case, since the eigenfunction vanishes at the center by regularity and the velocity seed is
+correspondingly small there, leaving the central diagnostic dominated by the density perturbation’s
+pressure response regardless of seeding scheme. N = 1600 again runs away, reaching a peak central
+compression of 2.45× before the timestep collapses toward zero under the CFL condition as the
+grid loses the ability to resolve the collapsing core — consistent with genuine runaway collapse, not
+a new numerical pathology.
+    This rules out the seed’s time-derivative phase, in addition to accidental sign-
+selection, as the explanation. Two independently justified, carefully derived seeding schemes,
+differing specifically in whether the decaying solution is present at t = 0, both reproduce the
+identical resolution-dependent divergence. We also found that the early evolution is dominated by
+fast acoustic transients (period ∼ 2–4 ms) superimposed on the much slower instability growth,
+which complicates reading the pure linear growth rate directly off the nonlinear trajectory and may
+itself be feeding resolution-sensitive short-wavelength structure before the asymptotic instability
+can cleanly dominate. We have not separated these effects. A 100× stronger seed, tried to see
+whether dominating more decisively over any competing noise would clarify the picture, instead
+drove both resolutions into an unphysical regime (velocities many orders of magnitude above c)
+within ∼ 0.2 s, outside where this Newtonian-plus-leading-correction scheme is valid; we did not
+pursue larger amplitudes.
+
+6.4   Redoing this on the corrected configuration
+Everything above used the preliminary, since-superseded configuration. We redid it on the cor-
+rected one (ρc = 5 × 1013 kg/m3 , pure Chandrasekhar EOS, full TOV structure), starting from a
+specific theoretical concern rather than reusing the old code unchanged: the old Eulerian scheme’s
+
+
+                                                    18
+Figure 7: Central density under the identical pure-growing-mode seed at two resolutions. The
+trajectories track each other closely for ∼ 0.3 s before diverging into qualitatively different nonlinear
+fates.
+
+gravitational source term was Newtonian gravity with a redshift-type factor, g = −GMr /[r2 (1 −
+2GMr /(rc2 ))], which never included pressure contributing to the gravitating mass — exactly the
+physics the Chandrasekhar–Tooper mechanism depends on (Section 3.3). We derived the TOV-
+consistent replacement,                                        
+                                                              3
+                                        G 1 + ρcP2   Mr + 4πrc2 P
+                               geff = −                             ,                       (18)
+                                             r2 1 − 2GM   r
+                                                            
+                                                      rc2
+and verified it symbolically against the TOV equation itself (exact, zero residual) before using it.
+
+A numerical obstacle, properly diagnosed before being patched. The unperturbed back-
+ground, evolved with no seed at all, was not actually static: central density drifted by several
+percent within 0.05 s. This is a well-known issue for naive source-term treatments in finite-volume
+hydrodynamics (the analytic source and the discretized flux-divergence pressure force are differ-
+ent numerical representations of the same continuum balance, and do not exactly cancel on a
+finite grid without care) — not a sign the physics is wrong. We confirmed this directly: the drift
+shrinks as resolution increases (ρc /ρc (0) at fixed time moving from 0.986 to 0.994 to 0.998 across
+N = 400, 800, 1600), the signature of a genuine, converging truncation error. We applied a stan-
+dard correction (computing the exact discrete momentum-equation imbalance for the unperturbed
+background once, and holding it fixed as a static correction at every subsequent step), and sepa-
+rately verified total mass is conserved to ∼ 10−9 in the corrected code, confirming the underlying
+conservative scheme itself remains sound.
+
+Result: resolution-consistent, correctly sign-symmetric    √ instability. Seeded with the val-
+idated pure-growing-mode condition (v(r, 0) = σξ(r, 0), σ = 40.00 = 6.3246 s−1 from the homolo-
+
+                                                   19
+gous trial of the first implementation of Section 5.7. That value, and the energy-density convention
+of the code, predate the corrections of Section 5.9; the corrected homologous value is 5.278 s−1 .
+This changes the quantitative growth rate the test should be compared against by about 20%,
+but not the qualitative findings it establishes: resolution consistency and sign symmetry), three
+resolutions (N = 800, 1600, 3200) now agree closely on both the direction and the detailed shape of
+the trajectory (Figure 8, left) — a genuine improvement over the preliminary configuration, where
+N = 800 and N = 1600 diverged into opposite fates. Reversing the seed’s sign reverses the out-
+come exactly as linear theory requires: ϵ = +10−3 gives rarefaction (ρc /ρc (0) = 0.37 by t = 0.3 s),
+ϵ = −10−3 gives collapse (ρc /ρc (0) = 1.83 by the same time, still rising). Both checks are exactly
+what a correctly-functioning nonlinear code should show for a genuinely unstable configuration,
+and both passed.
+
+
+
+
+Figure 8: Left: three resolutions now agree closely on the nonlinear trajectory, unlike the pre-
+liminary configuration. Right: the local growth rate d ln |δρc |/dt falls smoothly from a fast initial
+transient through the then-current linear value σ = 6.32 s−1 (dashed; superseded, the corrected
+value being 5.34 s−1 ) into eventual nonlinear saturation, with no extended plateau at σ. This di-
+agnostic was produced before the corrections of Section 5.9 and was not rerun.
+
+
+What does not yet work: a clean quantitative growth rate. We looked for the then-current
+linear rate σ = 6.32 s−1 (now superseded by 5.34 s−1 ) directly in the trajectory and did not cleanly
+find it. The local growth rate d ln |δρc |/dt (Figure 8, right) starts at several tens of s−1 (about
+50–80 s−1 , depending on the sampling time), falls smoothly through σ without plateauing there,
+and continues falling into negative values as the perturbation saturates — a consistent pattern
+across seed amplitudes (ϵ = 10−3 and 10−4 , the latter analyzed differentially against an identically-
+run unperturbed background to remove the residual numerical drift) and across resolution, which
+tells us this is a genuine feature of the code’s response to this seed, not noise. We checked the
+most obvious missing-physics explanation directly rather than assuming it: the relativistic-inertia
+correction (ρ + P/c2 replacing ρ in the pressure-response term, which we had not implemented)
+is numerically small here — P/(ρc2 ) ≲ 0.002 throughout the star — far too small to produce the
+observed factor of several discrepancy, so this specific piece of missing physics is not the explanation,
+and we do not claim it is. The better-supported reading is that the trial-function seed, not being the
+exact numerically-converged eigenfunction, excites a broadband mix of the star’s response alongside
+
+
+                                                   20
+the single growing mode, and the window in which that one mode cleanly dominates the trajectory
+is too narrow, or absent, in this particular nonlinear scheme to extract its rate directly. This is
+consistent with, and strengthens, the fast-acoustic-transient finding already reported above for the
+preliminary configuration.
+
+6.5    A precision-exact reformulation: real progress, and a new obstacle it ex-
+       posed
+The quantitative mismatch above has a specific, identifiable cause worth taking seriously rather
+than leaving as an open puzzle. This instability’s slowness is itself a delicate fact: Γ1 exceeds 4/3
+by only 0.0008 at the center, which is why the net restoring term is only about 0.4% of either of
+the two large terms it is the difference of (3Γ1 − 4 ≈ 0.008). A numerical scheme that represents
+gravity and pressure as two separately discretized quantities — an analytic source term evaluated
+pointwise, and a Riemann-solver flux divergence — must rely on those two large, independently-
+computed numbers cancelling to the same precision the physics does. Nothing in Section 6.4’s
+scheme enforces that; it is a coincidence of floating-point arithmetic whether it happens, and the
+evidence above (the drift test, the dynamical-timescale match) suggests it mostly does not.
+    The natural fix is to never represent the large cancellation in floating point at all: evolve the
+perturbation variables δρ ≡ ρ−ρ0 (r) and the momentum directly, with the background equilibrium
+subtracted analytically, symbolically, before any number is computed. Using the background’s own
+exact force balance, dP0 /dr = ρ0 g(r, ρ0 , P0 ), the momentum equation becomes
+
+                ∂(ρv)   1 ∂(r2 ρv 2 )    ∂(δP )
+                      + 2             =−        + ρ0 ∆g(r, δρ, δP, δM ) + δρ g(r, ρ, P ),              (19)
+                 ∂t    r     ∂r            ∂r
+where ∆g ≡ g(r, ρ, P ) − g(r, ρ0 , P0 ) is expanded symbolically in the perturbation variables so that
+every term in the resulting expression is manifestly proportional to δρ, δP , or δM — algebraically
+zero when the perturbation is zero, not just numerically close to zero. We verified the resulting
+linear-order coefficients against finite differences of the exact g(r, ρ, P ) to 5–6 significant figures be-
+fore using them, and generated the implementation directly from the symbolic expression via com-
+puter algebra rather than transcribing it by hand, specifically because an earlier hand-transcription
+elsewhere in this investigation (Section 6.4) had already produced a real error.
+
+Two more genuine bugs, caught by the same discipline. Checking the discretized mo-
+mentum and continuity equations against the exact, unperturbed background — demanding their
+right-hand sides vanish identically, not approximately — immediately exposed problems a less strict
+test would have missed. The momentum equation passed outright: zero to the last bit, confirming
+the analytic-subtraction approach works exactly as intended. The continuity equation did not.
+Tracing it down: a standard Riemann solver’s numerical diffusion, designed to stabilize genuine
+density discontinuities, fires spuriously on any smoothly-varying background, since adjacent re-
+constructed cell states necessarily differ even when the true solution is perfectly smooth and the
+physical flux is identically zero. The fix is to evaluate the background density analytically at each
+cell interface (available for free, since ρ0 (r) is a known function, not reconstructed from a solve)
+rather than through the Riemann solver’s reconstruction, applying the solver’s genuine machinery
+only to the perturbation piece where discontinuities could plausibly develop.
+
+Result: the equilibrium problem is solved outright. With both fixes in place, the un-
+perturbed background shows exactly zero drift in both equations, sustained over many dynamical
+times, at every resolution tested — not a converging approximation but an exact statement, verified
+
+                                                    21
+Figure 9: Hydrostatic drift at fixed t = 0.02 s, comparing the well-balanced correction of Section 6.4
+(converging but nonzero at every resolution tested) against the precision-exact reformulation of this
+section (exactly zero, by construction, at every resolution).
+
+
+directly rather than inferred (Figure 9). This is the real, demonstrated success of this section: the
+specific numerical obstacle diagnosed above is removed, not just reduced.
+
+What it is not: a working growth-rate measurement, and why. Seeding this precision-
+exact scheme exposed a different problem. The explicit gravitational source term grows stiffer as
+the perturbation itself grows, and the timestep an explicit integrator needs for stability shrinks
+correspondingly — by the time the perturbation had grown enough to matter, the step count had
+already reached the hundred-thousands with no practical path to the several tenths of a second
+needed to see multiple e-foldings of the instability. This is a different, new obstacle from the one we
+solved, not a failure of the same kind: it is a standard stiff-ODE problem, and the standard remedy
+is an implicit or semi-implicit treatment of the gravitational source term, not further patches to
+an explicit scheme. We did not implement one. We report this honestly as the natural next step,
+rather than letting the real progress above (an exactly-preserved equilibrium) imply a growth-rate
+result we do not have.
+
+
+7    The nonlinear outcome: what established literature, rather than
+     further ad hoc numerics, settles
+Sections 6–6.5 tried repeatedly to answer “what does the star actually do?” by building an in-
+creasingly careful from-scratch nonlinear code, and repeatedly ran into new numerical obstacles
+(stiffness, equilibrium drift, broadband contamination of the seed) before reaching a trustworthy
+nonlinear answer. Rather than continuing that pattern, we asked whether the physical question —
+the nonlinear fate of a star with a confirmed negative-canonical-energy mode (Section 5.10), sitting
+just past a turning point (Sorkin, Section 5.4) — is already settled in the literature on exactly this
+
+
+                                                  22
+class of configuration. It is, and the answer is more precise, and more informative, than a simple
+“it collapses.”
+
+7.1   The established result: a genuine bifurcation, not a universal fate
+Full numerical-relativity evolutions of spherical stars placed just past their own equilibrium mass
+maximum show that the nonlinear fate is governed by the sign of the perturbation along the
+unstable mode, not fixed by instability alone. Font et al. [Font et al., 2002], evolving TOV stars
+on the unstable branch in full 3+1 numerical relativity, find explicitly that such a star “can either
+collapse to a black hole or expand and migrate to the stable branch,” depending on which direction
+it is pushed; under their code’s own truncation-error-level perturbation it migrates outward rather
+than collapsing, and a deliberate inward perturbation is needed to see collapse. Radice, Rezzolla
+& Kellermann [Radice et al., 2010], studying this bifurcation in detail as a critical phenomenon,
+confirm the same structure quantitatively: models perturbed outward behave as if they were on the
+stable branch (“a suitably perturbed supercritical model can behave as a subcritical one”), while
+models perturbed inward collapse to a black hole, with larger inward perturbations collapsing faster.
+Neither finding is specific to one equation of state; both papers frame it as a generic consequence
+of sitting on the unstable branch of a one-parameter equilibrium sequence with an accessible stable
+branch nearby, which is exactly the structure Sorkin’s theorem guarantees generically (a mass
+maximum separating a stable branch at lower central density from an unstable one at higher
+central density, for any such sequence).
+     This is not a new, unrelated finding we are importing by analogy: it is the established,
+numerically-confirmed nonlinear continuation of precisely the configuration Section 5.10 diagnosed.
+It also retroactively explains, rather than leaves unexplained, our own Section 6–6.4 finding that
+identical-shape seeds of opposite sign drove our nonlinear code to opposite fates (rarefaction versus
+runaway collapse): that sign-dependence is not a numerical artifact or a sign of an unconverged
+scheme, as we were careful to hedge at the time, but the correct, literature-predicted qualitative
+behavior of a star sitting on this part of an equilibrium sequence. Our own nonlinear investiga-
+tion’s qualitative finding was right; what it lacked was the quantitative growth rate and a principled
+way to know the qualitative split was physical rather than a bug, which the literature above now
+supplies.
+
+7.2   Which branch is astrophysically realized here
+The bifurcation above is symmetric in the mathematics but not in the astrophysics this paper’s
+scenario describes. The question motivating this whole series’ matter route (Section 2) is whether
+a star can be driven, by ordinary physical processes — continued accretion, continued loss of
+pressure support as degeneracy and eventual neutronization proceed — up through and past its
+own maximum mass. That physical process is compressive: it pushes the star’s central density up,
+in the same direction as the collapsing branch of Section 7.1, not the rarefaction branch. A star
+that reaches the turning point by having matter added to it, or by its pressure support failing, does
+not simultaneously receive a fortuitous outward kick of the kind needed to migrate back onto the
+stable branch; the perturbation astrophysically realized in this scenario is the one that [Font et al.,
+2002, Radice et al., 2010] show collapses.
+    This licenses a specific, appropriately qualified conclusion: for the scenario this paper and this
+series actually care about — continued, physically ordinary collapse or accretion driving a de-
+generate star past the Chandrasekhar–Tooper threshold validated in Section 5.7 — the nonlinear
+outcome is genuine, non-saturating gravitational collapse, not a bounded oscillation and not migra-
+
+
+                                                  23
+tion to a lower-density equilibrium. This conclusion rests on (i) our own validated linear result that
+the configuration has a negative-canonical-energy fundamental mode (Sections 5.7–5.10), and (ii)
+established numerical-relativity literature on the generic bifurcation structure of exactly this class
+of configuration, not on our own from-scratch nonlinear code, whose repeated numerical obstacles
+(Sections 6–6.5) we no longer need it to overcome in order to answer this question. We did not
+ourselves run a full numerical-relativity evolution of this specific equation of state through to col-
+lapse or migration; we rely on the established genericity of the bifurcation across the configurations
+[Font et al., 2002, Radice et al., 2010] actually tested, which is a real but explicit limitation, stated
+here rather than left implicit.
+
+
+8     A quantitative nonlinear collapse timescale: a calibrated, order-
+      of-magnitude estimate
+Section 7 settled the qualitative question — collapse, not migration, for the astrophysically realized
+perturbation direction — using established literature rather than our own nonlinear code, whose
+repeated numerical obstacles (Sections 6–6.5) we traced to a specific, diagnosed cause: this instabil-
+ity’s growth rate is a residual of two terms (pressure support and self-gravity) that are individually
+enormous and nearly cancel, because Γ1 exceeds 4/3 by only a few parts in a thousand. A strong-
+form, spatially discretized evolution code represents both terms as large numbers of comparable size
+and subtracts them at every grid point at every timestep; we confirmed directly, by rebuilding that
+approach from scratch in the present, independent verification, that this produces a Jacobian with
+extremely large condition number at every resolution tested, with a genuine near-zero singular value
+(not merely poor scaling) and a leading eigenvalue that drifts with resolution instead of converging
+— the same pathology class the original investigation’s history (Section 6.5) already encountered
+and did not resolve. We did not continue attempting to repair that approach. This section reports
+what we built in its place: a single-degree-of-freedom nonlinear model, validated piece by piece
+against exact analytic results and against the independently-confirmed linear eigenvalue, used to
+extract an actual quantitative collapse timescale rather than only its sign.
+
+8.1   The model: a nonlinear homologous extension of Chandrasekhar’s own trial
+      function
+Chandrasekhar’s variational principle (Section 5.5) is linear by construction: it bounds the growth
+rate of an infinitesimal displacement ξ(r) about the equilibrium background. Three independent
+trial functions, and the Rayleigh–Ritz combination of five basis functions built from them (Sec-
+tion 5.8), established σ 2 = −28.55 s−2 ; the single homologous trial function ξ = r alone — the
+simplest possible choice, and the one this section extends — already gives σ 2 = −27.85 s−2 , within
+2.5% of the converged value. Extracting the true eigenfunction from the five-basis solution (not
+reported in Section 5.8, done here as an independent check) shows why: ξGR (r)/r varies by only
+13% from center to surface (the ratio of center to surface values is 1.133), so the true unstable
+mode is itself nearly homologous. This motivates studying the nonlinear continuation of the one
+ansatz Chandrasekhar’s own linear theory already shows is an excellent approximation: a single
+global scale factor λ(t), with the star’s physical radial coordinate evolving as rphys (r, t) = λ(t) r for
+each Lagrangian-labeled mass shell r.
+    This ansatz exactly conserves the enclosed mass Mr (r) at each Lagrangian shell (purely radial
+flow cannot mix shells), so Mr (r) is simply the static background’s profile, held fixed for all t.
+The local density scales exactly as ρ(r, t) = ρbg (r)/λ(t)3 . Because the zero-temperature degenerate
+
+
+                                                   24
+equation of state is an exact barotrope (P = P (ρ) with no free thermodynamic parameter), the
+exact thermodynamic identity du/dρ = P/ρ2 gives the internal energy’s dependence on λ in closed
+form, with no polytropic or fixed-Γ1 approximation anywhere:
+                                            Z            
+                                 dUint            ρbg (r)
+                               −       = 3λ2 P              4πr2 dr.                       (20)
+                                  dλ                λ3
+
+Self-gravity is evaluated with the same Misner–Sharp/TOV effective-gravity formula [Misner and
+Sharp, 1964] used throughout this paper, evaluated at the compressed configuration rphys = λr
+(with ε the consistent energy density of Section 3.3, evaluated at the compressed rest-mass density)
+with the compressed pressure P (ρbg (r)/λ3 ) but the (exactly conserved) background Mr (r):
+                                                          !
+                                                    3
+                     ε/c2 + P/c2              4πrphys   P
+                  G                    Mr +
+                           ρ                        c2                dWgrav
+                                                                                Z
+                                                                             = geff (λ, r) r 4πr2 ρbg (r) dr,
+                                                                                                         
+  geff (λ, r) = −                                         ,       −
+                           2             2GMr                           dλ
+                          rphys    1−           2
+                                         rphys c
+                                                                                                           (21)
+and the equation   of  motion   is I λ̈ = −dU    int /dλ−dW   grav /dλ, with the (exactly conserved) moment   of
+                   4
+              R
+inertia I = 4πr ρbg (r) dr. This is a single nonlinear ODE, with no spatial discretization anywhere
+in it — it is built entirely from quantities (the equation of state, the TOV background, Mr (r))
+already validated in Sections 3 and 5.7, so it carries no new, unvalidated input.
+
+Relation to existing methods. A single homologous trial function evolved as a virial/energy-
+method degree of freedom is itself an old idea in stellar astrophysics: Fowler [1966] uses exactly this
+framework, with post-Newtonian corrections, to study the stability of supermassive stars. That
+line of work, however, stays strictly linear — it bounds an eigenvalue σ 2 , as Chandrasekhar’s own
+variational principle does, rather than evolving the scale factor nonlinearly in time. On the nonlinear
+side, existing treatments of compact stars near their own maximum mass work directly with the full
+radial PDE or Sturm–Liouville system rather than a reduced single-degree-of-freedom model, and
+sidestep the delicate near-cancellation this paper’s Section 4–6.4 struggled with by a different route:
+reformulating the perturbation equations as a first-order system in (∆P, ξ) [Brillante and Mishustin,
+2015], a genuinely different numerical-conditioning fix from the one taken here. We are not aware of
+a prior construction combining a single homologous nonlinear ODE, a frozen-background relativistic
+correction, and calibration of that correction against an independently known linear eigenvalue,
+specifically for this class of instability; a literature search undertaken after this section was first
+drafted did not turn one up, though the search cannot be exhaustive over six decades of stellar-
+pulsation literature.
+    The calibration strategy itself, though, has a clear, well-established precedent outside stellar
+astrophysics: the effective-one-body (EOB) formalism for binary black hole dynamics [Buonanno
+and Damour, 1999] is built on exactly the same philosophy — known limits fix most of an effective
+model’s structure, and the piece that formally requires information the model cannot derive on
+its own is calibrated against an independently trusted result, after which the calibrated model is
+trusted in a regime direct computation cannot easily reach. We adopt that strategy here, applied
+to a different problem, and the comparison also makes an honest limitation easier to state precisely:
+EOB’s calibration targets are themselves independent nonlinear numerical-relativity results, so a
+successful calibration carries some evidence that the model’s nonlinear behavior, not just its linear
+limit, is being captured correctly. Our only calibration target is the linear eigenvalue itself; nothing
+independent constrains the model in the nonlinear regime the plunge phase (Section 8.3) actually
+
+                                                      25
+probes. This is a weaker form of calibration than EOB’s, not an equally strong one merely applied
+elsewhere, and Section 8.2 already reflects this by treating the calibration as fixing a slope, not a
+validated nonlinear behavior.
+
+8.2   Validating the pieces before trusting the whole
+Equation (20) was checked against  R its own    exact analytic
+                                                             R linearization,2 d(−dUint /dλ)/dλ|λ=1 =
+                                           2
+3WP (2 − 3Γ1 ), where WP = 3 P 4πr dr and Γ1 = Γ1 (r)P (r) 4πr dr/WP is the pressure-
+weighted average of the equation of state’s local, position-dependent adiabatic index; the match is
+exact to the precision of the numerical quadrature (ratio 1.0000). The Newtonian-only restriction
+                                           2
+of Eq. (21) (replacing geff with −GMr /rphys   , to isolate this term) was checked the same way, and
+initially appeared to disagree with the textbook virial identity |W | = 3WP by about 1% — we traced
+this, rather than dismissing it, to the fact that |W | = 3WP is the virial identity for a star in
+Newtonian hydrostatic equilibrium, while our background satisfies the general-relativistic
+                                                                                         R          TOV
+equation; the 1% discrepancy between the star’s true Newtonian-force integral (GMr /r) dMr
+and the idealized Newtonian virial value 3WP is itself a direct, independent measurement of the
+background’s compactness, and once the true (not idealized) anchor is used, the Newtonian-only
+linearization matches the code’s own value to all reported digits, with no remaining discrepancy
+and no bug. The same check applied to the full general-relativistic geff gives the opposite near-
+exact identity for a different reason: because geff is defined so that dPbg /dr = ρbg geff (r) reproduces
+the
+R literal TOV equation used to build the background, integrating this identity by parts gives
+  (−geff r) dMr = 3WP exactly, independent of compactness.
+     The model’s own linearization, evaluated with the uncalibrated frozen-background geff , gives
+k = +21.0 s−2 against the independently validated −σ 2 = 27.85 (a 25% gap), with the correct sign
+(the Newtonian-only restriction alone gives a stable k = −120.8, as it must for a star with Γ1 > 4/3
+everywhere). In the first version of this calculation, with the incomplete pulsation equation and
+inconsistent energy density, this gap was a factor of about four. We use −σ 2 = 27.85, the single
+homologous trial function’s own Rayleigh–Ritz value, as the calibration target rather than the
+better-converged 28.55, because it is the apples-to-apples one: both this nonlinear model and that
+linear calculation share the same trial function ξ ∝ r. The relativistic correction to geff (its excess
+over the Newtonian piece) is rescaled by a single constant fcal , fixed once by requiring the model’s
+linearization to reproduce −σ 2 = 27.85 exactly (we find fcal = 1.048); a constant equilibrium
+correction restores λ̈(1) = 0 without altering the linear growth rate.
+     We do not claim to know what physical omission the remaining gap represents. An independent
+decomposition of the model’s terms against an exact treatment shows that the gap is a net of several
+omitted O(compactness) effects of both signs (the mapping between rest mass and proper volume
+in the internal-energy term, the e−a+3b and enthalpy factors in the inertia, the frozen Mr , and the
+metric’s own response), each at the 0.1–2% level but together a 25% effect on a quantity, k, that
+is itself a 0.4% residual of two large terms. In particular, fcal being close to unity does not mean
+the correction is small in the sense that matters: dk/dfcal = 142 s−2 , so a 1% change in fcal is a 5%
+change in k. Deriving all of these to full nonlinear order from scratch would be exactly the kind
+of new, unvalidated general-relativistic calculation this paper’s standing methodological rule warns
+against; we instead calibrate against the linear limit and then cross-check the nonlinear behaviour
+against an independent exact construction (below). We regard fcal as a documented, single-number
+calibration against an independently-known linear limit, not a free parameter tuned to a desired
+nonlinear answer.
+
+
+
+
+                                                   26
+An exact-energy cross-check. For a homologous deformation that preserves each shell’s rest
+mass, the total gravitational mass M (λ)c2 ≡ V (λ) can be computed exactly by integrating the
+Hamiltonian constraint with proper-volume rest-mass conservation, dm = 4πrf2 ρ (1−2GMr /rf c2 )−1/2 drf ;
+equilibria are stationary points of this energy at fixed rest mass [Harrison et al., 1965]. Us-
+ingR this exact V (λ) in place of the frozen-background force, with the relativistic inertia Irel =
+4π e−a+3b (ε + P/c2 )r4 dr (Chandrasekhar’s weight) held at its λ = 1 value, involves no calibration:
+its linearization gives −σ 2 = 27.857, against 27.852 from Rayleigh–Ritz (0.02%), which indepen-
+dently validates the calibration target. Integrated nonlinearly from the same seed, it gives a time
+to reach λ = 0.5 of 2.484 s versus 2.498 s for the calibrated model (0.6%) and a plunge time from
+λ = 0.5 to 0.15 of 0.02713 versus 0.02776 s (2.3%). The calibrated frozen-background force is thus
+within a few percent of the exact energy gradient over 0.2 < λ < 1. Holding the inertia at its λ = 1
+value is itself an approximation, so this is a cross-check on the potential and not a replacement
+model.
+    This calibration should be read for exactly what it constrains and no more. Fixing one constant
+at λ = 1 pins the slope of the omitted corrections at that single point; it assumes that a single
+overall rescaling of the relativistic part of geff is an adequate stand-in for them away from λ = 1,
+including deep in the strong-field regime the plunge phase (Section 8.3) actually probes. The
+exact-energy cross-check above tests exactly this assumption for the potential, over 0.2 < λ < 1,
+and finds agreement to a few percent; it does not test inertia or the strong-field regime near the
+horizon. Two further facts mitigate the concern. First, the calibration is not especially sensitive to
+which independently-known value it targets: repeating it against the better-converged −σ 2 = 28.55
+instead of 27.85 changes fcal by 0.47%, the plunge duration by 0.5% and the time to reach λ = 0.5
+by 1.2% (the latter being just the change in growth rate). Second, the nonlinear trajectory is
+the model’s output, not a second fitted quantity: the growth phase reproduces the linear rate by
+construction, while the plunge phase is a prediction of the (calibrated, assumption-laden) nonlinear
+terms, now cross-checked against the exact-energy construction.
+
+8.3   Result: an exponential growth phase, then a dynamical plunge
+Integrating I λ̈ = −dUint /dλ − dWgrav /dλ forward in time from a small inward   √ perturbation re-
+produces, as it must by construction, the calibrated linear growth rate σ = 27.85 = 5.278 s−1
+(e-folding time 1/σ = 0.189 s; 0.187 s for the converged five-function value) during the initial slow
+phase, then runs away once the perturbation grows to order unity (Figure 10). We stop the in-
+tegration at λ = 1.02 λcrit with λcrit = maxr 2GMr /(rc2 ) = 8.93 × 10−3 : the denominator of geff
+first vanishes at the interior shell r ≈ 0.42R, where the enclosed-mass compactness peaks, not at
+the stellar surface (whose value is 5.12 × 10−3 ). This is a hard mathematical wall built into the
+formula, not a physically motivated validity boundary. The model’s frozen-metric, singly-calibrated
+approximation should not be read as trustworthy anywhere close to it; it is a leading correction to a
+static background rather than a strong-field, dynamical-metric treatment, and the true breakdown
+of the homologous, calibrated approximation plausibly occurs earlier. That the final approach to
+collapse should complete on a free-fall-like timescale regardless, as in the original homogeneous-
+dust solution of Oppenheimer & Snyder [Oppenheimer and Snyder, 1939], is a physical expectation
+independent of this specific model, not a validation of it.
+     The resulting timescale has a clean, physically transparent structure. The duration of the final
+nonlinear runaway is τplunge = 0.0278 s from λ = 0.5 to λ = 0.15 and 0.0295 s from λ = 0.5
+to the end of the integration, essentially independent of the (arbitrary) initial
+                                                                              p seed size to nine
+significant figures; this is about half the star’s own dynamical time Tdyn = R3 /GM = 0.0538 s,
+as expected once the departure from equilibrium is no longer small. The duration of the preceding
+
+
+                                                 27
+Figure 10: Nonlinear evolution of the calibrated homologous model, from an initial perturbation
+λ(0) = 1−10−6 , λ̇(0) = 0. Left: the scale factor λ(t); the slow initial exponential growth (consistent
+with the calibrated linear rate σ = 5.27 s−1 ) gives way, once the perturbation becomes of order unity,
+to a fast nonlinear runaway. The dashed line marks λcrit = maxr 2GMr /(rc2 ) ≈ 8.9 × 10−3 , where
+the lapse factor of the frozen metric first vanishes (at the interior shell r ≈ 0.42R); the integration
+is stopped just above it. Right: the resulting central-density amplification, reaching ∼ 1.3 × 106 at
+λ = 9.1 × 10−3 , where the integration is stopped.
+
+
+slow exponential phase depends logarithmically on the initial perturbation amplitude δ0 = 1 − λ(0),
+as it must for a pure growing exponential: for δ0 = 10−3 , 10−6 , 10−9 , 10−12 the time to reach λ = 0.5
+is 1.189, 2.498, 3.807, 5.117 s, increasing by 1.309, 1.309 and 1.310 s per factor 103 , against
+ln(103 )/σ = 1.309 s. This confirms the model is doing what the linear theory says in the growth
+phase.
+     The total collapse time is therefore τtotal ≈ [ln(1/δ0 ) − 0.63]/σ + τplunge (the offset −0.63 being a
+fitted constant that accounts for the amplitude at which λ = 0.5 is reached; it is O(1) as expected),
+and is not a single number, because δ0 , the size of whatever perturbation first pushes the star past
+its own turning point, is not something this calculation (or, so far as we are aware, any purely local
+stability analysis) determines. For δ0 from a relatively large, dynamically significant perturbation
+(10−3 ) down to a microscopic one (10−9 ), τtotal ranges from about 1.2 to 3.8 seconds. The robust,
+δ0 -independent content is the e-folding time, 1/σ ≈ 0.19 s, and the plunge time τplunge ≈ 0.03 s;
+the total is of order a few e-folding times (a few seconds for generic small seeds), not fractions
+of a second and not years, and ends in a final dynamical-timescale plunge rather than a slow,
+quasi-static approach.
+
+8.4    Is one degree of freedom enough? A two-mode extension
+The principal limitation of the model above is that it carries a single global degree of freedom,
+whereas the true unstable eigenfunction departs from homology by 13% between center and surface.
+We test the consequence directly by enlarging the trial space to the first two Rayleigh–Ritz basis
+functions of Section 5.8: the Lagrangian displacement is taken as rphys = r [λ(t) + µ(t) (1 − r2 /R2 )],
+with mass-conserving density ρ = ρbg /[s2 (s + rs′ )], s = λ + µ(1 − r2 /R2 ). The equations of
+motion are the Euler–Lagrange  R 2 equations of the same energy functional, Mij q̈j = Qi (q) with int
+                                                                                                    con-
+stant mass matrix Mij = r ϕi ϕj dM , exact barotropic internal-energy generalized force Qi =
+  (P/ρ) [2ϕi /s + (ϕi + rϕ′i )/(s + rs′ )] dM , and the same frozen-background, calibrated gravity force
+R
+
+
+
+                                                    28
+(fcal = 1.048, not refit), with the same static equilibrium subtraction. The µ = 0 slice reproduces
+the single-mode model exactly. This is the standard Galerkin (Lagrangian-truncation) generaliza-
+tion of the method already used, and adds no new free parameter.
+    Linear limit, a non-circular check. Because the calibration constrained only the λ-direction
+slope, the two-mode linearization is a genuine prediction. Its unstable eigenvalue is −σ 2 = 28.34 s−2
+against the independently computed Rayleigh–Ritz n = 2 value of 28.52 s−2 (0.7% difference;
+1/σ = 0.1879 s versus 0.1872 s), and its eigenvector has µ/λ = 0.087, i.e. a center-to-surface
+displacement-ratio variation of 8.7%, the correct sign and magnitude relative to the 13% of the full
+general-relativistic eigenfunction (the remainder being the two-function truncation). The second
+eigenvalue is strongly stable (frequency2 3617 s−2 ). The µ = 0 slice reproduces the single-mode
+force exactly, though the (λ, λ) element of the two-mode Jacobian differs from the single-mode
+slope because the modes are coupled.
+    Nonlinear trajectory. Integrating from seeds δ0 = 10−3 and 10−6 along the unstable eigenvector,
+the time to λ = 0.5 is 1.171 and 2.469 s, versus 1.189 and 2.498 s for the single-mode model: a 1.2–
+1.5% shift, accounted for by the 0.8% difference in linear growth rate accumulated over the growth
+phase. The e-folding phase is therefore insensitive to the extra freedom. In the plunge, however, the
+inhomogeneity matters: the center collapses faster than the surface (µ/λ evolves from +0.087 to
+−0.076 at λ = 0.5), the time from λ = 0.5 to λ = 0.173 is 0.0247 s versus 0.0271 s (9% shorter), and
+the central density runs ahead of its homologous value (ρc /ρ0 ≈ 79 at λ ≈ 0.29, versus λ−3 ≈ 41
+for homology; to the accuracy of an earlier, coarser run). The two-mode integration terminates at
+λ ≈ 0.173, where λ + µ → 0 and the central density diverges within the basis; this is a limit of the
+truncated basis (an incipient central singularity in the trial map), not a physical result, and we do
+not interpret the trajectory beyond it.
+    Conclusion of the test. The e-folding time and the order-of-magnitude plunge time (≈ 0.025–
+0.03 s) are robust to the first inhomogeneous correction at the ≲ 10% level, which supports the
+single-mode estimates of Section 8.3. The test does not address the final approach to the horizon,
+which requires a genuinely inhomogeneous, strong-field evolution.
+
+8.5   Composition, lattice corrections and offset dependence
+Rotondo et al. [Rotondo et al., 2011] (their Table III) find that the mass limit is set by general-
+relativistic instability for 4 He (ρcrit = 1.56 × 1010 g cm−3 ) and 12 C (2.12 × 1010 ), but by inverse
+β-decay for 16 O (1.94 × 1010 , coincident with its β threshold) and 56 Fe (1.18 × 109 ). The in-
+stability studied here is therefore the relevant fate for 4 He at all densities we consider and for
+12 C only below its β threshold (3.97 × 1010 g cm−3 , an offset of 1.66 in our equation of state);
+
+for 16 O the limits coincide, and for 56 Fe the calculation below is a counterfactual (the same star
+with neutronization switched off), not an astrophysical prediction. In particular, the fiducial test
+configuration, 5 × 1010 g cm−3 , lies above the 12 C threshold, so for carbon it should be read as
+a reference configuration of the ideal-gas model, not as a prediction for a carbon white dwarf.
+Composition enters through µe (2 for 4 He, 12 C, 16 O; 56/26 for 56 Fe) and, with lattice corrections,
+through the nuclear charge Z. We add the Salpeter lattice (Wigner–Seitz) pressure [Salpeter, 1961],
+         3 4π 1/3 2 2/3 4/3                                                  9 2 2
+                                                                              Z e /ri with PL = 13 uL ,
+                
+PL = − 10     3     e Z ne , derived from the lattice energy per ion − 10
+and include the corresponding energy density uL = 3PL in ε (consistent with the first law, since
+uL ∝ n4/3 ); Γ1 is computed analytically from the modified P (ρ). Higher-order Salpeter terms (elec-
+tron non-uniformity, correlation) are not included. This lattice term produces negative pressures
+below ∼ 102 g cm−3 , a known limitation [Rotondo et al., 2011] that affects only the outermost
+layers, which the TOV integration truncates at 10−10 of the central pressure.
+    We reran the entire pipeline (TOV structure, Rayleigh–Ritz σ 2 , calibration of fcal against the
+
+                                                  29
+n = 1 value, nonlinear integration from δ0 = 10−6 ) for the ideal electron gas and for the four
+Salpeter equations of state, at several offsets ρc /ρmax past the mass maximum and at the fiducial
+absolute density 5 × 1010 g cm−3 . ∆tpl is the time from λ = 0.5 to 0.15.
+     EOS             Mmax [M⊙ ]   ρc /ρmax    ρc [1010 g/cm3 ]     2
+                                                                 −σn=5       fcal   1/σ [s]   ∆tpl [s]   ∆tpl /Tdyn
+     ideal, µe = 2       1.4166        1.10               2.54     1.94   1.0523     0.719     0.0490          0.67
+                                       1.50               3.47    10.80   1.0503     0.304     0.0371          0.58
+                                       2.00               4.62    23.87   1.0486     0.205     0.0295          0.53
+                                       2.16              5.00*    28.55   1.0481     0.187     0.0277          0.51
+                                       3.00               6.93    54.87   1.0463     0.135     0.0215          0.46
+     4 He                1.4013        1.10               2.58     1.96   1.0523     0.714     0.0488          0.67
+                                       1.50               3.52    10.95   1.0503     0.302     0.0370          0.59
+                                       2.00               4.69    24.19   1.0486     0.203     0.0292          0.53
+                                       2.13              5.00*    27.97   1.0482     0.189     0.0276          0.51
+                                       3.00               7.04    55.60   1.0463     0.134     0.0213          0.46
+     12 C                1.3849        1.10               2.62     1.99   1.0523     0.709     0.0485          0.68
+                                       1.50               3.58    11.11   1.0503     0.300     0.0368          0.59
+                                      2.00†               4.77    24.55   1.0486     0.202     0.0290          0.53
+                                      2.10†              5.00*    27.34   1.0483     0.191     0.0278          0.52
+                                      3.00†               7.16    56.41   1.0463     0.133     0.0212          0.46
+     16 O                1.3782       2.00†               4.80    24.69   1.0486     0.201     0.0289          0.53
+                                      2.08†              5.00*    27.08   1.0484     0.192     0.0279          0.52
+                                      3.00†               7.21    56.75   1.0463     0.133     0.0211          0.46
+     56 Fe               1.1507       1.71†              5.00*    19.07   1.0497     0.229     0.0305          0.57
+                                      2.00†               5.86    28.58   1.0488     0.187     0.0269          0.54
+                                      3.00†               8.80    65.67   1.0467     0.123     0.0197          0.48
+
+Table 1: Composition, lattice and offset survey (all runs at 12000 radial points; the fiducial-density
+rows are marked ∗, ρc = 5.00 × 1010 g/cm3 ). † : central density above the nucleus’s inverse-β
+threshold [Rotondo et al., 2011] (4 He 13.9, 12 C 3.97, 16 O 1.94, 56 Fe 0.118 × 1010 g/cm3 ), where
+neutronization, not modeled here, would intervene; these rows are counterfactual for the named
+nucleus. 1/σ uses the converged five-function eigenvalue; fcal is calibrated against the one-function
+value; ∆tpl is the time from λ = 0.5 to 0.15.
+
+    Four results follow. (i) The lattice correction is a small perturbation on the quantities of interest:
+at fixed ρc = 5×1010 g cm−3 , −σ 2 is 28.55 for the ideal gas and 27.97, 27.34, 27.08 for 4 He, 12 C, 16 O
+(a 2–5% decrease), and fcal moves by 0.03% or less. (ii) The calibration factor is nearly universal:
+across all five equations of state and offsets from 1.1 to 3 it lies between 1.046 and 1.052, a 0.6%
+spread. (We do not read this as showing the correction is small in the sense that matters, for the
+reason given in Section 8.2; it shows that whatever fcal absorbs is a stable property of the model,
+not of composition.) (iii) The dominant control parameter is the offset past the mass maximum,
+not composition: −σ 2 grows by a factor of ∼ 5 between offsets 1.5 and 3, while at equal offset
+(2.0) the ideal gas, 4 He, 12pC and 16 O agree to 3.5%. (iv) The plunge time remains 0.46–0.69 of
+the dynamical time Tdyn = R3 /GM across the whole survey (including the 1.1-offset rows not all
+shown; it rises toward the lowest offsets, where growth is slowest), so the conclusion of Section 8.3
+— an e-folding phase followed by a dynamical-time plunge — does not depend on composition
+within this model. The iron-like case differs more: at equal offset 2.0 its −σ 2 is 20% above the
+ideal gas (a genuine µe effect, since the lattice term is small), while at the fiducial density it is 33%
+below, because it then sits at the smaller offset 1.71.
+    The Salpeter equations of state also reproduce the precision-literature maximum masses of the
+full Feynman–Metropolis–Teller treatment [Rotondo et al., 2011]: 1.3849 versus 1.38603 M⊙ for
+12 C (0.08%) and 1.4013 versus 1.40906 M for 4 He (0.55%); their 16 O and 56 Fe values are β-limited
+                                            ⊙
+and not comparable. As discussed in Section 5.9, critical densities agree less well because the mass
+curve is flat at its peak. The offset-dependence is a statement about where on the unstable branch
+the star sits, which is set by how far past its maximum mass it is driven, an input this calculation
+
+                                                          30
+does not determine.
+
+8.6   Reaching the fold by quasi-static accretion: the dynamic delay
+The seeded collapses above start from a configuration already beyond the turning point, with an
+arbitrary seed δ0 . A star that approaches Mmax by slow accretion never sits there: it arrives along
+the stable branch, where σ 2 > 0, and σ 2 → 0 exactly at Mmax (Section 5.9). Linear growth at
+fixed σ therefore says nothing about the onset; the correct problem is a ramped saddle-node, and
+its answer fixes the seed, which was a free parameter in the previous subsections.
+
+Reduction. Near the turning point the dynamics of the one marginal mode reduce, by centre-
+manifold reduction [Carr, 1981, Haragus and Iooss, 2011], to a one-degree-of-freedom conservative
+normal form. Let y = ρc /ρmax − 1 label the equilibrium sequence. The exact-GR quantities of
+Sections 5–5.9 supply both coefficients, so nothing is fitted: the converged pulsation eigenvalue
+is σ 2 = −κy and the sequence mass is Mmax − M = a y 2 . With the time-domain linearization
+δ̈ = −σ 2 δ fixing the normalization, the leading-order normal form is independent of how the mode
+amplitude is scaled and reads
+                           κ       κ
+                       ÿ = y 2 +
+                                                     
+                                       M (t) − Mmax ,      M (t) − Mmax = Ṁ t,                (22)
+                           2       2a
+whose equilibria obey M = Mmax − a y 2 with ∂y ÿ = −σ 2 on both branches. We measured κ and
+a at y = ±0.002, . . . , ±0.02 with the 12000-point solver: ρmax = 2.3106 × 1013 kg m−3 , Mmax =
+1.41661 M⊙ , κ = 18.733 s−2 (constant to 0.01% over that range) and a = 4.027 × 10−3 M⊙ .
+
+Scaling and the universal solution. Setting y = αu, t = βs with
+                               4a 1/5           2
+                          β=            ,    α=     2
+                                                      ∝ Ṁ 2/5 ,                                 (23)
+                                 2
+                                κ Ṁ             κβ
+turns Eq. (22) into u′′ = u2 + s, the first Painlevé equation in its standard
+                                                                            √  slow-passage form
+[Joshi and Kitaev, 2001]. The star follows the quasi-static branch u = − −s until s = O(1), then
+departs and reaches a pole u ≃ 6/(s − s∗ )2 , which is the onset of runaway collapse. Integrating
+from the slow-manifold start (including the first adiabatic correction −1/8s2 to the equilibrium)
+gives s∗ = 3.41012, identical to 10−5 for starting points s0 = −40 to −320. Hence
+                                             4a 1/5                  2
+                          tcollapse = 3.410           ,    δeff ∼ α =      ,                  (24)
+                                             κ2 Ṁ                    κβ 2
+measured from the instant M = Mmax . The seed is no longer free: it is set by the accretion rate,
+δeff ∝ Ṁ 2/5 .
+
+Full-model check. We integrated the calibrated homologous model of Section 8, rebuilt on the
+fold background (ρc = ρmax , calibrated so k = 0 as the turning-point theorem requires; fcal = 1.059),
+with a mass-ramp force that keeps its equilibrium on Mmax − M = a y 2 . This replaces the leading-
+order normal form by the model’s full nonlinear force, down to λ = 0.15. Its quadratic coefficient
+is 26.09 s−2 , 7.2% below the exact-GR value 3κ/2 = 28.10 s−2 (one global trial function is not
+the exact eigenfunction). We report both versions: raw, and with the force rescaled by 1.077
+to the exact-GR coefficient. The rescaled model reaches y = 10−2 at s = 3.337 (Ṁ = 10−7 ,
+u = y/α = 1086), against 3.337 from the universal solution (0.03%), and is independent of the
+start (s0 = −20, −30, −45: 3.5056, 3.5055, 3.5055 raw), the adiabatic start velocity (a rest start
+shifts t by 0.6%), and the accretion rate. Table 2 gives the results.
+
+                                                 31
+                     Ṁ    β [s]            α   tcoll [s]   raw [s]    ∆M [M⊙ ]     plunge [s]
+                   10−9   270.5    1.5 × 10−6       922        950    2.9 × 10−14       0.052
+                   10−8   170.7    3.7 × 10−6       581        599    1.8 × 10−13       0.052
+                   10−7   107.7    9.2 × 10−6       366        378    1.2 × 10−12       0.052
+                   10−6    67.9    2.3 × 10−5       231        238    7.3 × 10−12       0.052
+                   10−5    42.9    5.8 × 10−5       145        150    4.6 × 10−11       0.052
+
+Table 2: Collapse of a star accreting through the fold of the ideal-gas (µe = 2) sequence. Ṁ in
+M⊙ /yr. tcoll is the time from M = Mmax to λ = 0.5 (rescaled model; “raw” is the unrescaled
+model, 3% longer, as t ∝ κ−2/5 predicts for 0.93κ), ∆M the mass accreted past Mmax by then, and
+“plunge” the time from λ = 0.5 to 0.15. The plunge phase (0.054 s raw) is independent of Ṁ , and
+longer than at the test configuration of Section 8 (0.028 s), plausibly because the fold configuration
+is less dense (2.3 × 1010 versus 5 × 1010 g cm−3 , tdyn ∝ ρ−1/2 ) and starts from rest at a marginal
+equilibrium rather than from a growing eigenmode; we have not separated these causes.
+
+
+
+
+Figure 11: Left: fold passage in scaled variables for three accretion rates, which collapse onto the
+universal Painlevé-I curve (dashed). Right: delay from Mmax to collapse against accretion rate,
+with the Ṁ −1/5 law.
+
+What this changes. First, critical slowing-down dominates: collapse follows the crossing of
+Mmax by minutes, not by the 1.2–3.8 s of the seeded runs, because σ → 0 at the fold; the 0.19 s e-
+folding time describes only a star already deep on the unstable branch. Second, the delay is a weak
+function of Ṁ (∝ Ṁ −1/5 ): five decades in Ṁ move it by a factor 6. Third, the mass overshoot is
+≲ 5×10−11 M⊙ , so Mmax is the collapse mass to that accuracy, the physical prediction that matters
+for the black-hole mass in the series. Fourth, the ln(1/δ0 ) ambiguity of the previous subsections is
+replaced by δeff ≃ α ∼ 10−6 –10−4 .
+
+Limits. (i) Conservative dynamics: dissipation is treated separately in Section 8.7; the equations
+of state here have none, and thermal evolution (a finite-T equation of state) is not included. (ii)
+Fluctuations: an equipartition estimate gives δλrms ≲ 10−27 at T ∼ 108 K (using the model’s
+moment of inertia, 4.2 × 1041 kg m2 ), far below α, so the trajectory is deterministic here, but
+this is an order-of-magnitude statement for the mode amplitude only. (iii) (see also Section 8.9)
+The ideal-gas equation of state has no β-decay thresholds; ρmax = 2.3 × 1010 g cm−3 lies above
+the 16 O threshold (1.94 × 1010 ) quoted in Section 8.5, below 12 C (3.97 × 1010 ), so the result is
+
+
+                                                       32
+a counterfactual for those compositions, as the † rows of Table 1 already flag; real carbon white
+dwarfs ignite far below this density. (iv) The single homologous degree of freedom is calibrated on
+the linear eigenvalue only; its fold-coefficient differs from exact GR by 7%, which we report, not
+hide, and which moves tcollapse by 3% and the plunge by 4%. The Ṁ −1/5 scaling and s∗ = 3.410
+are properties of the normal form and do not depend on that model.
+
+8.7    Dissipation in the fold passage
+The fold passage above is conservative. We now ask what dissipation can change. Four channels
+are considered, and the answer is a bound plus an explicit requirement on microphysics we do not
+compute.
+
+What cannot change. Dissipation does not move fixed points: the equilibrium sequence, and
+hence ρmax and Mmax , are those of the equilibrium equation of state, provided the matter relaxes
+to equilibrium in a time short compared with β (otherwise the relevant sequence is the one at
+frozen composition, with a different turning point). Gravitational radiation from a radial mode
+vanishes in spherical symmetry (Birkhoff), and shear viscosity does not act on a homologous radial
+motion. Thermal non-adiabaticity is also negligible here: for degenerate electrons the pressure is
+nearly independent of temperature, so heat exchange between fluid elements does not change Γ1
+at leading order. At ρmax the electron Fermi energy is 11.2 MeV, so (kB T /EF )2 = 6 × 10−7 at
+T = 108 K, and the ion thermal pressure is 1.5 × 10−3 , 4.9 × 10−4 , 3.7 × 10−4 and 1.1 × 10−4 of the
+electron pressure for 4 He, 12 C, 16 O and 56 Fe. That ion term is a finite-temperature correction to
+the equation of state itself (we use T = 0), not a dissipation, and we do not evaluate its effect on
+Mmax .
+
+Damped normal form. Adding a friction ν ẏ to Eq. (22) and using the scalings above gives
+u′′ + ν̃u′ = u2 + s with ν̃ = νβ. For ν̃ ≫ 1 the motion is overdamped, ν̃u′ ≃ u2 + s, and a second
+rescaling (β ′ = (4aν 2 /κ2 Ṁ )1/3 = β ν̃ 2/3 ) reduces it to the Riccati equation w′ = w2 + τ . Its solution
+that follows the equilibrium is w = −ϕ′ /ϕ with ϕ = Ai(−τ ), which diverges at the first zero of
+the Airy function, τ∗ = −a1 = 2.33811 [NIST, 2024, §9.9]. This is the first-order (overdamped)
+form of the jump delay at a fold under a slowly varying parameter, the class of problem treated in
+Haberman [1979]. Hence
+
+                  tcollapse → 2.338 β ν̃ 2/3   (ν̃ ≫ 1),         tcollapse = 3.410 β   (ν̃ = 0).         (25)
+
+Numerical integration from the first-order adiabatic start gives the crossover in Table 3; the pole
+position approaches the Airy law from above (ratio 1.07 at ν̃ = 10). Dissipation therefore only
+
+                                 ν̃ = νβ    s∗ = tcollapse /β   2.338 ν̃ 2/3   ratio
+                                        0              3.410              —       —
+                                      0.1              3.518        0.504         —
+                                      0.3              3.730        1.048         —
+                                        1              4.445        2.338       1.90
+                                        3              6.305        4.863       1.30
+                                       10              11.63        10.85       1.07
+
+Table 3: Collapse delay of the damped normal form u′′ + ν̃u′ = u2 + s (units of β) against the
+overdamped Airy law.
+
+delays collapse, and does so slowly: the delay grows as ν 2/3 . The mass accreted before collapse is
+
+
+                                                        33
+∆M = Ṁ tcollapse = 2.338 Ṁ 2/3 (4a/κ2 )1/3 ν 2/3 in the overdamped regime. For Ṁ = 10−7 M⊙ /yr
+(β = 107.7 s) and ν = 10 s−1 (a damping time of 0.1 s, ν̃ ≈ 1100) this gives tcollapse ≈ 2.6 × 104 s
+and ∆M ≈ 8 × 10−11 M⊙ ; for Ṁ = 10−5 M⊙ /yr and ν = 100 s−1 it is 8 × 10−9 M⊙ . The collapse
+mass is Mmax to that accuracy for any damping rate of astrophysical interest.
+
+Bulk viscosity from a relaxing composition, and the requirement it imposes. The one
+channel that can act on a radial mode is bulk viscosity from a relaxing internal variable (weak
+interactions, in dense matter). In the standard relaxation form [Landau and Lifshitz, 1987, §81]
+the real part of the bulk viscosity is ζ = ρ (c2∞ − c20 ) τ /(1 + ω 2 τ 2 ), with c∞ and c0 the frozen and
+equilibrium sound speeds and τ the relaxation time. For the      R homologous       mode the Rcompression
+                                                                              2
+rate ∇·v = 3λ̇/λ is uniform, so the energy balance Ė = − ζ(∇·v) dV gives ν = 9 ζ dV /I. In
+the quasi-static limit ωτ ≪ 1 appropriate to a ramp with ω ∼ 1/β, and writing ∆r = (c2∞ − c20 )/c20 ,
+
+                                     9 Γ̄1 WP
+                                ν=            ∆r τ = 6.5 × 103 s−2 ∆r τ,                        (26)
+                                         I
+using the fold-configuration values Γ̄1 = 1.337, WP = P dV = 2.30 × 1044 J and I = 4.24 ×
+                                                            R
+
+1041 kg m2 . Damping matters (ν̃ ≳ 1) once ∆r τ ≳ 5.7 × 10−7 , 1.4 × 10−6 and 3.6 × 10−6 s for
+Ṁ = 10−9 , 10−7 , 10−5 M⊙ /yr. This is a small number: a relaxation of relative strength 10−3 with
+τ ≳ 1 ms is enough. It is therefore not safe to assume dissipation is irrelevant for compositions
+with active weak processes. For the equations of state treated here, which have no relaxing internal
+variable, ∆r = 0 and the fold passage above is exact within the model. For the † compositions, a
+value of ∆r τ would require a reaction network (electron-capture and Urca rates near the thresholds),
+which we do not attempt. What we can say is that the result is bracketed: collapse occurs at Mmax ,
+after a delay between 3.41β and the Airy-law value computed from the ∆r τ of the actual matter.
+
+8.8   A fully inhomogeneous test: spherical general-relativistic Lagrangian evo-
+      lution
+The homologous model has one degree of freedom, and its self-gravity is calibrated rather than
+derived. We therefore test it against an independent evolution that has neither restriction: the
+spherically symmetric Misner–Sharp equations in comoving (rest-mass) coordinates [Misner and
+Sharp, 1964, May and White, 1966], with the same equation of state and the same TOV initial
+profile.
+
+Scheme. The unknowns are the radius rj , proper velocity Uj = dr/dτ and Misner–Sharp mass
+mj at the zone interfaces of a grid in rest mass µ (spacing ∝ (1 − x) toward the surface). The
+relations used are Γ2 = 1 + U 2 /c2 − 2Gm/rc2 , ρ = Γ̄ ∆µ/V with V = 4π   3      3
+                                                                      3 (rj+1 − rj ), dm = eV /c
+                                                                                                 2
+
+across a zone (Hamiltonian constraint), dm/dτ = −4πr2 P U/c2 and
+
+                              dU        4πr2 ∆P  G    4πr3 P 
+                                 = −Γc2         − 2 m+          ,                                    (27)
+                              dτ        h Mnode  r       c2
+
+which is the Euler equation −Γ2 c2 ∂r P/(e + P ) with the node inertia written through the node’s
+rest mass Mnode and enthalpy per unit rest mass h = (e + P )/ρ. For a barotropic fluid in comoving
+slicing αh is spatially constant, so the lapse is fixed by matching the exterior Schwarzschild time
+at the surface, αs = (1 − 2GM/Rc2 )/Γs ; times below are exterior (infinity-normalised) coordinate
+times, the normalisation of the eigenvalue σ. We integrate with fourth-order Runge–Kutta at a
+Courant number 0.4. There is no artificial viscosity; no shell crossing or shock occurred in any run
+
+                                                   34
+reported here (minimum zone width stays positive; Γ2 ≥ 0.42). The residual of the discrete initial
+equilibrium is subtracted from the force bracket (a well-balancing step, the same device as the R0
+subtraction of the homologous model); the Hamiltonian-constraint violation is ≲ 1.3 × 10−7 of M
+in every run.
+    A first version of this scheme took the node inertia from an arithmetic mean of zone enthalpy
+densities. It was not mass-consistent where the density changes by factors of 2–4 between zones
+near the surface, and a Jacobian eigenvalue analysis showed a spurious surface-trapped mode with
+growth rate 6.4 s−1 at N = 100. The mass-based form above removes it: all eigenvalues of the
+stable-branch configuration are neutral to 10−12 .
+
+Validation against the linear results. The eigenvalues of the discrete Jacobian provide two
+tests that do not use the pulsation equation. (i) On the fiducial configuration (ρc = 5×1010 g cm−3 )
+the unstable growth rate is 5.013, 5.237, 5.309 s−1 for N = 100, 200, 400 zones; the differences
+shrink
+√       by 3.1 per doubling (second order), and Richardson extrapolation gives 5.3435 s−1 , against
+  28.55 = 5.343 s−1 from Rayleigh–Ritz. (ii) At the turning point ρc = ρmax the lowest discrete σ 2
+is 1.585, 0.521, 0.170 s−2 for N = 100, 200, 400, extrapolating to −0.001 s−2 ≈ 0, an independent
+confirmation of the turning-point theorem. On the stable branch (ρc = 1010 g cm−3 ) the funda-
+mental frequency at N = 200 is 2.842 against 2.802 rad s−1 (Rayleigh–Ritz), 1.4% high, consistent
+with the same convergence. These tests share the equation of state and the TOV profile with the
+rest of the paper, so they check the dynamics and linearization, not the thermodynamics.
+
+Collapse from the fold, compared with the homologous model. Because the discrete fold
+         2 = +0.17 s−2 for N = 400 (equivalent to y ≈ 0.009), a hand-off at y = 10−2 lies inside the
+lies at σN
+discretization error and the discrete star bounces. We therefore hand off at y = 0.1 (σ 2 ≈ −1.9 s−2 ):
+the state (λ, λ̇) of the homologous model at that point, applied as a homologous displacement and
+velocity of the ρc = ρmax star, is used as initial data for both calculations. Table 4 compares them.
+The Lagrangian time to λh = 0.5 converges at second order (differences 0.159, 0.042 s) to 1.705 s,
+
+                                                     t(λh = 0.5) [s]   t(0.15) [s]   plunge [s]   tAH [s]   mAH /M
+  Lagrangian N = 200                                        1.9209         1.9745       0.0536    1.9777      0.178
+  Lagrangian N = 400                                        1.7622         1.8155       0.0533    1.8187      0.177
+  Lagrangian N = 800                                        1.7200         1.7731       0.0531    1.7763      0.177
+  Lagrangian, extrapolated                                    1.705         1.758        0.053     1.761      0.177
+  Homologous, rescaled (exact-GR fold coefficient)          1.7083         1.7601       0.0518        —          —
+  Homologous, raw                                           1.7595         1.8133       0.0538        —          —
+
+Table 4: Collapse from the fold, starting at y = 0.1 (Lagrangian: half-rest-mass radius ratio λh ;
+tAH : first time maxr 2Gm/rc2 = 1, extrapolated by the same second-order rule). Times from the
+hand-off state.
+
+0.2% from the rescaled homologous model and 3% from the raw one; the plunge from λ = 0.5 to
+0.15 is 0.053 s against 0.052 (rescaled) and 0.054 s (raw). The calibrated one-mode model therefore
+reproduces the full inhomogeneous evolution of this system to better than a few percent in time
+over the whole range where the model is defined. This is a test of the homologous ansatz against
+the inhomogeneous dynamics for these initial data, with the homologous model’s own state as the
+starting point; it is not a test of how the star would arrive there.
+
+Through the model’s wall, to an apparent horizon. The Lagrangian code is not limited
+by the model’s frozen-metric breakdown at λ ≈ 0.15. It continues to the formation of an apparent
+
+
+                                                       35
+horizon, maxr 2Gm/rc2 = 1, which occurs 0.0563 s after λh = 0.5 (0.0568, 0.0565, 0.0563 s for
+N = 200, 400, 800), only 0.003 s after λh = 0.15. The horizon first appears at an interior shell
+enclosing mAH = 0.177 M = 0.251 M⊙ , independent of resolution to 0.5%; at that moment the
+central rest-mass density has risen by 2.7–2.9 × 107 . The collapse is strongly inhomogeneous at
+the end, so the homologous ansatz has long ceased to describe the shape: relative to their initial
+radii the shells enclosing 5%, 20%, 50%, 80%, 95% and 99% of the rest mass sit at 0.0036, 0.0055,
+0.0128, 0.030, 0.060 and 0.091, and the surface at 0.167 (N = 200). What the model gets right is
+the timing up to the point where it is still valid, which is set by the core.
+
+Limits. (i) The equation of state is the ideal cold electron gas throughout. At λh = 0.5 the central
+density is already above the β-capture thresholds, and by horizon formation it is ∼ 6 × 1017 g cm−3 ,
+beyond nuclear density. A realistic star would neutronize and could bounce; the horizon, the seed
+mass 0.25 M⊙ and the post-λ = 0.5 timing are properties of this model, not predictions for stars.
+The agreement with the homologous model, by contrast, is a test of dynamics under the same
+equation of state. (ii) Spherical symmetry only: non-radial modes are not included (item 2b-v).
+(iii) The first apparent horizon is reported; accretion of the remaining 1.17 M⊙ onto it was not
+followed, because exterior time freezes there.
+
+8.9    Composition dependence of the fold passage
+The fold coefficients were measured for each Salpeter-lattice equation of state of Section 8.5 by the
+same procedure as for the ideal gas (ρmax located to 10−8 in log ρ; κ and a from the symmetric
+differences at y = ±0.005, ±0.01, 12000-point solver). Table 5 gives them with the consequent
+collapse delay 3.410 β at Ṁ = 10−7 M⊙ /yr. Two points follow. First, the fold passage is nearly
+
+                  ρmax [g cm−3 ]   Mmax [M⊙ ]   ρβ [g cm−3 ]   consistent?   κ [s−2 ]   a [10−3 M⊙ ]    β [s]   tcoll [s]
+ ideal (µe = 2)    2.311 × 1010        1.4166            —              —     18.73           4.027    107.7        367
+ 4
+   He              2.346 × 1010        1.4013   1.39 × 1011            yes    18.99           3.976    106.8        364
+ 12
+    C              2.386 × 1010        1.3849   3.97 × 1010            yes    19.26           3.922    105.9        361
+ 16 †
+    O              2.402 × 1010        1.3782   1.94 × 1010             no    19.38           3.900    105.6        360
+ 56
+    Fe†            2.932 × 1010        1.1507    1.18 × 109             no    22.44           3.094     95.0        324
+
+Table 5: Fold coefficients and collapse delay at Ṁ = 10−7 M⊙ /yr for the lattice-corrected equations
+of state. ρβ is the β-decay threshold of Rotondo et al. [2011]; “consistent” means ρmax < ρβ . The
+† rows lie above their threshold, so matter of that composition would have neutronized before
+reaching the fold.
+
+composition-independent: κ rises by 1–20% and a falls by 1–23%, and the delay changes by 1–
+2% (4 He, 12 C, 16 O) to 12% (56 Fe), because t ∝ (a/κ2 )1/5 is a weak function of both. The seed
+α ∝ κ−1 β −2 changes by at most about 7%. Second, unlike the fiducial density 5×1010 g cm−3 of the
+seeded runs, which exceeds the 12 C threshold, the fold itself lies below the 12 C and 4 He thresholds,
+so for these two compositions the equation of state is self-consistent at the fold and there is no
+relaxing weak process there (∆r = 0 in Section 8.7). This does not make the scenario realistic:
+nuclear burning (carbon and helium ignition, pycnonuclear fusion) is not in the model and acts
+at far lower densities in real stars, so these rows describe a counterfactual non-burning star whose
+only role is to show that the fold analysis does not depend on the choice of lattice composition.
+
+
+
+
+                                                       36
+8.10    What this does, and does not, establish
+This calculation is a genuine nonlinear result, not merely the linear eigenvalue restated: it evolves
+the fully nonlinear internal energy (exact, via the barotropic identity, with no Γ1 -linearization any-
+where) and the fully nonlinear Newtonian self-gravity (also exact) through the entire trajectory,
+including deep into the regime where the perturbation is far from infinitesimal, and it reproduces,
+independently, the qualitative two-phase structure (slow exponential onset, fast dynamical plunge)
+that the physics should produce. It is not a replacement for a genuine nonlinear, inhomogeneous,
+strong-field numerical-relativity evolution: it is restricted by construction to one homologous de-
+gree of freedom (Chandrasekhar’s own linear calculation shows this is already an excellent, 13%,
+approximation to the true unstable eigenfunction; a two-mode extension, Section 8.4, changes the
+growth phase by 1.2–1.5% and the plunge time by ≈ 9%), which need not remain an equally good
+approximation once the collapse is highly nonlinear and the frozen-metric treatment of self-gravity
+is calibrated, not derived, for exactly the regime where it is least trustworthy. We regard the
+e-folding time 1/σ ≈ 0.19 s as a direct, essentially assumption-free consequence of the already-
+validated linear eigenvalue (any model built to reproduce σ 2 = −27.85 in its linear limit gives this
+number), the dynamical-plunge time τplunge ≈ 0.03 s as a physically reasonable, order-of-magnitude
+estimate consistent with the star’s own dynamical time, and the total few-second collapse timescale
+as the honest combination of the two, explicitly flagged as dependent on an astrophysically unde-
+termined initial perturbation size rather than reported as a single sharp number. A fully nonlinear,
+inhomogeneous, strong-field evolution — the natural next step already identified in Section 7.2
+and costed in the companion technical report [Ownby, 2026] — would be needed to check whether
+the homologous ansatz itself survives into the deeply nonlinear regime, and to follow the collapse
+through the compactness threshold this calculation stops at, to an actual black-hole endpoint and
+mass. Section 8.8 now supplies a spherically symmetric version of that evolution: it confirms the
+homologous timing to 0.2% in the time to λ = 0.5 and a few percent in the plunge, and follows the
+collapse to the first apparent horizon, within the idealized equation of state.
+
+
+9      Discussion
+9.1    What this establishes about the matter route to the core
+Paper B shows no known classical field sources the regularized metric in general relativity. This
+paper adds a complementary, dynamical fact: for the most natural candidate route — a degenerate
+stellar core pushed past its effective maximum mass — the resulting configuration is not even in
+stable equilibrium to begin with. This conclusion rests, in its final form, on the actual general-
+relativistic pulsation equation (Section 5.5), applied to a configuration whose equilibrium structure
+is independently validated against the historical Chandrasekhar–Tooper critical mass to 0.07%,
+cross-checked across two independent trial functions and a converged Rayleigh–Ritz basis, and — as
+an exact external test — reproducing the rigorously proven turning-point theorem (the fundamental
+eigenvalue vanishes at the mass maximum) to 0.01% in density, a test our first implementation
+failed (Section 5.9). It is a stronger, more carefully grounded result than our first attempt: that
+attempt used an equation of state later found to deviate from precision literature by an order of
+magnitude in density, and Newtonian perturbation theory that, applied honestly to the corrected
+structure, cannot see the instability at all, since the mechanism is a property of relativistic dynamics,
+not of the Newtonian Pekeris criterion. Any scenario in which collapse of ordinary degenerate
+matter is supposed to settle into, or pass smoothly through, the density regime relevant to this
+series’ regularization scale must contend with this instability, not merely with Paper B’s sourcing
+
+
+                                                   37
+obstruction.
+
+9.2   What is now settled, and what remains open, honestly
+The qualitative nonlinear fate is now settled, not by our own nonlinear code, but by established
+literature applied to our own validated linear result (Section 7). The relevant structure — a bifurca-
+tion between collapse and migration to the stable branch, governed by the sign of the perturbation
+along the unstable mode — is confirmed in full numerical relativity by Font et al. [Font et al., 2002]
+and studied as a critical phenomenon by Radice, Rezzolla & Kellermann [Radice et al., 2010], and
+our eigenvalue vanishes at the mass maximum exactly as that literature’s turning-point argument
+requires (Section 5.9; the identification with negative canonical energy is Friedman’s general result,
+Section 5.10). For the astrophysically relevant direction — compressive, continued accretion or
+continued loss of pressure support pushing the star past its own maximum mass, not a fortuitous
+outward kick — the established behavior is the collapsing branch, not migration. This retroac-
+tively explains, rather than leaves as an unresolved anomaly, our own Section 6–6.4 finding that
+opposite-sign seeds of identical shape drove our nonlinear code to opposite fates: that was the
+correct physics showing through an incompletely converged code, not a bug.
+    What remained open after Section 7, narrowly and purely quantitatively, was the growth rate
+and detailed trajectory of the collapse, as opposed to the fact that it is collapse. On the preliminary
+configuration, we ruled out the two most natural explanations for why an independent nonlinear
+code failed to converge on an outcome at all — accidental excitation of different mode signs by
+truncation noise, and contamination by the decaying solution’s initial transient — and the diver-
+gence between resolutions persisted regardless; we now understand that divergence as the genuine
+bifurcation of Section 7.1, not as a numerical failure. Redone on the corrected configuration (Sec-
+tion 6.4), the resolution-dependence of the qualitative outcome is gone, and the sign-symmetry a
+genuinely unstable configuration should show is present exactly as predicted; what was still miss-
+ing there was a clean quantitative growth rate from that same strong-form, spatially discretized
+approach, with the local growth rate passing through the validated linear value without plateauing
+there. We traced this to a specific, identifiable cause (Section 6.5): this instability’s growth rate
+is a residual of two terms that are individually enormous and nearly cancel, precisely because Γ1
+exceeds 4/3 by only a few parts in a thousand, and a scheme representing gravity and pressure as
+separately-discretized large numbers has no reason to preserve a cancellation that fine.
+    Rather than continuing to repair that strong-form approach — a second, independent attempt
+(not reported in detail here) reproduced the identical ill-conditioning (extremely large Jacobian
+condition numbers and a genuine near-zero singular value at every resolution tested; these di-
+agnostics are recorded in our working notes rather than reproduced here) — Section 8 builds a
+different kind of nonlinear model specifically designed to avoid representing that cancellation as
+a difference of large discretized numbers: a single-degree-of-freedom nonlinear generalization of
+Chandrasekhar’s own homologous trial function, validated term by term against exact analytic
+results, with its approximate frozen-background treatment of self-gravity calibrated, transparently
+and only once, against the independently validated linear eigenvalue, and cross-checked against
+an exact-energy construction (agreement to a few percent over 0.2 < λ < 1). This resolves the
+previously open quantitative question to the extent a model restricted to one global degree of free-
+dom can: an e-folding time of 0.19 s that is a direct, essentially assumption-free consequence of
+the already-validated linear result; a final dynamical-plunge phase of order 0.03 s, consistent with
+the star’s own dynamical time; and a total collapse timescale of order a few seconds for generic
+small seed perturbations, explicitly reported as logarithmically sensitive to the astrophysically un-
+determined initial perturbation size rather than as a single sharp number. For a star that reaches
+
+
+                                                  38
+Mmax by quasi-static accretion, Section 8.6 removes that sensitivity: the seed is set by the ramp,
+and critical slowing-down places the collapse ∼ 2–15 minutes after Mmax is crossed (Ṁ = 10−5 –
+10−9 M⊙ /yr), with a mass overshoot below 5 × 10−11 M⊙ . What remains open is now narrower still
+(a spherical Lagrangian general-relativistic evolution, Section 8.8, has since tested the homologous
+ansatz directly and taken the collapse to an apparent horizon, so the items below that refer to a
+fully inhomogeneous evolution now concern non-radial modes and a realistic equation of state at the
+densities reached): a two-mode extension (Section 8.4) shows the growth phase and the order of the
+plunge time survive the first inhomogeneous correction, but whether the ansatz remains adequate
+in the deeply nonlinear regime beyond the two-mode basis’s own breakdown at λ ≈ 0.17, and what
+happens physically once the model’s own frozen-metric approximation breaks down approaching
+the compactness threshold for apparent-horizon formation at the stellar surface — both of which
+require the fully inhomogeneous, strong-field numerical-relativity evolution already identified as the
+natural next step. We also did not ourselves run such a full evolution of this specific equation of
+state through to collapse; Section 7.2 relies on the established genericity of the bifurcation across
+the configurations the cited literature actually tested, an explicit, stated limitation rather than an
+implicit one. We report the genuine resolution, the calibration it required, and the remaining limits
+all honestly, rather than letting any one of them imply the others.
+
+9.3   Relation to the rest of the series
+Nothing here revises any claim in Papers A or B. Paper A’s exterior analysis and Paper B’s
+sourcing obstruction both concern the metric and its matter content once (or if) something like
+the assumed core exists; this paper’s instability result concerns whether realistic collapse dynamics
+would approach that regime smoothly, and finds that, for this specific matter model and mass, it
+would not — not merely because the configuration is linearly unstable, but because the specific,
+astrophysically-realized direction of that instability is now established, by literature rather than
+by further from-scratch numerics, to be genuine collapse rather than a bounded oscillation or a
+migration to safety (Section 7). We did redo the nonlinear numerical investigation on the corrected
+configuration (Section 6.4), with a gravitational source term verified TOV-consistent, rather than
+leaving this as a flagged gap: it gives a resolution-consistent, correctly sign-symmetric confirmation
+of instability whose qualitative bifurcation we now understand to be physical rather than numerical,
+though it still does not yield a trustworthy quantitative growth rate, for reasons diagnosed in
+Section 6.5 rather than left unexamined. Section 8’s calibrated homologous model gives a first
+genuine, nonlinear, quantitative handle on the collapse timescale (e-folding time 0.19 s, dynamical
+plunge ∼ 0.03 s, total of order a few seconds for generic seed perturbations) without needing
+that delicate strong-form cancellation to converge, but it is restricted to a single global degree of
+freedom and a calibrated, frozen-metric treatment of self-gravity; a fully general-relativistic (rather
+than patched-Newtonian, single-degree-of-freedom) numerical-relativity evolution of this specific
+equation of state — likely requiring an implicit treatment of the delicate near-cancellation this
+instability rests on — remains the natural next step for checking the homologous ansatz into the
+deeply nonlinear regime and for pinning down the collapse’s true endpoint (black hole formation and
+its mass, in particular), though not for the qualitative question of collapse-versus-oscillation this
+section now considers settled, nor for the e-folding timescale, which rests only on the independently
+validated linear eigenvalue. The companion technical report [Ownby, 2026] lays out concrete, costed
+options for pursuing it.
+
+
+
+
+                                                  39
+References
+Gordon Baym, Christopher Pethick, and Peter Sutherland. The ground state of matter at high
+ densities: equation of state and stellar models. The Astrophysical Journal, 170:299, 1971. doi:
+ 10.1086/151216.
+
+A. Brillante and I. N. Mishustin. Nonlinear oscillations of compact stars in the vicinity of the
+  maximum mass configuration. arXiv e-prints, 2015.
+
+A. Buonanno and T. Damour. Effective one-body approach to general relativistic two-body dy-
+  namics. Physical Review D, 59:084006, 1999.
+
+J. Carr. Applications of Centre Manifold Theory, volume 35 of Applied Mathematical Sciences.
+  Springer, New York, 1981. ISBN 978-0-387-90577-8; the publisher’s page lists 1982.
+
+S. Chandrasekhar. The highly collapsed configurations of a stellar mass. Monthly Notices of the
+  Royal Astronomical Society, 95:207, 1935.
+
+S. Chandrasekhar. A general variational principle governing the radial and the non-radial oscilla-
+  tions of gaseous masses. The Astrophysical Journal, 139:664, 1964a. doi: 10.1086/147792.
+
+S. Chandrasekhar. The dynamical instability of gaseous masses approaching the schwarzschild limit
+   in general relativity. The Astrophysical Journal, 140:417–433, 1964b. doi: 10.1086/147938.
+
+S. Chandrasekhar and R. F. Tooper. The dynamical instability of the white-dwarf configurations
+  approaching the limiting mass. The Astrophysical Journal, 139:1396, 1964. doi: 10.1086/147877.
+
+T. G. Cowling. The non-radial oscillations of polytropic stars. Monthly Notices of the Royal
+  Astronomical Society, 101(8):367–375, 1941. doi: 10.1093/mnras/101.8.367.
+
+J. A. Font, T. Goodale, S. Iyer, M. Miller, L. Rezzolla, E. Seidel, N. Stergioulas, W.-M. Suen,
+  and M. Tobias. Three-dimensional general relativistic hydrodynamics ii: long-term dynamics of
+  single relativistic stars. Physical Review D, 65:084024, 2002. arXiv:gr-qc/0110047.
+
+W. A. Fowler. The stability of supermassive stars. The Astrophysical Journal, 144:180, 1966. doi:
+ 10.1086/148594.
+
+J. L. Friedman. Lecture 3: Stability of relativistic stars, 2015. URL https://www.ictp-saifr.
+   org/schoolgr/Lecture3Friedman.pdf. ICTP-SAIFR School on Gravitation; lecture notes.
+
+R. Haberman. Slowly varying jump and transition phenomena associated with algebraic bifurcation
+  problems. SIAM Journal on Applied Mathematics, 37:69–106, 1979. doi: 10.1137/0137006.
+
+L. Haemmerlé. The properties of supermassive stars in galaxy merger driven direct collapse i:
+  models without rotation. Astronomy & Astrophysics, 700:A73, 2025. arXiv:2503.01970.
+
+M. Haragus and G. Iooss. Local Bifurcations, Center Manifolds, and Normal Forms in Infinite-
+ Dimensional Dynamical Systems. Springer, London, 2011.
+
+B. K. Harrison, K. S. Thorne, M. Wakano, and J. A. Wheeler. Gravitation Theory and Gravitational
+  Collapse. University of Chicago Press, 1965.
+
+N. Joshi and A. V. Kitaev. On Boutroux’s tritronquée solutions of the first Painlevé equation.
+  Studies in Applied Mathematics, 107:253–291, 2001.
+
+                                               40
+K. D. Kokkotas and J. Ruoff. Radial oscillations of relativistic stars. Astronomy & Astrophysics,
+  366:565, 2001. arXiv:gr-qc/0011093.
+
+L. D. Landau and E. M. Lifshitz. Fluid Mechanics, volume 6 of Course of Theoretical Physics.
+  Pergamon Press, Oxford, 2 edition, 1987.
+
+M. M. May and R. H. White. Hydrodynamic calculations of general-relativistic collapse. Physical
+ Review, 141:1232, 1966.
+
+C. W. Misner, K. S. Thorne, and J. A. Wheeler. Gravitation. W. H. Freeman, San Francisco, 1973.
+
+Charles W. Misner and David H. Sharp. Relativistic equations for adiabatic, spherically symmetric
+ gravitational collapse. Physical Review, 136:B571, 1964. doi: 10.1103/PhysRev.136.B571.
+
+NIST. NIST digital library of mathematical functions. https://dlmf.nist.gov/, Release 1.2,
+  2024. Section 9.9 (zeros of the Airy function).
+
+J. R. Oppenheimer and H. Snyder. On continued gravitational contraction. Physical Review, 56:
+   455–459, 1939. doi: 10.1103/PhysRev.56.455.
+
+Gracen Ownby. Phase 2 progress report: inhomogeneous collapse, neutronization, and the limits
+  of two numerical strategies. companion technical report, included as background material with
+  this paper, 2026.
+
+C. L. Pekeris. Pulsations of a star. The Astrophysical Journal, 88:189, 1938. doi: 10.1086/143971.
+
+D. Radice, L. Rezzolla, and T. Kellermann. Critical phenomena in neutron stars i: linearly unstable
+  nonrotating models. Classical and Quantum Gravity, 27:235015, 2010. arXiv:1007.2809.
+
+M. Rotondo, J. A. Rueda, R. Ruffini, and S.-S. Xue. Relativistic feynman–metropolis–teller
+ theory for white dwarfs in general relativity. Physical Review D, 84:084007, 2011. doi:
+ 10.1103/PhysRevD.84.084007.
+
+E. E. Salpeter. Energy and pressure of a zero-temperature plasma. The Astrophysical Journal, 134:
+  669, 1961.
+
+R. D. Sorkin. A criterion for the onset of instability at a turning point. The Astrophysical Journal,
+  249:254, 1981. doi: 10.1086/159282.
+
+
+
+
+                                                 41
+

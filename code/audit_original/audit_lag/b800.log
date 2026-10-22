@@ -1,0 +1,10 @@
+b N=800  smallest |lambda| list:
+    lam=0+0j  sigma2=-0.00000
+    lam=1.9369e-23+0j  sigma2=-0.00000
+    lam=1.7021e-22+0j  sigma2=-0.00000
+    lam=-2.3738e-22+0j  sigma2=-0.00000
+    lam=-1.1672e-23+3.0596e-22j  sigma2=0.00000
+    lam=-1.1672e-23-3.0596e-22j  sigma2=0.00000
+    lam=4.2719e-22+0j  sigma2=-0.00000
+    lam=-6.3428e-22+2.8906e-22j  sigma2=-0.00000
+   lowest nonzero sigma2 = 0.05501 time 138s

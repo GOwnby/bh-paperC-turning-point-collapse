@@ -1,0 +1,5 @@
+Gamma1(x=1e-5) = 1.666667 (series; 5/3 = 1.666667)   Gamma1(x=1e5) = 1.333333 (closed form; 4/3 = 1.333333)
+Gamma1(x=0.1): closed form 1.66430482, series 1.66430482 (agree: no cancellation problem in the range used)
+Lane-Emden n=3: xi_1 = 6.89685, w_3 = 2.01824 ; Newtonian Chandrasekhar mass = 1.45630 M_sun (mu_e = 2, constants of background.py)
+rho = 2.3106e+13: P/(rho c^2) = 1.5609e-03 ; eps/(rho c^2) - 1 = 4.4264e-03 ; Gamma1 - 4/3 = 1.2620e-03 (centre value)
+rho = 5.0000e+13: P/(rho c^2) = 2.0205e-03 ; eps/(rho c^2) - 1 = 5.8011e-03 ; Gamma1 - 4/3 = 7.5842e-04 (centre value)

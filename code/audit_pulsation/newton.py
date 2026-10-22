@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from eos import *
 from scipy.integrate import solve_ivp
 from scipy.optimize import brentq

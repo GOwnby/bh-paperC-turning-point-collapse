@@ -25,7 +25,7 @@ def rhs(t, y):
     return [lamdot, m.lambda_ddot(lam)]
 
 lam_crit = comp_max
-print(f"Critical lambda (apparent-horizon threshold at the surface) = {lam_crit:.6e}")
+print(f"Critical lambda = max_r 2GM_r/(r c^2) (interior shell r~0.42R, where the frozen-metric lapse factor first vanishes) = {lam_crit:.6e}")
 
 def event_horizon(t, y):
     return horizon_factor(y[0]) - 0.02   # stop with a safety margin before the true singularity

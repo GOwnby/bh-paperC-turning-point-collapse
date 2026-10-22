@@ -1,0 +1,33 @@
+
+## neu: report data, AV q=2, T = 120.  (i) fixed step dt = T/n from the CFL bound of the INITIAL state (x factor)
+   N=  400 dt*1.0 AV crossing  t_end= 98.176  t_cross=98.149  Rp_min=-12.9189 (zone 4/400, outer mass frac 1.00e+00)  Rp_int=-12.91888  steps 3338  6s
+      first time rho_c/rho_c0 >= 1.5: 63.756, 2: 76.240, 3: 86.071, 5: 92.905, 10: 97.778, 30: -, 100: -, 300: -    max drho = 9.472
+   N=  400 dt*0.5 AV crossing  t_end=102.288  t_cross=102.275  Rp_min=-2.5235 (zone 5/400, outer mass frac 1.00e+00)  Rp_int=-2.52349  steps 6751  11s
+      first time rho_c/rho_c0 >= 1.5: 63.756, 2: 76.240, 3: 86.071, 5: 92.905, 10: 97.786, 30: 101.226, 100: -, 300: -    max drho = 47.917
+   N=  400 dt*0.2 AV crossing  t_end=103.446  t_cross=103.445  Rp_min=-0.0192 (zone 3/400, outer mass frac 1.00e+00)  Rp_int=-0.01922  steps 13448  20s
+      first time rho_c/rho_c0 >= 1.5: 63.756, 2: 76.240, 3: 86.071, 5: 92.905, 10: 97.786, 30: 101.226, 100: 102.656, 300: 103.191    max drho = 641.356
+## neu: (ii) the step re-limited every step by the CFL bound of the CURRENT state (dt = 0.4 x factor x dt_CFL(t)); stops when rho_c = 300 rho_c0
+   N=  200 dt*1.0 AV collapse  t_end=103.346  t_cross=None  Rp_min=0.1497 (zone 0/200, outer mass frac 1.00e+00)  Rp_int=0.14974  steps 2511  4s
+      first time rho_c/rho_c0 >= 1.5: 63.799, 2: 76.322, 3: 86.172, 5: 93.020, 10: 97.909, 30: 101.354, 100: 102.786, 300: 103.346    max drho = 299.664
+   N=  400 dt*1.0 AV collapse  t_end=103.219  t_cross=None  Rp_min=0.1497 (zone 0/400, outer mass frac 1.00e+00)  Rp_int=0.14973  steps 4890  8s
+      first time rho_c/rho_c0 >= 1.5: 63.756, 2: 76.240, 3: 86.071, 5: 92.905, 10: 97.786, 30: 101.226, 100: 102.656, 300: 103.218    max drho = 299.728
+   N=  800 dt*1.0 AV collapse  t_end=103.187  t_cross=None  Rp_min=0.1498 (zone 0/800, outer mass frac 1.00e+00)  Rp_int=0.14977  steps 9655  23s
+      first time rho_c/rho_c0 >= 1.5: 63.747, 2: 76.221, 3: 86.047, 5: 92.876, 10: 97.756, 30: 101.195, 100: 102.627, 300: 103.186    max drho = 299.487
+   N= 1600 dt*1.0 AV collapse  t_end=103.179  t_cross=None  Rp_min=0.1197 (zone 0/1600, outer mass frac 1.00e+00)  Rp_int=0.14977  steps 19197  67s
+      first time rho_c/rho_c0 >= 1.5: 63.746, 2: 76.217, 3: 86.041, 5: 92.869, 10: 97.749, 30: 101.188, 100: 102.620, 300: 103.178    max drho = 299.488
+   N=  400 dt*0.5 AV collapse  t_end=103.219  t_cross=None  Rp_min=0.1498 (zone 0/400, outer mass frac 1.00e+00)  Rp_int=0.14975  steps 9661  16s
+      first time rho_c/rho_c0 >= 1.5: 63.756, 2: 76.240, 3: 86.071, 5: 92.905, 10: 97.786, 30: 101.226, 100: 102.656, 300: 103.218    max drho = 299.603
+
+## pure: report data, AV q=2, T = 300.  (i) fixed step
+   N=  200 dt*1.0 AV tmax      t_end=300.000  t_cross=None  Rp_min=0.1795 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=0.57082  steps 5400  7s
+      first time rho_c/rho_c0 >= 1.5: 72.485, 2: 95.896, 3: 124.668, 5: 168.759, 10: -, 30: -, 100: -, 300: -    max drho = 4.388
+   N=  400 dt*1.0 AV tmax      t_end=300.000  t_cross=None  Rp_min=0.1427 (zone 399/400, outer mass frac 0.00e+00)  Rp_int=0.56931  steps 10800  18s
+      first time rho_c/rho_c0 >= 1.5: 72.430, 2: 95.754, 3: 124.396, 5: 167.494, 10: -, 30: -, 100: -, 300: -    max drho = 4.431
+   N=  800 dt*1.0 AV tmax      t_end=300.000  t_cross=None  Rp_min=0.1521 (zone 0/800, outer mass frac 1.00e+00)  Rp_int=0.56893  steps 21600  49s
+      first time rho_c/rho_c0 >= 1.5: 72.419, 2: 95.722, 3: 124.328, 5: 167.217, 10: -, 30: -, 100: -, 300: -    max drho = 4.442
+   N=  400 dt*0.5 AV tmax      t_end=300.000  t_cross=None  Rp_min=0.1421 (zone 399/400, outer mass frac 0.00e+00)  Rp_int=0.56931  steps 21600  35s
+      first time rho_c/rho_c0 >= 1.5: 72.430, 2: 95.754, 3: 124.396, 5: 167.494, 10: -, 30: -, 100: -, 300: -    max drho = 4.431
+## pure: (ii) adaptive step
+   N=  400 dt*1.0 AV tmax      t_end=300.000  t_cross=None  Rp_min=0.1420 (zone 399/400, outer mass frac 0.00e+00)  Rp_int=0.56931  steps 17825  30s
+      first time rho_c/rho_c0 >= 1.5: 72.430, 2: 95.754, 3: 124.396, 5: 167.494, 10: -, 30: -, 100: -, 300: -    max drho = 4.431
+done

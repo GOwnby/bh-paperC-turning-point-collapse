@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/717c308b-4c66-5933-99e1-d42d1016a975/scratchpad/audit/out/C/run/old_tr/ancillary/linear_perturbation/analytic_check2.py", line 8, in <module>
+    import sympy as sp
+ModuleNotFoundError: No module named 'sympy'

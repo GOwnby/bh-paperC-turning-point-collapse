@@ -1,12 +1,35 @@
 cff-version: 1.2.0
 message: "If you use this software or manuscript, please cite it as below."
 title: "Delayed Collapse of a Degenerate Core at Its Maximum Mass: General-Relativistic Instability and the Fold-Passage Law"
-abstract: "LaTeX source, compiled PDF, Galerkin/Rayleigh-Ritz GR pulsation solvers, Painleve-I fold-passage scripts, and Misner-Sharp Lagrangian hydrodynamics code for Paper C."
+abstract: >-
+  Paper B of this series finds that no known classical field theory sources the mass-dependent regularized core
+  studied in Papers A and B. This paper asks the dynamical question that leaves open: what does a degenerate
+  stellar core do as it is pushed to its maximum mass, and how long does it take? For the idealized cold
+  electron gas we (i) locate the maximum mass with the Tolman-Oppenheimer-Volkoff equation (M_max = 1.4166
+  M_sun, within 0.07% of the Chandrasekhar-Tooper value); (ii) implement Chandrasekhar's general-relativistic
+  pulsation equation and tighten the fundamental eigenvalue by Rayleigh-Ritz to sigma^2 = -28.55 s^-2 (e-folding
+  time 0.187 s) at the test configuration, passing the exact turning-point test (the eigenvalue vanishes where
+  the mass peaks) to 0.01% for five equations of state, a test our first implementation failed and that exposed
+  two errors we correct and document; (iii) take the nonlinear outcome (collapse, not migration, for compressive
+  perturbations) from the established numerical-relativity literature; (iv) build a calibrated one-degree-of-
+  freedom nonlinear model, compared with an independent spherical general-relativistic Lagrangian evolution,
+  which reproduces the time to half the initial radius to 0.4% (a test mainly of the shared fold coefficients)
+  and the plunge to 1-3%; and (v) treat a star that reaches the maximum by slow accretion as a ramped saddle-
+  node bifurcation described by the first Painleve equation, which gives a collapse delay t = 3.41 (4a/(kappa^2
+  Mdot))^(1/5) in terms of two exact-GR fold coefficients, a seed set by the ramp, a mass overshoot below 1e-10
+  M_sun (conservative case; at most 1e-8 M_sun with damping), a 1-2% composition dependence (12% for a
+  counterfactual 56Fe star), and a location unaffected by dissipation, which only lengthens the delay. The use
+  of Painleve I at a fold of the equilibrium sequence of a self-gravitating fluid is not new (Newtonian
+  supernova cores: Pomeau et al., Chavanis et al.); the application at the general-relativistic turning point
+  with exact fold coefficients, and the delay law, are new as far as we found. The Lagrangian evolution reaches
+  a first trapped shell of 0.25 M_sun, but that, like every timescale here, is a property of the idealized gas,
+  which neither neutronizes nor bounces; Paper D replaces it by a dense-matter equation of state and finds a
+  bounce.
 authors:
   - family-names: "Ownby"
     given-names: "Gracen"
-version: "v1.0.1"
-doi: "10.5281/zenodo.23455582"
-date-released: "2026-10-18"
-url: "https://doi.org/10.5281/zenodo.23455582"
-license: "CC-BY-4.0"
+version: "1.1.0"
+doi: "10.5281/zenodo.23455581"
+date-released: "2026-10-20"
+url: "https://doi.org/10.5281/zenodo.23455581"
+license: "CC-BY-4.0"   # manuscript, figures, data; code is MIT (see LICENSE.md)

@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pulse import *
 import numpy as np
 def sig2_A(rc,x_end=1e-3,r0=1e-6,rtol=1e-12,lo=None,hi=None):

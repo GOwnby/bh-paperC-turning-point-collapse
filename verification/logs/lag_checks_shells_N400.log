@@ -1,0 +1,11 @@
+mass-fraction nodes [(0.02, 4, np.float64(0.0199)), (0.1, 21, np.float64(0.1022)), (0.25, 54, np.float64(0.2518)), (0.5, 117, np.float64(0.4994)), (0.75, 200, np.float64(0.75)), (0.9, 274, np.float64(0.9008)), (1.0, 400, np.float64(1.0))]
+N 400 t_AH 1.8187152050624373
+  mass frac 0.02: t(0.5)=1.7616 t(0.15)=1.8154 plunge=0.0538
+  mass frac 0.10: t(0.5)=1.7616 t(0.15)=1.8154 plunge=0.0538
+  mass frac 0.25: t(0.5)=1.7618 t(0.15)=1.8154 plunge=0.0537
+  mass frac 0.50: t(0.5)=1.7622 t(0.15)=1.8155 plunge=0.0534
+  mass frac 0.75: t(0.5)=1.7630 t(0.15)=1.8157 plunge=0.0528
+  mass frac 0.90: t(0.5)=1.7642 t(0.15)=1.8160 plunge=0.0519
+  mass frac 1.00: t(0.5)=1.7759 t(0.15)=None plunge=None
+  homologous scale 1.077 t(0.5)=1.7083 t(0.15)=1.7601 plunge=0.0518
+  homologous scale 1.000 t(0.5)=1.7595 t(0.15)=1.8133 plunge=0.0538

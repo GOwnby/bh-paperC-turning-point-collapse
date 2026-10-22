@@ -1,0 +1,135 @@
+# b1: GR linear spectrum of the scheme vs independent Sturm-Liouville solver
+
+neu rho_c=5e+12  (L/c = 5.390 ms)   omega^2 [s^-2]
+   scheme N=  50: [ -20.78979  294.95140  697.68100 1239.55920]
+   scheme N= 100: [ -20.30485  293.23128  694.95109 1238.16464]
+   scheme N= 200: [ -20.18377  292.79873  694.32427 1238.26857]
+   scheme N= 400: [ -20.15347  292.69057  694.17352 1238.34584]
+   scheme Richardson (p=2): [ -20.14337  292.65451  694.12327 1238.37159]
+   SL-FEM n= 500: [ -19.89482  292.79612  694.36030 1238.76163]
+   SL-FEM n=1000: [ -20.08143  292.69081  694.18533 1238.47853]
+   SL-FEM n=2000: [ -20.12821  292.66443  694.14150 1238.40763]
+   SL-FEM Richardson      : [ -20.14380  292.65564  694.12689 1238.38399]
+   relative difference scheme-limit vs SL-limit: [2.17e-05 3.85e-06 5.21e-06 1.00e-05]
+   PASS (criterion: first three modes agree to < 1e-3)
+   observed order of fundamental eigenvalue (N=50..400): [2. 2.]
+   --- Newtonian limit (scheme in Newtonian mode on the report profile) vs report Galerkin
+   newt scheme N=  50: [ -19.38188  296.77613  701.23910 1245.39702]
+   newt scheme N= 100: [ -18.88633  294.82801  697.98441 1243.08691]
+   newt scheme N= 200: [ -18.76260  294.33759  697.22444 1242.95985]
+   newt scheme N= 400: [ -18.73167  294.21489  697.04029 1242.97935]
+   newt scheme Richardson : [ -18.72136  294.17399  696.97890 1242.98586]
+   report Galerkin N= 500: [ -18.67734  295.26153  702.27513 1257.85156]
+   report Galerkin N=1000: [ -18.70948  294.51716  698.72307 1248.08271]
+   report Galerkin N=2000: [ -18.71806  294.28733  697.57332 1244.77257]
+   report Galerkin Richardson: [ -18.72092  294.21072  697.19007 1243.66918]
+   relative difference: [2.34e-05 1.25e-04 3.03e-04 5.49e-04]  PASS (criterion < 2e-3, first three modes)
+
+pure rho_c=5e+12  (L/c = 5.343 ms)   omega^2 [s^-2]
+   scheme N=  50: [   9.18802  362.71066  835.38117 1468.63933]
+   scheme N= 100: [   9.25136  372.58502  859.70569 1515.66173]
+   scheme N= 200: [   9.26726  375.13991  866.08582 1528.44069]
+   scheme N= 400: [   9.27129  375.78443  867.70376 1531.73281]
+   scheme Richardson (p=2): [   9.27264  375.99927  868.24308 1532.83019]
+   SL-FEM n= 500: [   9.48860  376.14215  868.48297 1533.23658]
+   SL-FEM n=1000: [   9.32648  376.03103  868.29497 1532.92361]
+   SL-FEM n=2000: [   9.28586  376.00319  868.24789 1532.84524]
+   SL-FEM Richardson      : [   9.27232  375.99392  868.23219 1532.81911]
+   relative difference scheme-limit vs SL-limit: [3.42e-05 1.42e-05 1.25e-05 7.23e-06]
+   PASS (criterion: first three modes agree to < 1e-3)
+   observed order of fundamental eigenvalue (N=50..400): [1.99 1.98]
+   --- Newtonian limit (scheme in Newtonian mode on the report profile) vs report Galerkin
+   newt scheme N=  50: [  10.92877  366.51427  843.14065 1481.66141]
+   newt scheme N= 100: [  11.03753  375.11415  864.53646 1523.54508]
+   newt scheme N= 200: [  11.06517  377.32535  870.12571 1534.93420]
+   newt scheme N= 400: [  11.07213  377.88227  871.54203 1537.87187]
+   newt scheme Richardson : [  11.07444  378.06792  872.01413 1538.85109]
+   report Galerkin N= 500: [  11.13337  379.50109  878.72740 1557.38464]
+   report Galerkin N=1000: [  11.09082  378.52084  874.22803 1545.21416]
+   report Galerkin N=2000: [  11.07917  378.21775  872.76939 1541.08381]
+   report Galerkin Richardson: [  11.07529  378.11672  872.28318 1539.70702]
+   relative difference: [7.64e-05 1.29e-04 3.08e-04 5.56e-04]  PASS (criterion < 2e-3, first three modes)
+
+neu rho_c=1e+11  (L/c = 14.164 ms)   omega^2 [s^-2]
+   scheme N=  50: [ 1.73988 17.68794 40.12820 69.69327]
+   scheme N= 100: [ 1.74225 17.78275 40.45077 70.47386]
+   scheme N= 200: [ 1.74285 17.80696 40.53788 70.70738]
+   scheme N= 400: [ 1.74300 17.81305 40.56030 70.77012]
+   scheme Richardson (p=2): [ 1.74305 17.81508 40.56777 70.79103]
+   SL-FEM n= 500: [ 1.74631 17.81909 40.57559 70.80600]
+   SL-FEM n=1000: [ 1.74386 17.81605 40.56970 70.79509]
+   SL-FEM n=2000: [ 1.74324 17.81529 40.56823 70.79236]
+   SL-FEM Richardson      : [ 1.74304 17.81503 40.56773 70.79145]
+   relative difference scheme-limit vs SL-limit: [5.76e-06 2.75e-06 8.46e-07 5.97e-06]
+   PASS (criterion: first three modes agree to < 1e-3)
+   observed order of fundamental eigenvalue (N=50..400): [1.99 1.99]
+   --- Newtonian limit (scheme in Newtonian mode on the report profile) vs report Galerkin
+   newt scheme N=  50: [ 1.75115 17.70230 40.15306 69.73204]
+   newt scheme N= 100: [ 1.75355 17.79698 40.47537 70.51228]
+   newt scheme N= 200: [ 1.75416 17.82114 40.56242 70.74575]
+   newt scheme N= 400: [ 1.75431 17.82723 40.58483 70.80849]
+   newt scheme Richardson : [ 1.75436 17.82926 40.59229 70.82940]
+   report Galerkin N= 500: [ 1.75862 17.91368 40.95721 71.79638]
+   report Galerkin N=1000: [ 1.75565 17.85642 40.71435 71.16599]
+   report Galerkin N=2000: [ 1.75477 17.83842 40.63454 70.94908]
+   report Galerkin Richardson: [ 1.75448 17.83242 40.60794 70.87678]
+   relative difference: [7.03e-05 1.77e-04 3.85e-04 6.68e-04]  PASS (criterion < 2e-3, first three modes)
+
+pure rho_c=1e+11  (L/c = 14.436 ms)   omega^2 [s^-2]
+   scheme N=  50: [ 1.93589 18.31442 41.41520 71.83432]
+   scheme N= 100: [ 1.93874 18.40988 41.74192 72.62801]
+   scheme N= 200: [ 1.93946 18.43425 41.83033 72.86624]
+   scheme N= 400: [ 1.93964 18.44039 41.85310 72.93033]
+   scheme Richardson (p=2): [ 1.93970 18.44244 41.86069 72.95169]
+   SL-FEM n= 500: [ 1.94291 18.44648 41.86861 72.96694]
+   SL-FEM n=1000: [ 1.94049 18.44342 41.86265 72.95584]
+   SL-FEM n=2000: [ 1.93989 18.44265 41.86115 72.95306]
+   SL-FEM Richardson      : [ 1.93969 18.44239 41.86065 72.95214]
+   relative difference scheme-limit vs SL-limit: [5.72e-06 2.67e-06 7.36e-07 6.14e-06]
+   PASS (criterion: first three modes agree to < 1e-3)
+   observed order of fundamental eigenvalue (N=50..400): [1.99 1.99]
+   --- Newtonian limit (scheme in Newtonian mode on the report profile) vs report Galerkin
+   newt scheme N=  50: [ 1.94809 18.33000 41.44205 71.87612]
+   newt scheme N= 100: [ 1.95097 18.42534 41.76857 72.66955]
+   newt scheme N= 200: [ 1.95169 18.44969 41.85693 72.90776]
+   newt scheme N= 400: [ 1.95187 18.45582 41.87968 72.97185]
+   newt scheme Richardson : [ 1.95193 18.45786 41.88727 72.99322]
+   report Galerkin N= 500: [ 1.95647 18.54569 42.26491 73.99160]
+   report Galerkin N=1000: [ 1.95331 18.48613 42.01362 73.34084]
+   report Galerkin N=2000: [ 1.95238 18.46740 41.93104 73.11692]
+   report Galerkin Richardson: [ 1.95207 18.46116 41.90351 73.04228]
+   relative difference: [6.78e-05 1.79e-04 3.88e-04 6.72e-04]  PASS (criterion < 2e-3, first three modes)
+
+# b2: Newtonian polytrope P = K rho^Gamma, Gamma = 4/3 + eps
+  eps=0.010  Galerkin(N=2000) omega0^2 = 2.118384e-02 s^-2   Newtonian scheme (N=100,200,400) = 2.094982e-02 2.112124e-02 2.116437e-02, Richardson 2.117874e-02   rel.diff 2.41e-04   omega0^2 / (eps G rho_c) = 3.1741
+  eps=0.020  Galerkin(N=2000) omega0^2 = 4.364293e-02 s^-2   Newtonian scheme (N=100,200,400) = 4.341299e-02 4.358129e-02 4.362351e-02, Richardson 4.363759e-02   rel.diff 1.22e-04   omega0^2 / (eps G rho_c) = 3.2696
+  eps=0.040  Galerkin(N=2000) omega0^2 = 9.237785e-02 s^-2   Newtonian scheme (N=100,200,400) = 9.215177e-02 9.231662e-02 9.235793e-02, Richardson 9.237170e-02   rel.diff 6.65e-05   omega0^2 / (eps G rho_c) = 3.4604
+  eps=0.080  Galerkin(N=2000) omega0^2 = 2.045569e-01 s^-2   Newtonian scheme (N=100,200,400) = 2.043259e-01 2.044922e-01 2.045339e-01, Richardson 2.045478e-01   rel.diff 4.45e-05   omega0^2 / (eps G rho_c) = 3.8312
+  Pekeris limit: omega0^2 -> 0 linearly in eps (ratio above ~ const as eps -> 0): [3.1741 3.2696 3.4604 3.8312]
+  b2 PASS (criterion: scheme-limit vs Galerkin(N=2000) < 2e-3)
+
+# b3: stable star rho_c = 1e11 kg/m^3: oscillation frequency of the evolution vs linear eigenvalue (small amplitude, two periods, fit with 2nd harmonic)
+  pure N= 100 dt/dt_CFL*1.0: eigenvalue omega^2 = 1.93874 s^-2, evolution fit = 1.93874 s^-2   rel.diff = 1.09e-06  (density amplitude 3.01e-04, nsteps 3200)
+  pure N= 100 dt/dt_CFL*0.5: eigenvalue omega^2 = 1.93874 s^-2, evolution fit = 1.93874 s^-2   rel.diff = 1.76e-07  (density amplitude 3.01e-04, nsteps 6000)
+  pure N= 200 dt/dt_CFL*1.0: eigenvalue omega^2 = 1.93946 s^-2, evolution fit = 1.93946 s^-2   rel.diff = 8.52e-08  (density amplitude 3.01e-04, nsteps 6000)
+  pure N= 200 dt/dt_CFL*0.5: eigenvalue omega^2 = 1.93946 s^-2, evolution fit = 1.93946 s^-2   rel.diff = 1.75e-07  (density amplitude 3.01e-04, nsteps 11600)
+  pure N= 400 dt/dt_CFL*1.0: eigenvalue omega^2 = 1.93964 s^-2, evolution fit = 1.93964 s^-2   rel.diff = 7.46e-07  (density amplitude 3.01e-04, nsteps 11600)
+  independent Sturm-Liouville (n=1000, 2000): 1.94049, 1.93989 -> Richardson 1.93969 s^-2;  period 4.5114 s
+  b3 pure PASS (criterion: evolution frequency^2 at N=400 within 3e-3 of the SL limit)
+  neu N= 100 dt/dt_CFL*1.0: eigenvalue omega^2 = 1.74225 s^-2, evolution fit = 1.74226 s^-2   rel.diff = 1.23e-06  (density amplitude 3.12e-04, nsteps 3200)
+  neu N= 100 dt/dt_CFL*0.5: eigenvalue omega^2 = 1.74225 s^-2, evolution fit = 1.74225 s^-2   rel.diff = 3.16e-07  (density amplitude 3.12e-04, nsteps 6000)
+  neu N= 200 dt/dt_CFL*1.0: eigenvalue omega^2 = 1.74285 s^-2, evolution fit = 1.74285 s^-2   rel.diff = 2.26e-07  (density amplitude 3.13e-04, nsteps 6000)
+  neu N= 200 dt/dt_CFL*0.5: eigenvalue omega^2 = 1.74285 s^-2, evolution fit = 1.74285 s^-2   rel.diff = 2.84e-08  (density amplitude 3.13e-04, nsteps 12000)
+  neu N= 400 dt/dt_CFL*1.0: eigenvalue omega^2 = 1.74300 s^-2, evolution fit = 1.74300 s^-2   rel.diff = 6.66e-07  (density amplitude 3.13e-04, nsteps 12000)
+  independent Sturm-Liouville (n=1000, 2000): 1.74386, 1.74324 -> Richardson 1.74304 s^-2;  period 4.7591 s
+  b3 neu PASS (criterion: evolution frequency^2 at N=400 within 3e-3 of the SL limit)
+
+# b4: seeded instability of rho_c = 5e12 neutronised star (TOV, discretely balanced): growth of the central density vs e-folding rate
+  reference growth rate (SL limit): omega^2 = -20.1438 s^-2 -> sigma = 4.48818 s^-1 = 0.024189 c/L, e-folding 41.340 L/c = 0.22281 s
+  N= 100 dtx1.0 eps=1e-04: discrete sigma = 0.024286, fit of ln|drho_c| over t in (10,50) = 0.024262  rel.diff 9.91e-04  (max |drho_c/rho_c| = 1.98e-03)  vs SL sigma 0.024189: 2.99e-03
+  N= 200 dtx1.0 eps=1e-04: discrete sigma = 0.024213, fit of ln|drho_c| over t in (10,50) = 0.024189  rel.diff 9.90e-04  (max |drho_c/rho_c| = 1.97e-03)  vs SL sigma 0.024189: 3.61e-08
+  N= 400 dtx1.0 eps=1e-04: discrete sigma = 0.024195, fit of ln|drho_c| over t in (10,50) = 0.024171  rel.diff 9.90e-04  (max |drho_c/rho_c| = 1.97e-03)  vs SL sigma 0.024189: 7.50e-04
+  N= 400 dtx0.5 eps=1e-04: discrete sigma = 0.024195, fit of ln|drho_c| over t in (10,50) = 0.024171  rel.diff 9.90e-04  (max |drho_c/rho_c| = 1.97e-03)  vs SL sigma 0.024189: 7.50e-04
+  N= 200 dtx1.0 eps=1e-05: discrete sigma = 0.024213, fit of ln|drho_c| over t in (10,50) = 0.024211  rel.diff 9.91e-05  (max |drho_c/rho_c| = 1.98e-04)  vs SL sigma 0.024189: 8.92e-04
+  N= 200 dtx1.0 eps=1e-03: discrete sigma = 0.024213, fit of ln|drho_c| over t in (10,50) = 0.023975  rel.diff 9.83e-03  (max |drho_c/rho_c| = 1.94e-02)  vs SL sigma 0.024189: 8.85e-03
+  b4 PASS (criterion: fitted growth rate at N=400 within 5e-3 of the SL growth rate)

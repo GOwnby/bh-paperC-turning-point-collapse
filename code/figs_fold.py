@@ -27,4 +27,4 @@ pts=[(r['Mdot'],r['t_half']) for r in d['out'] if abs(r['scale']-sc)<1e-6 and r[
 ax[1].loglog(*zip(*pts),'ro',label='homologous model (rescaled), $\\lambda=0.5$')
 ax[1].axhline(0.187,color='b',ls=':',label='$1/\\sigma$ at test config (0.187 s)')
 ax[1].set_xlabel('accretion rate $\\dot M$ [$M_\\odot$/yr]'); ax[1].set_ylabel('time from $M=M_{\\max}$ to collapse [s]'); ax[1].legend(fontsize=7); ax[1].set_title('Collapse delay vs accretion rate')
-plt.tight_layout(); plt.savefig('fig_fold_passage.png',dpi=160)
+plt.tight_layout(); import os; plt.savefig(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','fig_fold_passage.png'),dpi=160)

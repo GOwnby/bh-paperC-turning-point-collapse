@@ -1,0 +1,9 @@
+rho_c = 5.000e+13 kg/m^3
+R     = 8.158167e+05 m
+M     = 2.812301e+30 kg = 1.414347 Msun
+compactness GM/(Rc^2) = 0.002560
+Gamma1(center) = 1.334092
+Gamma1(min)    = 1.334092
+Gamma1(surface)= 1.659468
+
+Paper C: M=1.4143 Msun, R=815.8 km, 2GM/(Rc^2)=0.00512 (printed value above is GM/(Rc^2)), Gamma1_min=1.33409 (at center)

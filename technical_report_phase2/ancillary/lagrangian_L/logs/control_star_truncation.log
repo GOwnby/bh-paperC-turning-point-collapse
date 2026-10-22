@@ -1,0 +1,10 @@
+--- neu, rho_c = 1e11 kg/m^3
+  report's rmax = 3e6 m: stopped at R = 3000.0 km, M = 0.9890 Msun, rho at the last point = 3.561e+09 kg/m^3 (3.56e-02 of rho_c), surface event reached: False
+      report Galerkin (N=1000): omega^2 = [  4.638   51.9932 140.2271] s^-2   (fundamental period 2.918 s)
+  rmax = 2.5e7 m (surface reached): stopped at R = 4246.3 km, M = 1.0858 Msun, rho at the last point = 1.000e+00 kg/m^3 (1.00e-11 of rho_c), surface event reached: True
+      report Galerkin (N=1000): omega^2 = [ 1.7557 17.8564 40.7143] s^-2   (fundamental period 4.742 s)
+--- pure, rho_c = 1e11 kg/m^3
+  report's rmax = 3e6 m: stopped at R = 3000.0 km, M = 1.0609 Msun, rho at the last point = 4.127e+09 kg/m^3 (4.13e-02 of rho_c), surface event reached: False
+      report Galerkin (N=1000): omega^2 = [  5.4381  57.5001 154.1095] s^-2   (fundamental period 2.694 s)
+  rmax = 2.5e7 m (surface reached): stopped at R = 4327.9 km, M = 1.1804 Msun, rho at the last point = 3.895e+00 kg/m^3 (3.90e-11 of rho_c), surface event reached: True
+      report Galerkin (N=1000): omega^2 = [ 1.9533 18.4861 42.0136] s^-2   (fundamental period 4.496 s)

@@ -1,0 +1,30 @@
+# Test (i): exact dust solutions (Oppenheimer-Snyder / LTB cycloids); fixed dt = T/(4N), T = 0.8 t_collapse(innermost shell)
+
+homogeneous (Oppenheimer-Snyder), 2M/R0 = 0.6
+   N    nsteps  max rel err R(t)   order   max rel err U(t)   order   max |m/m0-1|
+    25    100   4.523e-05               7.212e-05               3.65e-05
+    50    200   1.135e-05       1.99    1.804e-05       2.00    9.10e-06
+   100    400   2.842e-06       2.00    4.511e-06       2.00    2.27e-06
+   200    800   7.111e-07       2.00    1.128e-06       2.00    5.66e-07
+   400   1600   1.779e-07       2.00    2.820e-07       2.00    1.42e-07
+PASS/FAIL homogeneous (Oppenheimer-Snyder), 2M/R0 = 0.6: monotone=True, orders of the two finest pairs = [1.9987580148347273, 1.9993877299218266], finest drift in m = 1.4e-07 -> PASS
+
+inhomogeneous (Lemaitre-Tolman-Bondi), 2M/R0(surface) = 0.5, e_c/e_surf = 2
+   N    nsteps  max rel err R(t)   order   max rel err U(t)   order   max |m/m0-1|
+    25    100   3.688e-05               7.211e-05               1.03e-05
+    50    200   9.221e-06       2.00    1.804e-05       2.00    2.58e-06
+   100    400   2.305e-06       2.00    4.511e-06       2.00    6.44e-07
+   200    800   5.763e-07       2.00    1.128e-06       2.00    1.61e-07
+   400   1600   1.441e-07       2.00    2.820e-07       2.00    4.02e-08
+PASS/FAIL inhomogeneous (Lemaitre-Tolman-Bondi), 2M/R0(surface) = 0.5, e_c/e_surf = 2: monotone=True, orders of the two finest pairs = [1.9999934948189535, 1.9999980255857994], finest drift in m = 4.0e-08 -> PASS
+
+(iii) homogeneous ball, N = 50: max rel err of R(t) versus the number of time steps, fixed 3 iterations of the rho_N-m-Gamma coupling vs iteration to 1e-13
+  steps   3 iterations   order    converged     order
+    100   8.886e-05            4.523e-05   
+    200   3.345e-05    1.41    1.135e-05    1.99
+    400   1.397e-05    1.26    2.842e-06    2.00
+    800   6.291e-06    1.15    7.111e-07    2.00
+   1600   2.972e-06    1.08    1.779e-07    2.00
+PASS/FAIL converged iteration is second order in dt (orders of the two finest pairs >= 1.9) -> PASS
+
+TEST (i) OVERALL: PASS

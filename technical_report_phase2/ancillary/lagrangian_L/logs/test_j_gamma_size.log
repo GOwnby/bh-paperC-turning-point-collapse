@@ -1,0 +1,4 @@
+# Test (j): delta(Gamma^2) along the shells, report data, N = 400, T = 50 L/c
+  pure: steps=1773  max|dGamma^2|=2.75e-04  (max over t of the median over interfaces 2.12e-04)  max|U|=0.004 c  max 2m/R=4.47e-03
+  neu: steps=1612  max|dGamma^2|=2.47e-04  (max over t of the median over interfaces 1.73e-04)  max|U|=0.003 c  max 2m/R=3.86e-03
+PASS/FAIL (max |dGamma^2| between 1e-5 and 1e-2, i.e. a non-negligible fraction of 2m/R) -> PASS

@@ -1,0 +1,15 @@
+EOS | rho_c(dM/drho=0) [1e13 kg/m3] | rho_c(sigma^2=0) [1e13] | difference [%] | M_max [Msun]
+ideal (mu_e=2) | 2.31060 | 2.31074 | 0.0061 | 1.41661
+He4 | 2.34621 | 2.34635 | 0.0061 | 1.40134
+C12 | 2.38557 | 2.38572 | 0.0062 | 1.38490
+O16 | 2.40187 | 2.40202 | 0.0061 | 1.37823
+Fe56 | 2.93211 | 2.93230 | 0.0065 | 1.15071
+sigma^2(rho_max), n=5: {3000: 0.02129, 12000: 0.00115, 48000: 0.00011}
+sigma^2(rho_max) vs basis size (12000 pts): {3: 0.00218, 4: 0.00131, 5: 0.00115, 6: 0.00115, 7: 0.00114}
+sigma^2(5e13), n=5, 3000/6000/12000/24000 pts: [-28.511, -28.546, -28.553, -28.555]
+zero crossing with 3000 points: 2.31323e+13 ; relative offset from rho_max = 0.114 %
+use_eps=False  8piG-term factor=+0: sigma^2=0 at 1.8601e+13  ; mass peak at 3.5553e+13 (M_max=1.4254) ; sigma^2(5e13)=-41.092
+use_eps=True  8piG-term factor=+0: sigma^2=0 at 1.8720e+13  ; mass peak at 2.3106e+13 (M_max=1.4166) ; sigma^2(5e13)=-40.626
+use_eps=False  8piG-term factor=+1: sigma^2=0 at 2.2952e+13  ; mass peak at 3.5553e+13 (M_max=1.4254) ; sigma^2(5e13)=-28.940
+use_eps=True  8piG-term factor=+1: sigma^2=0 at 2.3107e+13  ; mass peak at 2.3106e+13 (M_max=1.4166) ; sigma^2(5e13)=-28.553
+use_eps=True  8piG-term factor=-1: sigma^2=0 at 1.5683e+13  ; mass peak at 2.3106e+13 (M_max=1.4166) ; sigma^2(5e13)=-52.781

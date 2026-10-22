@@ -1,0 +1,7 @@
+n_basis=1  sigma^2=-27.8524  (A sym err=0.00e+00, B sym err=0.00e+00)
+n_basis=2  sigma^2=-28.5250  (A sym err=0.00e+00, B sym err=2.42e+24)
+n_basis=3  sigma^2=-28.5517  (A sym err=0.00e+00, B sym err=2.42e+24)
+n_basis=4  sigma^2=-28.5528  (A sym err=1.24e+27, B sym err=2.42e+24)
+n_basis=5  sigma^2=-28.5534  (A sym err=1.24e+27, B sym err=2.42e+24)
+
+Corrected Paper C values (12000-pt grid): -27.85 -> -28.52 -> -28.55 -> -28.55 -> -28.55 across n=1..5

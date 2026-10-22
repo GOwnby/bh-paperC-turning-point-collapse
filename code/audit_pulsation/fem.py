@@ -1,6 +1,6 @@
 # P1 finite-element generalized eigenproblem on the Sturm-Liouville functional
 #   int (Pk zeta'^2 - Q zeta^2) dr = w2 int W zeta^2 dr ,  zeta(0)=0 essential, surface natural.
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pulse import *
 import scipy.linalg as sla
 def fem(rc,N=400,q=2.0,x_end=1e-4,ng=6):

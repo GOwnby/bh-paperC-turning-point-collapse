@@ -1,0 +1,13 @@
+m(r) = 4*pi*r**3*rho_c*(5*R**2 - 3*r**2)/(15*R**2)
+
+P0(r) = 2*pi*G*rho_c**2*(R**4*(2*R**2 - 5*r**2) + 4*R**2*r**4 - r**6)/(15*R**4)
+
+P0(0) [central pressure, sanity check -- should be positive]: 4*pi*G*R**2*rho_c**2/15
+
+LHS_exact = 16*pi*G*R**5*rho_c**2*(3*Gamma1 - 2)/315
+
+weak_no_boundary = 16*pi*G*R**5*rho_c**2*(3*Gamma1 - 2)/315
+
+boundary_term = 0
+
+LHS_exact - (weak_no_boundary + boundary_term) = 0

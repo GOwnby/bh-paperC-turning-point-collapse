@@ -1,0 +1,6 @@
+model quadratic coefficient 26.086471185080036 vs exact-GR 1.5*kappa 28.0995 ratio 0.9283606891610184 fit resid 6.648027220034916e-06
+N 400 t(0.5)=1.7622 t(0.15)=1.8155 t_AH(comp=1, interp)=1.8187 steps 45159 wall 75.40080952644348
+maxcomp 1.011167309741611 at node 25 m/M=0.1729 m_AH/Msun=0.2449 M/Msun=1.4166 rho_c/rho_c(handoff lattice)=2.972e+07 rho_c/rho_max=2.972e+07
+central density abs [g/cc]: 6.867e+17 central rho/rho_c0 29720250.242404614
+initial central rho / rho_max 1.0681485176386074  => rise factor from handoff state 27824080.407945693
+radius ratios at AH for rest-mass fractions [0.05, 0.2, 0.5, 0.8, 0.95, 0.99] [0.0035 0.0054 0.0127 0.0303 0.0596 0.0916] surface 0.17361364173619118

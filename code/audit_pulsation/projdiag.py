@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'/mnt/user-data/outputs/consolidated/paperC_core_instability')
+import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import numpy as np
 import background as bg
 from metric import build_metric

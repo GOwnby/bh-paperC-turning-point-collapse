@@ -5,7 +5,8 @@ from homologous_calibrated import CalibratedHomologousModel
 bg.mu_e=2.0
 G,c=bg.G,bg.c
 d=json.load(open('fold_step1.json')); rm=d['rho_max']
-kap=18.733; a=0.004027       # exact-GR fold coefficients (fold_step1.json), a in Msun
+kap=18.733; a=0.004027       # exact-GR fold coefficients (fold_step1.json), a in Msun, rounded as quoted in the paper
+_pts=d['pts']; assert abs(np.mean([p['kappa'] for p in _pts[:3]])/kap-1)<1e-4 and abs(np.mean([p['a'] for p in _pts[:3]])/a-1)<1e-3, "kappa, a no longer match fold_step1.json"
 yr=3.15576e7
 m=CalibratedHomologousModel(rm); m.calibrate(target_k=0.0)
 comp_max=np.max(2*G*m.Mr_bg[1:]/(m.r[1:]*c**2))

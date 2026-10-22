@@ -1,0 +1,5 @@
+k at f_cal=0 (pure Newtonian):      -120.7959  s^-2  (expect stable, about -121)
+k at f_cal=1 (uncalibrated full GR): 21.0250  s^-2  (model's own GR estimate)
+Calibration factor f_cal = 1.0481
+k at calibrated f_cal:               27.8524  s^-2  (target 27.8524)
+equilibrium check lambda_ddot(1) = 0.000000e+00 s^-2 (should be ~0)

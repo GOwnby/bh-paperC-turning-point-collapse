@@ -1,0 +1,11 @@
+Newtonian hydrostatic mass, rho_c=5e+12: 1.42058 Msun
+Newtonian hydrostatic mass, rho_c=1e+14: 1.45076 Msun
+Newtonian hydrostatic mass, rho_c=1e+16: 1.45603 Msun
+Newtonian hydrostatic mass, rho_c=1e+18: 1.45628 Msun
+Newtonian hydrostatic mass, rho_c=1e+20: 1.45630 Msun
+Newtonian RR sigma^2 at 5e13 (compactness): (np.float64(26.640566249485925), np.float64(0.005227824104717188))
+xi_GR/r center/surface = 1.1334284429057289
+lambda_crit = 0.008929979265950272  at r/R = 0.4195420763868372  surface compactness = 0.005119923457592996  T_dyn = 0.05378425709748734
+ideal(Z=0) {-0.25: 0.00024123922633994258, 0.25: 0.00013901018634805286, 0.5: 0.00045273544971278904}
+C12 {-0.25: 0.00024033719432222986, 0.25: 0.00013847128268553553, 0.5: 0.0004509633252687705}
+fold configuration: model moment of inertia I = 4.240297944070881e+41  sqrt(kB T/I) at 1e8 K = 5.706153557016622e-29

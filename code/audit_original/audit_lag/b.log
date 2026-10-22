@@ -1,0 +1,30 @@
+b N=100  smallest |lambda| list:
+    lam=0+0j  sigma2=-0.00000
+    lam=3.4115e-22+0j  sigma2=-0.00000
+    lam=-3.3592e-21+0j  sigma2=-0.00000
+    lam=-8.6476e-21+0j  sigma2=-0.00000
+    lam=8.6164e-21-1.9945e-21j  sigma2=-0.00000
+    lam=8.6164e-21+1.9945e-21j  sigma2=-0.00000
+    lam=5.6296e-21-1.0046e-20j  sigma2=0.00000
+    lam=5.6296e-21+1.0046e-20j  sigma2=0.00000
+   lowest nonzero sigma2 = 1.58503 time 3s
+b N=200  smallest |lambda| list:
+    lam=0+0j  sigma2=-0.00000
+    lam=-9.0981e-23+0j  sigma2=-0.00000
+    lam=5.2117e-22+0j  sigma2=-0.00000
+    lam=-1.1348e-21+0j  sigma2=-0.00000
+    lam=1.835e-21+0j  sigma2=-0.00000
+    lam=-2.7656e-21+0j  sigma2=-0.00000
+    lam=4.4933e-21-8.5699e-22j  sigma2=-0.00000
+    lam=4.4933e-21+8.5699e-22j  sigma2=-0.00000
+   lowest nonzero sigma2 = 0.52142 time 2s
+b N=400  smallest |lambda| list:
+    lam=0+0j  sigma2=-0.00000
+    lam=-8.0408e-23+0j  sigma2=-0.00000
+    lam=-2.083e-22-1.7499e-22j  sigma2=-0.00000
+    lam=-2.083e-22+1.7499e-22j  sigma2=-0.00000
+    lam=4.6847e-22+0j  sigma2=-0.00000
+    lam=6.1242e-22-5.0317e-22j  sigma2=-0.00000
+    lam=6.1242e-22+5.0317e-22j  sigma2=-0.00000
+    lam=-6.4374e-22-6.6073e-22j  sigma2=0.00000
+   lowest nonzero sigma2 = 0.16964 time 8s

@@ -1,0 +1,17 @@
+
+## pure: report data, GR dynamics, T = 150
+   N=  200 dt*1.0    crossing  t_end= 59.551  t_cross=59.546  Rp_min=-0.0062 (zone 198/200, outer mass frac 7.52e-07)  Rp_int=0.82848  steps 1060  1s
+   N=  400 dt*1.0    crossing  t_end= 59.493  t_cross=59.481  Rp_min=-0.2165 (zone 398/400, outer mass frac 1.32e-07)  Rp_int=0.82639  steps 2112  3s
+   N=  800 dt*1.0    crossing  t_end= 59.282  t_cross=59.28  Rp_min=-0.0144 (zone 794/800, outer mass frac 1.32e-06)  Rp_int=0.82274  steps 4209  8s
+   N= 1600 dt*1.0    crossing  t_end= 58.971  t_cross=58.965  Rp_min=-4.6726 (zone 1585/1600, outer mass frac 3.07e-06)  Rp_int=0.82119  steps 8368  22s
+TOV-db   N=  200 dt*1.0    tmax      t_end=150.000  t_cross=None  Rp_min=1.0000 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=1.00000  steps 2670  1s
+TOV-db   N=  400 dt*1.0    tmax      t_end=150.000  t_cross=None  Rp_min=1.0000 (zone 397/400, outer mass frac 7.50e-07)  Rp_int=1.00000  steps 5340  4s
+
+## neu: report data, GR dynamics, T = 150
+   N=  200 dt*1.0    crossing  t_end= 66.975  t_cross=66.932  Rp_min=-0.0922 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=0.85684  steps 1085  1s
+   N=  400 dt*1.0    crossing  t_end= 66.409  t_cross=66.393  Rp_min=-0.2724 (zone 397/400, outer mass frac 7.43e-07)  Rp_int=0.85974  steps 2145  3s
+   N=  800 dt*1.0    crossing  t_end= 66.372  t_cross=66.371  Rp_min=-0.0082 (zone 792/800, outer mass frac 3.03e-06)  Rp_int=0.85989  steps 4281  9s
+   N= 1600 dt*1.0    crossing  t_end= 66.140  t_cross=66.139  Rp_min=-0.0063 (zone 1586/1600, outer mass frac 2.52e-06)  Rp_int=0.86115  steps 8532  24s
+TOV-db   N=  200 dt*1.0    tmax      t_end=150.000  t_cross=None  Rp_min=1.0000 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=1.00000  steps 2430  1s
+TOV-db   N=  400 dt*1.0    tmax      t_end=150.000  t_cross=None  Rp_min=1.0000 (zone 396/400, outer mass frac 2.05e-06)  Rp_int=1.00000  steps 4845  3s
+done

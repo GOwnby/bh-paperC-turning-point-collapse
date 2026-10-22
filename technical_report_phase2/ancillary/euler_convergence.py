@@ -1,3 +1,4 @@
+import os
 import numpy as np, time
 import eos_neutronized as EN
 import eos as E
@@ -61,7 +62,7 @@ def run(N, t_final):
         Uh=U0+0.5*dt*dU; rh,vh,ph=c2p(Uh); apply_bc(rh,vh,ph)
         dU2,_=rhs(rh,vh,ph); Un=U0+dt*dU2
         rho,v,p=c2p(Un); apply_bc(rho,v,p); t+=dt
-        if time.time()-t0>90: break
+        if time.time()-t0>float(os.environ.get('WALL_BUDGET', 90)): break  # wall-clock budget [s]; verify.py --full sets WALL_BUDGET so that runs are not cut short
     return t, rho[g]/rho_c0
 
 for N in [400, 800, 1600]:

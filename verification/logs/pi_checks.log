@@ -1,0 +1,10 @@
+Boutroux tritronquee data: first real pole x_* = 2.384169  (paper 2.384169)   s_* = 6^(1/5) x_* = 3.41167  (paper 3.41167)
+   backward: x= -10  y=-1.291202  -sqrt(-x/6)=-1.290994  (difference -2.1e-04)
+   backward: x= -20  y=-1.825794  -sqrt(-x/6)=-1.825742  (difference -5.2e-05)
+   backward: x= -40  y=-2.582002  -sqrt(-x/6)=-2.581989  (difference -1.3e-05)
+Mdot=1e-7: beta = 107.69 s, alpha = 9.206e-06, u_h = 1086.3 ; universal solution reaches y = 1e-2 at s = 3.3374  (paper 3.337)
+normal form reaches y = 7 (lambda = 0.5) at s = 3.4089 -> t = 367.1 s  (paper: 366 s full model, 367 s = 3.412 beta pole)  ;  3.41167 beta = 367.4 s
+offset A = +0.1 at s=-100: pole s_* = 3.302   (paper: +0.1 -> 3.30, -0.1 -> 3.46, +1 -> 2.56)
+   oscillation envelope vs -s: (-92.5, 0.1020) (-55.0, 0.1091) (-31.5, 0.1171) (-18.0, 0.1258) (-10.5, 0.1353)  fitted exponent -0.129 (WKB: -1/8 = -0.125)
+offset A = -0.1 at s=-100: pole s_* = 3.464   (paper: +0.1 -> 3.30, -0.1 -> 3.46, +1 -> 2.56)
+offset A = +1.0 at s=-100: pole s_* = 2.565   (paper: +0.1 -> 3.30, -0.1 -> 3.46, +1 -> 2.56)

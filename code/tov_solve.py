@@ -85,4 +85,4 @@ if __name__ == "__main__":
     print(f"Gamma1(min)    = {Gamma1_arr.min():.6f}")
     print(f"Gamma1(surface)= {Gamma1_arr[-5]:.6f}")
     print()
-    print("Paper C reported: M=1.4249 Msun, compactness=0.00515, Gamma1_min=1.33409 (at center)")
+    print("Paper C: M=1.4143 Msun, R=815.8 km, 2GM/(Rc^2)=0.00512 (printed value above is GM/(Rc^2)), Gamma1_min=1.33409 (at center)")

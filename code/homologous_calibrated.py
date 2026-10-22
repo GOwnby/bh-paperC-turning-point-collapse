@@ -1,7 +1,8 @@
 """
-POST-AUDIT NOTE: numbers quoted in the diagnosis below (k=-100.29, +10.03, factor ~4, f_cal=1.2717, target 39.9998) belong to the
-PRE-CORRECTION version (eps=rho c^2, missing 8 pi G term). Current: k_N=-120.8, k_F=+21.0, target 27.85, f_cal=1.048. The attribution of
-the remaining gap to 'metric back-reaction' is NOT established (audit: net of compensating O(compactness) terms; see exact_energy_model.py).
+NOTE: numbers quoted in the diagnosis below (k=-100.29, +10.03, factor ~4, f_cal=1.2717, target 39.9998) belong to an earlier,
+superseded version (eps=rho c^2, missing 8 pi G term) and are kept only as history. Current values: k_N=-120.8, k_F=+21.0,
+target 27.85, f_cal=1.048. The attribution of the remaining gap to 'metric back-reaction' is NOT established (it is a net of
+compensating O(compactness) terms; see exact_energy_model.py).  The calibration is heuristic (see Paper C, Sec. 5.2).
 
 Calibrated nonlinear homologous-collapse model.
 
@@ -146,7 +147,7 @@ class CalibratedHomologousModel:
 
     def lambda_ddot(self, lam, f_cal=None):
         # Static (R0) correction, exactly the technique already validated
-        # and used in nonlinear_rhs.py / Paper C Sec. 6.4: subtract the
+        # and used in an earlier prototype / Paper C Sec. 5.2: subtract the
         # residual equilibrium imbalance introduced by recombining the
         # Newtonian and full-GR g_eff pieces with f_cal != 1. This shift is
         # a CONSTANT in lambda, so it restores lambda_ddot(1)=0 exactly
@@ -181,10 +182,10 @@ class CalibratedHomologousModel:
 
 if __name__ == "__main__":
     m = CalibratedHomologousModel(5e13)
-    f_cal, k_N, k_F = m.calibrate(target_k=39.9998)
-    print(f"k at f_cal=0 (pure Newtonian):      {k_N:.4f}  s^-2  (expect stable, -100ish)")
+    f_cal, k_N, k_F = m.calibrate_to_RR()   # target = -sigma^2 of the n=1 Rayleigh-Ritz value (27.85)
+    print(f"k at f_cal=0 (pure Newtonian):      {k_N:.4f}  s^-2  (expect stable, about -121)")
     print(f"k at f_cal=1 (uncalibrated full GR): {k_F:.4f}  s^-2  (model's own GR estimate)")
     print(f"Calibration factor f_cal = {f_cal:.4f}")
     k_check = m.linearized_k(f_cal)
-    print(f"k at calibrated f_cal:               {k_check:.4f}  s^-2  (target 39.9998)")
+    print(f"k at calibrated f_cal:               {k_check:.4f}  s^-2  (target {m.target_k:.4f})")
     print(f"equilibrium check lambda_ddot(1) = {m.lambda_ddot(1.0):.6e} s^-2 (should be ~0)")

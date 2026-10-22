@@ -1,0 +1,40 @@
+Non-relativistic limit (x=0.001): effective Gamma = 1.6681  (expect 5/3 = 1.6667)
+Ultra-relativistic limit (x=1000.0): effective Gamma = 1.3333  (expect 4/3 = 1.3333)
+
+At x=10.0: rho=1.9476e+12 kg/m^3, P=1.1888e+26 Pa
+Nuclear density for reference: ~2.3e17 kg/m^3
+x needed to reach nuclear density:
+  x = 490.620  (this is well past the ultra-relativistic regime; Chandrasekhar's electron-only
+   EOS is not physically trustworthy this far -- neutronization occurs first, around
+   rho ~ 1e12-1e13 kg/m^3 for typical WD compositions -- flagged explicitly, see notes below)
+[pure] Star: M=1.4204 Msun, R=1601.9 km; time unit L/c = 5.343 ms; dt = 0.001 (L/c)
+  t=   0.500  rho_c/rho_c0=1.00104  min R'=0.9328
+  t=   1.000  rho_c/rho_c0=0.99943  min R'=0.7296
+  t=   1.500  rho_c/rho_c0=1.00347  min R'=0.3882
+  t=   2.000  rho_c/rho_c0=0.99783  min R'=0.8075
+  t=   2.500  rho_c/rho_c0=1.00544  min R'=0.0857
+  t=   3.000  rho_c/rho_c0=1.00054  min R'=0.4305
+  t=   3.500  rho_c/rho_c0=1.00151  min R'=0.3143
+  t=   4.000  rho_c/rho_c0=1.01077  min R'=0.6265
+  t=   4.500  rho_c/rho_c0=0.99257  min R'=0.4299
+  t=   5.000  rho_c/rho_c0=1.02137  min R'=0.3568
+  t=   5.500  rho_c/rho_c0=0.99386  min R'=0.3525
+  t=   6.000  rho_c/rho_c0=1.01179  min R'=0.2169
+  t=   6.500  rho_c/rho_c0=1.02372  min R'=0.1437
+  t=   7.000  rho_c/rho_c0=0.97327  min R'=0.2239
+  t=   7.500  rho_c/rho_c0=1.06653  min R'=0.0783
+  t=   8.000  rho_c/rho_c0=0.96264  min R'=0.0979
+  t=   8.500  rho_c/rho_c0=1.04115  min R'=0.0785
+  t=   9.000  rho_c/rho_c0=1.05281  min R'=0.0626
+  t=   9.500  rho_c/rho_c0=0.92140  min R'=0.0749
+  t=  10.000  rho_c/rho_c0=1.13847  min R'=0.0397
+  t=  10.500  rho_c/rho_c0=0.98634  min R'=0.0306
+  t=  11.000  rho_c/rho_c0=0.94447  min R'=0.0275
+  t=  11.500  rho_c/rho_c0=1.14917  min R'=0.0845
+  t=  12.000  rho_c/rho_c0=0.99061  min R'=0.0374
+  t=  12.500  rho_c/rho_c0=1.00555  min R'=0.0341
+  t=  13.000  rho_c/rho_c0=1.03602  min R'=0.0188
+  t=  13.500  rho_c/rho_c0=1.05831  min R'=0.0146
+  t=  14.000  rho_c/rho_c0=1.20673  min R'=0.0362
+  t=  14.500  rho_c/rho_c0=0.89389  min R'=0.0168
+[pure] shell crossing (R' < 0) at t = 14.783 (L/c) = 78.99 ms; shell 0 of 300 (r/R = 0.010, rho/rho_c = 0.000e+00); central density changed by -100.00 %; wall 2073 s

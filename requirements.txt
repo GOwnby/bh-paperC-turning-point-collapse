@@ -1,0 +1,10 @@
+# Python packages needed to reproduce and verify every number and figure of Paper C (bash verify.sh).
+# Versions below are those with which the shipped outputs were regenerated and tested (Linux, Python 3.13).
+# NumPy >= 2.0 is required (np.trapezoid is used).
+numpy==2.5.3
+scipy==1.18.1
+matplotlib==3.11.2
+# symbolic checks (code/symbolic/*, technical_report_phase2/.../analytic_check*.py, verify_exact_poisson.py, verify_pure_mode.py);
+# verify.sh reports these checks as SKIPPED (not as passed) if sympy/mpmath are missing
+sympy==1.14.0
+mpmath==1.3.0

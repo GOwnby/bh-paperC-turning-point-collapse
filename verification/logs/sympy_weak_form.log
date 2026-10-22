@@ -1,0 +1,5 @@
+[PASS] (2a) r^2 eta S - d/dr(r^2 eta P') - W_raw = 0 (integration by parts, no assumption): exactly 0 (sympy.simplify)
+[PASS] (2b) W_raw = A xi eta + C(xi eta' + xi' eta) + D xi' eta'  given only P0' = -G M rho0/r^2: residual = 0
+[PASS] (2c) W is symmetric under xi <-> eta: difference = 0
+[PASS] (3) [r^2 eta P']_R = -R^2 P0'(R) xi(R) eta(R) when Delta P(R) = 0: difference = 0
+note: the omitted term is -R^2 P0'(R) xi(R) eta(R); for a star with P0'(R) != 0 (finite-density surface) it is nonzero.

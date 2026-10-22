@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'.')
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pulse import *
 import scipy.linalg as sla
 def rr(rc,nb=5,x_end=1e-3,npan=400,ng=10,Rcut=None,basis='proj'):

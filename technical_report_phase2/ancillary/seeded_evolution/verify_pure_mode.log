@@ -1,0 +1,10 @@
+ODE residual (should be 0): 0
+
+xi(0) = C1 + C2
+v(0)  = C1*sigma - C2*sigma
+
+C1, C2 in terms of xi(0), v(0):
+{C1: (sigma*xi0 + v0)/(2*sigma), C2: (sigma*xi0 - v0)/(2*sigma)}
+
+Pure growing mode (C2=0) requires:
+Eq((sigma*xi0 - v0)/(2*sigma), 0)  => v0 = [sigma*xi0]

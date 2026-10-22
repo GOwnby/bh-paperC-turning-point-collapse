@@ -1,0 +1,5 @@
+use_eps=False  8piG-term factor=+0: sigma^2=0 at 1.8601e+13  ; mass peak at 3.5553e+13 (M_max=1.4254) ; sigma^2(5e13)=-41.092
+use_eps=True  8piG-term factor=+0: sigma^2=0 at 1.8720e+13  ; mass peak at 2.3106e+13 (M_max=1.4166) ; sigma^2(5e13)=-40.626
+use_eps=False  8piG-term factor=+1: sigma^2=0 at 2.2952e+13  ; mass peak at 3.5553e+13 (M_max=1.4254) ; sigma^2(5e13)=-28.940
+use_eps=True  8piG-term factor=+1: sigma^2=0 at 2.3107e+13  ; mass peak at 2.3106e+13 (M_max=1.4166) ; sigma^2(5e13)=-28.553
+use_eps=True  8piG-term factor=-1: sigma^2=0 at 1.5683e+13  ; mass peak at 2.3106e+13 (M_max=1.4166) ; sigma^2(5e13)=-52.781

@@ -33,3 +33,17 @@ euler_module_seeded_v2.py  Eulerian setup with BOTH density and velocity
 run_pure_mode.py            Runs the pure-growing-mode test at N=800, 1600 --
                           produces the Section 7.4 result (same qualitative
                           divergence as the simpler seed).
+
+--- Notes added for the verification (verify.sh) ---
+euler_module_seeded.py           is the ORIGINAL module of the archive (byte-identical to Zenodo v1.0.1). Its run() has no stop test other than NaN / negative density;
+                                 after the central density has run away the density floor of the conservative-to-primitive step keeps rho > 0, so the run goes on with
+                                 dt -> 0 (garbage state, e.g. v_c = -1.9e43 m/s) until the wall-clock budget is used up. The collapse time t = 0.618 s quoted for N = 1600 is
+                                 the time reached when that happened (status WALL_LIMIT), i.e. the time at which the state became meaningless, not a measured event.
+euler_module_seeded_guarded.py   the same module with ONE added condition: run() stops (status BLOWUP) as soon as max|v| > 1e12 m/s (c = 3e8 m/s). Everything before that
+                                 point is unchanged (checked: same trajectory, N = 800, 1600, eps = 1e-4 and 1e-2; see ../../../PROVENANCE.md). verify.sh uses it so that the
+                                 end of the run does not depend on the speed of the machine.
+run_seeded2.py, run_seeded_strong.py   choose the module with the environment variable SEEDED_MODULE (default: euler_module_seeded, the original);
+                                 verify.sh sets SEEDED_MODULE=euler_module_seeded_guarded and WALL_BUDGET=100000.
+run_seeded2.log, run_seeded_strong.log                  output of the ORIGINAL module (default wall budgets 150 s and 120 s per resolution; the last lines of the
+                                 N = 1600 run show the meaningless state reached after the run-away and depend on the speed of the machine).
+run_seeded2_guarded.log, run_seeded_strong_guarded.log  output with the guarded module (what verify.sh checks).

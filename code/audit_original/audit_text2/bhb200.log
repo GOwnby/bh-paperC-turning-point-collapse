@@ -1,0 +1,5 @@
+model quadratic coefficient 26.086471185080036 vs exact-GR 1.5*kappa 28.0995 ratio 0.9283606891610184 fit resid 6.648027220034916e-06
+200 comp>=0.90 t=1.97771 maxcomp=0.9060 node 15 m/M=0.1953 rho_c/rho_max=1.749e+07 radii [0.004  0.0058 0.0129 0.0304 0.0596 0.0914] surf 0.1673
+200 comp>=0.97 t=1.97771 maxcomp=0.9746 node 13 m/M=0.1772 rho_c/rho_max=2.298e+07 radii [0.0037 0.0055 0.0128 0.0303 0.0595 0.0914] surf 0.1673
+200 comp>=0.99 t=1.97771 maxcomp=1.0153 node 13 m/M=0.1781 rho_c/rho_max=2.669e+07 radii [0.0035 0.0054 0.0127 0.0303 0.0595 0.0914] surf 0.1673
+200 comp>=1.00 t=1.97771 maxcomp=1.0153 node 13 m/M=0.1781 rho_c/rho_max=2.669e+07 radii [0.0035 0.0054 0.0127 0.0303 0.0595 0.0914] surf 0.1673

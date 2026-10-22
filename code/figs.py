@@ -9,7 +9,8 @@ from gr_rayleigh_ritz import build_RR_matrices, make_basis
 from tov_solve import rho_of_P
 G,c=bg.G,bg.c
 bg.mu_e=2.0; bg.Zlat=0.0; bg.use_eps=True
-out='/mnt/user-data/outputs/consolidated/paperC_core_instability/'
+import os
+out=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..')+os.sep   # figures are written to the repository root
 # ---- Newtonian structure + Newtonian RR (c->inf limit of same variational form) ----
 def newtonian_s2(rc,nb=5,n=12000):
     Pc=bg.P_of_rho(rc)

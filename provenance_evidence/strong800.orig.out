@@ -1,0 +1,82 @@
+Non-relativistic limit (x=0.001): effective Gamma = 1.6681  (expect 5/3 = 1.6667)
+Ultra-relativistic limit (x=1000.0): effective Gamma = 1.3333  (expect 4/3 = 1.3333)
+
+At x=10.0: rho=1.9476e+12 kg/m^3, P=1.1888e+26 Pa
+Nuclear density for reference: ~2.3e17 kg/m^3
+x needed to reach nuclear density:
+  x = 490.620  (this is well past the ultra-relativistic regime; Chandrasekhar's electron-only
+   EOS is not physically trustworthy this far -- neutronization occurs first, around
+   rho ~ 1e12-1e13 kg/m^3 for typical WD compositions -- flagged explicitly, see notes below)
+SEMF zero-density beta-stability Z for A=12.0: 5.773  (Carbon-12 has Z=6, close as expected)
+
+Scanning baryon density for the equilibrium Z(n_B) / Y_e(n_B):
+  n_B=1.000e+28 1/m^3  (rho~1.661e+01 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=1.833e+28 1/m^3  (rho~3.044e+01 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=3.360e+28 1/m^3  (rho~5.579e+01 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=6.158e+28 1/m^3  (rho~1.023e+02 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=1.129e+29 1/m^3  (rho~1.874e+02 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=2.069e+29 1/m^3  (rho~3.436e+02 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=3.793e+29 1/m^3  (rho~6.298e+02 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=6.952e+29 1/m^3  (rho~1.154e+03 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=1.274e+30 1/m^3  (rho~2.116e+03 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=2.336e+30 1/m^3  (rho~3.879e+03 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=4.281e+30 1/m^3  (rho~7.109e+03 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=7.848e+30 1/m^3  (rho~1.303e+04 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=1.438e+31 1/m^3  (rho~2.389e+04 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=2.637e+31 1/m^3  (rho~4.378e+04 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=4.833e+31 1/m^3  (rho~8.025e+04 kg/m^3)   Z_eq=5.8518   Y_e=0.4876
+  n_B=8.859e+31 1/m^3  (rho~1.471e+05 kg/m^3)   Z_eq=5.8517   Y_e=0.4876
+  n_B=1.624e+32 1/m^3  (rho~2.696e+05 kg/m^3)   Z_eq=5.8517   Y_e=0.4876
+  n_B=2.976e+32 1/m^3  (rho~4.942e+05 kg/m^3)   Z_eq=5.8517   Y_e=0.4876
+  n_B=5.456e+32 1/m^3  (rho~9.059e+05 kg/m^3)   Z_eq=5.8516   Y_e=0.4876
+  n_B=1.000e+33 1/m^3  (rho~1.661e+06 kg/m^3)   Z_eq=5.8516   Y_e=0.4876
+
+
+=== Extended scan to find the actual neutronization threshold ===
+  n_B=1.000e+33 1/m^3  (rho~1.661e+06 kg/m^3)   Z_eq=5.8516   Y_e=0.4876
+  n_B=1.887e+33 1/m^3  (rho~3.134e+06 kg/m^3)   Z_eq=5.8514   Y_e=0.4876
+  n_B=3.562e+33 1/m^3  (rho~5.915e+06 kg/m^3)   Z_eq=5.8513   Y_e=0.4876
+  n_B=6.723e+33 1/m^3  (rho~1.116e+07 kg/m^3)   Z_eq=5.8510   Y_e=0.4876
+  n_B=1.269e+34 1/m^3  (rho~2.107e+07 kg/m^3)   Z_eq=5.8506   Y_e=0.4875
+  n_B=2.395e+34 1/m^3  (rho~3.977e+07 kg/m^3)   Z_eq=5.8499   Y_e=0.4875
+  n_B=4.520e+34 1/m^3  (rho~7.506e+07 kg/m^3)   Z_eq=5.8490   Y_e=0.4874
+  n_B=8.532e+34 1/m^3  (rho~1.417e+08 kg/m^3)   Z_eq=5.8476   Y_e=0.4873
+  n_B=1.610e+35 1/m^3  (rho~2.674e+08 kg/m^3)   Z_eq=5.8455   Y_e=0.4871
+  n_B=3.039e+35 1/m^3  (rho~5.047e+08 kg/m^3)   Z_eq=5.8426   Y_e=0.4869
+  n_B=5.736e+35 1/m^3  (rho~9.525e+08 kg/m^3)   Z_eq=5.8385   Y_e=0.4865
+  n_B=1.083e+36 1/m^3  (rho~1.798e+09 kg/m^3)   Z_eq=5.8327   Y_e=0.4861
+  n_B=2.043e+36 1/m^3  (rho~3.393e+09 kg/m^3)   Z_eq=5.8250   Y_e=0.4854
+  n_B=3.857e+36 1/m^3  (rho~6.404e+09 kg/m^3)   Z_eq=5.8149   Y_e=0.4846
+  n_B=7.279e+36 1/m^3  (rho~1.209e+10 kg/m^3)   Z_eq=5.8019   Y_e=0.4835
+  n_B=1.374e+37 1/m^3  (rho~2.281e+10 kg/m^3)   Z_eq=5.7852   Y_e=0.4821
+  n_B=2.593e+37 1/m^3  (rho~4.306e+10 kg/m^3)   Z_eq=5.7643   Y_e=0.4804
+  n_B=4.894e+37 1/m^3  (rho~8.127e+10 kg/m^3)   Z_eq=5.7381   Y_e=0.4782
+  n_B=9.237e+37 1/m^3  (rho~1.534e+11 kg/m^3)   Z_eq=5.7056   Y_e=0.4755
+  n_B=1.743e+38 1/m^3  (rho~2.895e+11 kg/m^3)   Z_eq=5.6653   Y_e=0.4721
+  n_B=3.290e+38 1/m^3  (rho~5.464e+11 kg/m^3)   Z_eq=5.6156   Y_e=0.4680
+  n_B=6.210e+38 1/m^3  (rho~1.031e+12 kg/m^3)   Z_eq=5.5545   Y_e=0.4629
+  n_B=1.172e+39 1/m^3  (rho~1.946e+12 kg/m^3)   Z_eq=5.4794   Y_e=0.4566
+  n_B=2.212e+39 1/m^3  (rho~3.673e+12 kg/m^3)   Z_eq=5.3875   Y_e=0.4490
+  n_B=4.175e+39 1/m^3  (rho~6.933e+12 kg/m^3)   Z_eq=5.2753   Y_e=0.4396
+  n_B=7.880e+39 1/m^3  (rho~1.309e+13 kg/m^3)   Z_eq=5.1388   Y_e=0.4282
+  n_B=1.487e+40 1/m^3  (rho~2.470e+13 kg/m^3)   Z_eq=4.9735   Y_e=0.4145
+  n_B=2.807e+40 1/m^3  (rho~4.661e+13 kg/m^3)   Z_eq=4.7745   Y_e=0.3979
+  n_B=5.298e+40 1/m^3  (rho~8.798e+13 kg/m^3)   Z_eq=4.5364   Y_e=0.3780
+  n_B=1.000e+41 1/m^3  (rho~1.661e+14 kg/m^3)   Z_eq=4.2542   Y_e=0.3545
+Euler grid module loaded OK
+euler_module_seeded loaded OK
+euler_module_seeded loaded OK
+N=800: status=WALL_LIMIT, t_reached=0.232s, wall=40.0s
+    t=0.0001s  rho_c/rho_c0=1.048763  v_c=-1.611e+03 m/s
+    t=0.1893s  rho_c/rho_c0=3.844667  v_c=-6.188e+04 m/s
+    t=0.2316s  rho_c/rho_c0=315297.306080  v_c=+2.268e+12 m/s
+    t=0.2316s  rho_c/rho_c0=163883.730280  v_c=+1.179e+12 m/s
+    t=0.2316s  rho_c/rho_c0=123947.509966  v_c=+8.914e+11 m/s
+    t=0.2316s  rho_c/rho_c0=103571.290427  v_c=+7.449e+11 m/s
+    t=0.2316s  rho_c/rho_c0=90715.011277  v_c=+6.524e+11 m/s
+    t=0.2316s  rho_c/rho_c0=86446.087763  v_c=+6.217e+11 m/s
+    t=0.2316s  rho_c/rho_c0=78999.233542  v_c=+5.681e+11 m/s
+    t=0.2316s  rho_c/rho_c0=72768.499782  v_c=+5.233e+11 m/s
+    t=0.2316s  rho_c/rho_c0=67793.230918  v_c=+4.876e+11 m/s
+    t=0.2316s  rho_c/rho_c0=63698.106588  v_c=+4.581e+11 m/s
+    t=0.2316s  rho_c/rho_c0=60256.924297  v_c=+4.334e+11 m/s

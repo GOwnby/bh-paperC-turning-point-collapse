@@ -1,0 +1,29 @@
+Non-relativistic limit (x=0.001): effective Gamma = 1.6681  (expect 5/3 = 1.6667)
+Ultra-relativistic limit (x=1000.0): effective Gamma = 1.3333  (expect 4/3 = 1.3333)
+
+At x=10.0: rho=1.9476e+12 kg/m^3, P=1.1888e+26 Pa
+Nuclear density for reference: ~2.3e17 kg/m^3
+x needed to reach nuclear density:
+  x = 490.620  (this is well past the ultra-relativistic regime; Chandrasekhar's electron-only
+   EOS is not physically trustworthy this far -- neutronization occurs first, around
+   rho ~ 1e12-1e13 kg/m^3 for typical WD compositions -- flagged explicitly, see notes below)
+Scanning central density to find the mass-radius relation and the maximum mass (Chandrasekhar limit)...
+  rho_c=1.000e+08 kg/m^3   M=0.1487 Msun   R=16370.3 km
+  rho_c=2.057e+08 kg/m^3   M=0.2069 Msun   R=14468.4 km
+  rho_c=4.232e+08 kg/m^3   M=0.2834 Msun   R=12765.4 km
+  rho_c=8.706e+08 kg/m^3   M=0.3800 Msun   R=11235.5 km
+  rho_c=1.791e+09 kg/m^3   M=0.4956 Msun   R=9856.7 km
+  rho_c=3.684e+09 kg/m^3   M=0.6258 Msun   R=8611.9 km
+  rho_c=7.579e+09 kg/m^3   M=0.7627 Msun   R=7487.7 km
+  rho_c=1.559e+10 kg/m^3   M=0.8970 Msun   R=6474.7 km
+  rho_c=3.207e+10 kg/m^3   M=1.0204 Msun   R=5565.5 km
+  rho_c=6.598e+10 kg/m^3   M=1.1273 Msun   R=4753.8 km
+  rho_c=1.357e+11 kg/m^3   M=1.2153 Msun   R=4033.9 km
+  rho_c=2.792e+11 kg/m^3   M=1.2844 Msun   R=3399.8 km
+  rho_c=5.743e+11 kg/m^3   M=1.3367 Msun   R=2845.7 km
+  rho_c=1.182e+12 kg/m^3   M=1.3748 Msun   R=2365.5 km
+  rho_c=2.431e+12 kg/m^3   M=1.4018 Msun   R=1953.0 km
+  rho_c=5.000e+12 kg/m^3   M=1.4204 Msun   R=1601.9 km
+
+Maximum mass found in this scan: 1.4204 Msun at rho_c=5.000e+12 kg/m^3
+(Chandrasekhar's classic analytic result for mu_e=2: M_Ch = 5.836/mu_e^2 = 1.4590 Msun)

@@ -1,0 +1,11 @@
+Misner-Sharp identities verified by exact 2-jet Einstein tensor at 40 random points (max abs residual):
+   I1: 1.43e-13
+   I2: 1.51e-13
+   I3: 9.06e-16
+   I4: 5.55e-17
+   I5: 2.22e-16
+   I6: 3.55e-15
+   negative control (I1 with coefficient 2.02 instead of 2): smallest residual over the 40 points = 3.69e-04 (must be >> 1e-9)
+   negative control (I5 with coefficient 1.01 instead of 1): median residual over the 40 points = 3.30e-03 (must be >> 1e-9; it is proportional to the random (a'/a)(e+p))
+PASS  (tolerance 1e-9; residuals are floating-point rounding of O(1) quantities)
+For generic data Gammadot/Gamma ~ 0.14: Gamma is not constant along a shell unless G_tr and a' Rdot vanish (report Eq. (constraint) holds only if a'=0).

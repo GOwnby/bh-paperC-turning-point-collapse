@@ -1,0 +1,9 @@
+sigma^2 28.336595091593153 sigma 5.323212854244432 1/sigma 0.18785647453542195 mu/lam eigvec 0.08691277524346605
+d0=0.001: status=-1 t_half=1.1712 t_end=1.1959 tau_plunge=0.0247 lam_end=1.7302e-01 mu/lam_end=-0.9992 events=[0, 0, 0]
+   t=0.9712 lam=8.9770e-01 mu/lam=-0.0095 rho_c/rho0=1.423e+00
+   t=1.1712 lam=4.9966e-01 mu/lam=-0.0758 rho_c/rho0=1.015e+01
+   t=1.1909 lam=2.9048e-01 mu/lam=-0.1964 rho_c/rho0=7.861e+01
+d0=1e-06: status=-1 t_half=2.4691 t_end=2.4938 tau_plunge=0.0247 lam_end=1.7302e-01 mu/lam_end=-0.9992 events=[0, 0, 0]
+   t=2.2691 lam=8.9771e-01 mu/lam=-0.0095 rho_c/rho0=1.423e+00
+   t=2.4691 lam=4.9969e-01 mu/lam=-0.0758 rho_c/rho0=1.015e+01
+   t=2.4888 lam=2.9048e-01 mu/lam=-0.1964 rho_c/rho0=7.861e+01

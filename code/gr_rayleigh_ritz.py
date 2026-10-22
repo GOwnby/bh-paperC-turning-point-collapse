@@ -1,8 +1,8 @@
 """
-Phase A2 part 2: Chandrasekhar's (1964) GR variational radial-pulsation
-equation, Rayleigh-Ritz solve (reproducing Paper C's validated sigma^2=-41.05
-s^-2), this time also extracting the eigenVECTOR (not just the eigenvalue)
-so we have the true fundamental eigenfunction to seed the nonlinear code with.
+Chandrasekhar's (1964) GR variational radial-pulsation equation, Rayleigh-Ritz solve
+(Paper C, Eq. chandra-variational).  build_RR_matrices returns the matrices A, B of the
+generalised eigenproblem A v = sigma^2 B v; trial_sigma2 evaluates a single trial function.
+Reference values (rho_c = 5e13 kg/m^3, 12000 radial points): sigma^2 = -27.85 (n=1) ... -28.55 (n=5) s^-2.
 
 Variational (Rayleigh-quotient) form, Eq. (chandra-variational) in Paper C:
   sigma^2 * Integral e^{-a+3b}(1+P/(rho c^2)) rho r^2 xi^2 dr
@@ -28,7 +28,7 @@ import background as bg
 from metric import build_metric
 
 G, c = bg.G, bg.c
-INCLUDE_8PI = True
+INCLUDE_8PI = True   # multiplies the 8 pi G/c^4 (P+eps)P term: 1 = Chandrasekhar/Haemmerle/Kokkotas-Ruoff sign, 0 = omitted, -1 = opposite sign (regression tests only)
 
 def make_basis(R, n_basis=5):
     basis = []
@@ -50,7 +50,7 @@ def build_RR_matrices(bgd, n_basis=5):
     Pi = Gamma1*P*np.exp(3*a+b)/r**2
     eps = bgd['eps']
     Q  = 4*dPdr*r*np.exp(a+b) - dPdr**2*r**2*np.exp(a+b)/(P+eps*c**2)
-    if INCLUDE_8PI: Q = Q + 8*np.pi*G/c**4*(P+eps*c**2)*P*r**2*np.exp(a+3*b)
+    Q = Q + float(INCLUDE_8PI)*8*np.pi*G/c**4*(P+eps*c**2)*P*r**2*np.exp(a+3*b)
     S  = np.exp(-a+3*b)*(1+P/(eps*c**2))*eps*r**2
 
     fns = make_basis(R, n_basis)
@@ -66,14 +66,27 @@ def build_RR_matrices(bgd, n_basis=5):
             B[i,j] = np.trapezoid(S*xis[i]*xis[j], r)
     return A, B, xis, r
 
+def trial_sigma2(bgd, xi):
+    """Rayleigh quotient sigma^2 for a single trial function xi(r) (callable); xi = r gives the n=1 value,
+    xi = r*exp(a(r)) the 'independent literature choice' of Paper C (-27.67)."""
+    r = bgd['r']; rho = bgd['rho']; P = bgd['P']; a = bgd['a']; b = bgd['b']; dPdr = bgd['dPdr']; eps = bgd['eps']
+    Gamma1 = np.array([bg.Gamma1_of_rho(x) if x > 1 else 5/3 for x in rho])
+    Pi = Gamma1*P*np.exp(3*a+b)/r**2
+    Q = 4*dPdr*r*np.exp(a+b) - dPdr**2*r**2*np.exp(a+b)/(P+eps*c**2) + float(INCLUDE_8PI)*8*np.pi*G/c**4*(P+eps*c**2)*P*r**2*np.exp(a+3*b)
+    S = np.exp(-a+3*b)*(1+P/(eps*c**2))*eps*r**2
+    x = xi(r, a); z = np.exp(-a)*r**2*x; dz = np.gradient(z, r)
+    return np.trapezoid(Pi*dz*dz+Q*x*x, r)/np.trapezoid(S*x*x, r)
+
 if __name__ == "__main__":
     bgd = build_metric(5e13)
     for n_basis in [1,2,3,4,5]:
         A, B, xis, r = build_RR_matrices(bgd, n_basis)
-        asym = np.max(np.abs(A-A.T))
-        bsym = np.max(np.abs(B-B.T))
+        asym = np.max(np.abs(A-A.T))/np.max(np.abs(A))
+        bsym = np.max(np.abs(B-B.T))/np.max(np.abs(B))
         evals, evecs = eigh(A, B)
         sigma2 = evals[0]  # most negative / smallest eigenvalue
-        print(f"n_basis={n_basis}  sigma^2={sigma2: .4f}  (A sym err={asym:.2e}, B sym err={bsym:.2e})")
+        print(f"n_basis={n_basis}  sigma^2={sigma2: .4f}  (relative asymmetry A={asym:.2e}, B={bsym:.2e})")
+    print("trial xi = r        : sigma^2 =", trial_sigma2(bgd, lambda r, a: r))
+    print("trial xi = r e^a(r) : sigma^2 =", trial_sigma2(bgd, lambda r, a: r*np.exp(a)))
     print()
-    print("Corrected Paper C values (12000-pt grid): -27.85 -> -28.52 -> -28.55 -> -28.55 -> -28.55 across n=1..5")
+    print("Paper C values (12000-pt grid): -27.85 -> -28.52 -> -28.55 -> -28.55 -> -28.55 across n=1..5; xi=r e^a: -27.67")

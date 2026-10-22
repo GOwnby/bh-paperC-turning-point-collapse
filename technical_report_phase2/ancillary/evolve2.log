@@ -1,0 +1,15 @@
+Non-relativistic limit (x=0.001): effective Gamma = 1.6681  (expect 5/3 = 1.6667)
+Ultra-relativistic limit (x=1000.0): effective Gamma = 1.3333  (expect 4/3 = 1.3333)
+
+At x=10.0: rho=1.9476e+12 kg/m^3, P=1.1888e+26 Pa
+Nuclear density for reference: ~2.3e17 kg/m^3
+x needed to reach nuclear density:
+  x = 490.620  (this is well past the ultra-relativistic regime; Chandrasekhar's electron-only
+   EOS is not physically trustworthy this far -- neutronization occurs first, around
+   rho ~ 1e12-1e13 kg/m^3 for typical WD compositions -- flagged explicitly, see notes below)
+max|dR/dt| = 0.0
+max|dU/dt| = 0.001309605107718964   (expect O(m/R^2) ~ 1e-3, Newtonian-scale)
+rho_d[0] (center) = 0.00950828591166752  vs expected ~9.5e-3
+a range: 0.9965220583618447 1.0
+Any NaN? False
+worst shell i=299, r_lab=1.0000, rho_d=0.000e+00, p_d=0.000e+00, a=1.0000

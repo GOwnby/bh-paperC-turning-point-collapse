@@ -1,0 +1,26 @@
+
+## neu / report: inviscid scheme, N = [100, 200, 400, 800, 1600]
+   N=  100 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6439 (zone 99/100, outer mass frac 0.00e+00)  Rp_int=0.89217  steps 486  0s
+   N=  200 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.5817 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=0.89142  steps 972  1s
+   N=  400 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6141 (zone 0/400, outer mass frac 1.00e+00)  Rp_int=0.89126  steps 1938  3s
+   N=  800 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6097 (zone 0/800, outer mass frac 1.00e+00)  Rp_int=0.89124  steps 3870  8s
+   N= 1600 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6074 (zone 0/1600, outer mass frac 1.00e+00)  Rp_int=0.89124  steps 7740  21s
+   N=  200 dt*0.5    tmax      t_end= 60.000  t_cross=None  Rp_min=0.5818 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=0.89142  steps 1938  2s
+   N=  400 dt*0.5    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6141 (zone 0/400, outer mass frac 1.00e+00)  Rp_int=0.89126  steps 3870  5s
+## neu / report: von Neumann-Richtmyer viscosity q = 2 rho (dU)^2 (compression only)
+   N=  200 dt*1.0 AV tmax      t_end= 60.000  t_cross=None  Rp_min=0.6031 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=0.89142  steps 972  1s
+   N=  400 dt*1.0 AV tmax      t_end= 60.000  t_cross=None  Rp_min=0.6003 (zone 0/400, outer mass frac 1.00e+00)  Rp_int=0.89126  steps 1938  3s
+   N=  800 dt*1.0 AV tmax      t_end= 60.000  t_cross=None  Rp_min=0.6025 (zone 0/800, outer mass frac 1.00e+00)  Rp_int=0.89124  steps 3870  8s
+   N= 1600 dt*1.0 AV tmax      t_end= 60.000  t_cross=None  Rp_min=0.6052 (zone 0/1600, outer mass frac 1.00e+00)  Rp_int=0.89124  steps 7740  22s
+
+## neu / TOV-db: inviscid scheme, N = [100, 200, 400, 800, 1600]
+   N=  100 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=1.0000 (zone 99/100, outer mass frac 0.00e+00)  Rp_int=1.00000  steps 492  0s
+   N=  200 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=1.0000 (zone 196/200, outer mass frac 1.18e-05)  Rp_int=1.00000  steps 972  0s
+   N=  400 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=1.0000 (zone 394/400, outer mass frac 7.44e-06)  Rp_int=1.00000  steps 1938  1s
+   N=  800 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=1.0000 (zone 798/800, outer mass frac 2.30e-08)  Rp_int=1.00000  steps 3876  3s
+
+## neu / TOV-pt: inviscid scheme, N = [100, 200, 400, 800, 1600]
+   N=  100 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6043 (zone 99/100, outer mass frac 0.00e+00)  Rp_int=0.99069  steps 486  0s
+   N=  200 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.5814 (zone 199/200, outer mass frac 0.00e+00)  Rp_int=0.99656  steps 972  1s
+   N=  400 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6051 (zone 399/400, outer mass frac 0.00e+00)  Rp_int=0.99899  steps 1938  2s
+   N=  800 dt*1.0    tmax      t_end= 60.000  t_cross=None  Rp_min=0.6060 (zone 799/800, outer mass frac 0.00e+00)  Rp_int=0.99973  steps 3876  5s

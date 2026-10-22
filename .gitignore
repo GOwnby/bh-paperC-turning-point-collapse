@@ -1,9 +1,38 @@
+# LaTeX build products
 *.aux
+*.log
 *.blg
 *.out
 *.toc
 *.fdb_latexmk
 *.fls
 *.synctex.gz
+# Python
 __pycache__/
 *.pyc
+*.pyo
+# compiled / test artefacts
+*.so
+.wtest
+*.err
+# result logs of the scripts are part of the repository (they are the outputs quoted in the paper)
+!code/*.log
+!code/audit_pulsation/*.log
+!code/symbolic/*.log
+!technical_report_phase2/ancillary/*.log
+!technical_report_phase2/ancillary/linear_perturbation/*.log
+!technical_report_phase2/ancillary/seeded_evolution/*.log
+!verification/logs/*.log
+# scratch trajectories / pickles written by the scripts (regenerated on demand)
+code/sol_t.npy
+code/sol_y.npy
+code/lag_t1_*.npy
+*.pkl
+
+# provenance evidence (original outputs) and the Lagrangian study logs are part of the repository
+!provenance_evidence/*
+!technical_report_phase2/ancillary/lagrangian_L/logs/*.log
+!technical_report_phase2/ancillary/lagrangian_L/run_all_console.log
+
+# archived original audit logs (evidence)
+!code/audit_original/**

@@ -1,0 +1,14 @@
+[PASS] (1a) equilibria of y''=0: M - Mmax = -a y^2: M-Mmax = -a*y_e**2
+[PASS] (1b) d(y'')/dy at equilibrium = kappa y = -sigma^2 with sigma^2 = -kappa y (both branches): = kappa*y_e
+      solutions: [{alpha: 2**(1/5)*Mdot**(2/5)/(a**(2/5)*kappa**(1/5)), beta: 2**(2/5)*a**(1/5)/(Mdot**(1/5)*kappa**(2/5))}]
+[PASS] (2) y = alpha u, t = beta s gives u'' = u^2 + s iff beta^5 = 4a/(kappa^2 Mdot), alpha = 2/(kappa beta^2): 
+      residual u''-u^2-s of u = -sqrt(-s) + c/s^2: 2*c/X**3 + 1/(4*X**3) - c**2/X**8 + 6*c/X**8  ; leading X^-3 coefficient: 2*c + 1/4
+[PASS] (3) first adiabatic correction of u''=u^2+s on the slow manifold is c = -1/8 (u = -sqrt(-s) - 1/(8 s^2)): c = [-1/8]
+[PASS] (4) u''=u^2+s with u = 6B^2 Y, s = x/B, B=6^(-1/5) is equivalent to Y'' = 6Y^2 + x: 
+[PASS] (4b) s_* = x_*/B = 6^(1/5) x_*: 6^(1/5) = 1.430969081
+      overdamped rescaling solutions: [{A_: nu_t**(1/3), B_: nu_t**(2/3)}]
+[PASS] (5a) overdamped: u = nu~^(1/3) w, s = nu~^(2/3) tau gives w' = w^2 + tau: 
+[PASS] (5b) beta' = beta nu~^(2/3) = (4 a nu^2/(kappa^2 Mdot))^(1/3): exactly 0 (sympy.simplify)
+[PASS] (6a) w = -phi'/phi with phi = Ai(-tau) satisfies w' = w^2 + tau (uses Ai''(z) = z Ai(z)): exactly 0 (sympy.simplify)
+      first zero of Ai: a_1 = -2.33810741045976703848919725245  => tau_* = -a_1 = 2.33810741045976703848919725245
+[PASS] (6b) tau_* = -a_1 = 2.33811 (DLMF 9.9): 
